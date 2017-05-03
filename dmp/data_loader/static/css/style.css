@@ -326,7 +326,7 @@ h1, h2, h3 {
 	display: inline-block;
 	width: 30px;
 	height: 30px;
-	background: url(/assets/img/icons.png) 30px 30px no-repeat;
+	background: url(/static/img/icons.png) 30px 30px no-repeat;
 	-webkit-background-size: 180px 90px;
 	-o-background-size: 180px 90px;
 	background-size: 180px 90px;
@@ -334,7 +334,7 @@ h1, h2, h3 {
 
 @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
 	.icon {
-		background-image: url(/assets/img/icons2x.png);
+		background-image: url(/static/img/icons2x.png);
 	}
 }
 

@@ -10,16 +10,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/font-awesome.min.css"%}">
+    {% block page_css %}{% endblock %}
+    {% block page_script %} {% endblock %}
 </head>
 
 <body>
 <div class="nav">
     <div class="logo"><img src="{% static "img/logo.png" %}" class="logo-img" /></div>
     <ul class="nav-links">
-        <li class="active"><a href="/data-sources"><span class="fa fa-database"></span></a><span class="nav-links-label">Data Sources</span></li>
-        <li><a href="#"><span class="fa fa-cog"></span></a><span class="nav-links-label">Settings</span></li>
-        <li><a href="#"><span class="fa fa-user"></span></a><span class="nav-links-label">Profile</span></li>
-        <li class="nav-links-bottom"><a href="#"><span class="fa fa-sign-out"></span></a><span class="nav-links-label">Sign Out</span></li>
+        <li class="active"><a href="{% url "data_loader:datasource-list" %}"><span class="fa fa-database"></span></a><span class="nav-links-label">Data Sources</span></li>
+        <li><a href="javascript:void(0);"><span class="fa fa-cog"></span></a><span class="nav-links-label">Settings</span></li>
+        <li><a href="javascript:void(0);"><span class="fa fa-user"></span></a><span class="nav-links-label">Profile</span></li>
+        <li class="nav-links-bottom"><a href="{% url "customer:logout" %}"><span class="fa fa-sign-out"></span></a><span class="nav-links-label">Sign Out</span></li>
     </ul>
 </div>
 {% block content %}

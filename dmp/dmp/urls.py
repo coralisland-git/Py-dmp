@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
+from data_loader.views import DataSourceListView
 
 
 urlpatterns = [
+    url(r'^$', DataSourceListView.as_view(), name='index'),
+    url(r'^customer/', include('customer.urls', namespace="customer")),
+    url(r'^data-sources/', include('data_loader.urls', namespace="data_loader")),
+]
+urlpatterns += [
     url(r'^admin/', admin.site.urls),
-
-    url(r'^user/', include('customer.urls')),
-
-    url(r'^data-sources/', include('data_loader.urls')),
-
 ]

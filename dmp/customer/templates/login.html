@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block page_css %}<link href="{% static "css/customer.css" %}" rel="stylesheet">{% endblock %}
+{% block content %}
+<div class="page-login">
+   <div class="logo"><img src="{% static "img/logo.png" %}" class="logo-img" /> Windsor <span class="logo-department">Data Services</span></div>
+    <div class="form-login box">
+        <form id="login-form" method="post" action="{% url "customer:login" %}">
+            <h1>Sign In</h1>
+            {% csrf_token %}
+        <p class="errors">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+
+            {% endfor %}
+        </p>
+            {{ form.username }}
+            {{ form.email }}
+            {{ form.password }}
+
+            <div class="form-row form-floating-label">
+                <span class="form-label">Email Address</span>
+                <input type="email" class="form-input" placeholder="Email Address"/>
+            </div>
+            <div class="form-row form-floating-label">
+                <span class="form-label">Password</span>
+                <input type="password" class="form-input" placeholder="Password"/>
+            </div>
+            <div class="form-buttons">
+                <a href="javascript:void(0);" onclick="document.getElementById('login-form').submit(); return false;" class="button button-green">Sign In</a>
+            </div>
+        </form>
+        <span class="login-separator"></span>
+        <div class="login-socials">
+            <a href="javascript:void(0);" class="button button-outline"><span class="icon icon-google"></span> Sign in with Google Account</a>
+        </div>
+        <div class="login-signup">
+            Don`t have an account?&nbsp;&mdash; <a href="javascript:void(0);">Sign Up</a>
+        </div>
+    </div>
+    <div class="login-forgot">
+        <a href="javascript:void(0);">Forgot Password?</a>
+    </div>
+</div>
+{% endblock %}
