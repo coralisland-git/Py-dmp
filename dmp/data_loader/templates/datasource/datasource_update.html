@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block content %}
 
-</body>
-</html>
+    <div class="page datasources-add">
+        <div class="page-title">
+            <div class="content">
+                <h1>Update Data Source</h1>
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="content">
+
+                <div class="box">
+                    <div class="form-note">
+                        <span class="fa fa-lock"></span>
+                        All sensitive information is encrypted before stored
+                    </div>
+                    <div class="row">
+                        <div class="col col-50">
+                            <div class="form-row">
+                                <div class="form-label">Data Source Name:</div>
+                                <input type="text" class="form-input" placeholder="Data Source Name" />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">Account ID:</div>
+                                <input type="eail" class="form-input" placeholder="Account ID" />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">Private Key:</div>
+                                <div class="form-file">
+                                    <span class="form-placeholder">Upload file...</span>
+                                    <input type="file" class="form-input"/>
+                                </div>
+                            </div>
+                            <div class="form-buttons">
+                                <a href="#" class="button button-gray">Preview</a>
+                                <a href="#" class="button button-green">Save & Collect</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

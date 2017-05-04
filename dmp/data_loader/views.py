@@ -12,6 +12,8 @@ class DataSourceListView(LoginRequiredMixin, ListView):
 
 class DataSourceCreateView(CreateView):
     model = DataSource
+    fields = ('title', 'data_source', 'upload_file')
+    template_name = 'datasource/datasource_create.html'
 
 
 class DataSourceUpdateView(UpdateView):
