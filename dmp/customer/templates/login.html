@@ -11,20 +11,17 @@
         <p class="errors">
             {% for error in form.non_field_errors %}
                 {{ error }}
-
             {% endfor %}
         </p>
-            {{ form.username }}
-            {{ form.email }}
-            {{ form.password }}
-
             <div class="form-row form-floating-label">
                 <span class="form-label">Email Address</span>
-                <input type="email" class="form-input" placeholder="Email Address"/>
+                {{ form.username }}
+                <p class="errors">{{ form.username.errors }}</p>
             </div>
             <div class="form-row form-floating-label">
                 <span class="form-label">Password</span>
-                <input type="password" class="form-input" placeholder="Password"/>
+                {{ form.password }}
+                <p class="errors">{{ form.password.errors }}</p>
             </div>
             <div class="form-buttons">
                 <a href="javascript:void(0);" onclick="document.getElementById('login-form').submit(); return false;" class="button button-green">Sign In</a>

@@ -1,5 +1,4 @@
 from django.utils.http import is_safe_url
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -7,6 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.urls import reverse
+from customer.forms import UserAuthenticationForm
 
 
 class LoginView(FormView):
@@ -14,7 +14,7 @@ class LoginView(FormView):
     Provides the ability to login as a user with a username and password
     """
 
-    form_class = AuthenticationForm
+    form_class = UserAuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
     template_name = 'login.html'
     success_url = 'data_loader:datasource-list'
