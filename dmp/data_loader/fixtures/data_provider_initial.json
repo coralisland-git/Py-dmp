@@ -1,0 +1,19 @@
+[
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 1,
+    "fields": {
+      "title": "Google Analytics",
+      "name": "analytics"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 2,
+    "fields": {
+      "title": "Google Spreadsheets",
+      "name": "spreadsheets"
+    }
+  }
+
+ ]
