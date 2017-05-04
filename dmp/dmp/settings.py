@@ -25,7 +25,7 @@ SECRET_KEY = 'gy9&(jh^pmmwx@1fj%ia3_w3a%t+_!yjrw%pwal@x%qg=z^np3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dmp.axisstage.com']
 
 
 # Application definition
