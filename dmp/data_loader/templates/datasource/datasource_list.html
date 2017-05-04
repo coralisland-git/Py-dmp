@@ -25,11 +25,22 @@
                     <table cellspacing="0" class="datasources-table">
                         {% for datasource in object_list %}
                             <tr>
-                                <td class="datasources-table-name"><span class="icon icon-google"></span>{{ datasource.title }}</td>
-                                <td class="datasources-type">{{ datasource.type }}</td>
+                                <td class="datasources-table-name"><span class="icon icon-google"></span>{{ datasource.name }}</td>
+                                <td class="datasources-type">{{ datasource.provider }}</td>
                                 <td class="datasources-actions">
-                                    <a href="javascript:void(0);" class="button button-action"><span class="fa fa-pencil"></span></a>
-                                    <a href="javascript:void(0);" onclick="document.getElementById('delete-form').submit(); return false;"  class="button button-action"><form id="delete-form" action="{% url "data_loader:datasource-delete" pk=datasource.pk %}" method ="post">{% csrf_token %}<span class="fa fa-trash"></span></form></a>
+                                    <a href="{% url "data_loader:datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>
+{#                                    <a href="javascript:void(0);" onclick="document.getElementById('update-form-{{ datasource.pk }}').submit(); return false;" class="button button-action">#}
+{#                                        <form id="update-form-{{ datasource.pk }}" action="{% url "data_loader:datasource-update" pk=datasource.pk %}" method ="post">#}
+{#                                            {% csrf_token %}#}
+{#                                        <span class="fa fa-pencil"></span>#}
+{#                                        </form>#}
+{#                                    </a>#}
+                                    <a href="javascript:void(0);" onclick="document.getElementById('delete-form-{{ datasource.pk }}').submit(); return false;"  class="button button-action">
+                                        <form id="delete-form-{{ datasource.pk }}" action="{% url "data_loader:datasource-delete" pk=datasource.pk %}" method ="post">
+                                            {% csrf_token %}
+                                            <span class="fa fa-trash"></span>
+                                        </form>
+                                    </a>
                                 </td>
                             </tr>
                         {% empty %}

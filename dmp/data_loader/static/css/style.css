@@ -816,6 +816,10 @@ table th, table td {
 	border: #1bafaa 2px solid;
 }
 
+.errors{
+	color:#d05656
+}
+
 @media screen and (max-width: 980px) {
 	.datasources-select li {
 		width: 50%;
