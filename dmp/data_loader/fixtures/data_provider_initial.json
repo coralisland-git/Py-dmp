@@ -11,9 +11,188 @@
     "model": "data_loader.dataprovider",
     "pk": 2,
     "fields": {
+      "title": "Salesforce",
+      "name": "salesforce"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 3,
+    "fields": {
+      "title": "Amazon S3",
+      "name": "amazon"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 4,
+    "fields": {
       "title": "Google Spreadsheets",
       "name": "spreadsheets"
     }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 5,
+    "fields": {
+      "title": "Marketo Marketing Automated Platform",
+      "name": "marketo"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 6,
+    "fields": {
+      "title": "MySQL Database",
+      "name": "mysql"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 7,
+    "fields": {
+      "title": "Postgres",
+      "name": "postgres"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 8,
+    "fields": {
+      "title": "Google Cloud Storage",
+      "name": "googlecloud"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 9,
+    "fields": {
+      "title": "Amazon Redshift",
+      "name": "redshift"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 10,
+    "fields": {
+      "title": "JDBC Database connection",
+      "name": "jdbc"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 11,
+    "fields": {
+      "title": "Hadoop filesysytem",
+      "name": "hadoop"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 12,
+    "fields": {
+      "title": "Mixpanel",
+      "name": "mixpanel"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 13,
+    "fields": {
+      "title": "Mongo Database",
+      "name": "mongodb"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 14,
+    "fields": {
+      "title": "Data over HTTP connection",
+      "name": "http"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 15,
+    "fields": {
+      "title": "Atlassian Jira",
+      "name": "jira"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 16,
+    "fields": {
+      "title": "Oracle Database",
+      "name": "oracledb"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 17,
+    "fields": {
+      "title": "Zendesk",
+      "name": "zendesk"
+    }
+  },
+
+    {
+    "model": "data_loader.dataprovider",
+    "pk": 18,
+    "fields": {
+      "title": "Microsoft SQL Server",
+      "name": "mssql"
+    }
+  },
+
+    {
+    "model": "data_loader.dataprovider",
+    "pk": 19,
+    "fields": {
+      "title": "FTP Server",
+      "name": "ftp"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 20,
+    "fields": {
+      "title": "Amazon DynamoDB",
+      "name": "dynamodb"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 21,
+    "fields": {
+      "title": "Secure FTP",
+      "name": "sftp"
+    }
+  },
+    {
+    "model": "data_loader.dataprovider",
+    "pk": 22,
+    "fields": {
+      "title": "HP Vertica Database",
+      "name": "vertica"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 23,
+    "fields": {
+      "title": "Twitter Archive",
+      "name": "twitter"
+    }
+  },
+  {
+    "model": "data_loader.dataprovider",
+    "pk": 24,
+    "fields": {
+      "title": "Teradata",
+      "name": "teradata"
+    }
   }
+
 
  ]

@@ -25,7 +25,7 @@
                     <table cellspacing="0" class="datasources-table">
                         {% for datasource in object_list %}
                             <tr>
-                                <td class="datasources-table-name"><span class="icon icon-google"></span>{{ datasource.name }}</td>
+                                <td class="datasources-table-name"><span class="icon icon-{{ datasource.data_provider.name }}"></span>{{ datasource.name }}</td>
                                 <td class="datasources-type">{{ datasource.provider }}</td>
                                 <td class="datasources-actions">
                                     <a href="{% url "data_loader:datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>

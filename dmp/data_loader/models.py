@@ -7,6 +7,7 @@ from customer.models import Customer
 class DataProvider(models.Model):
     title = models.CharField('Provider Title', max_length=255, blank=True, default="Google Analytics")
     name = models.CharField('Provider Name', max_length=255, blank=True, default="Google Analytics")
+    order = models.IntegerField('Provider ordering in list', blank=True, default=999)
 
 
 class DataSource(models.Model):

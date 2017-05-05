@@ -1,5 +1,5 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from data_loader.models import DataSource
+from data_loader.models import DataSource, DataProvider
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from data_loader.forms import DataSourceCreateForm, DataSourceUpdateForm
@@ -23,6 +23,7 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         data_source = form.save(commit=False)
         data_source.user = self.request.user
+        data_source.data_provider_id = self.kwargs.get('provider_id')
         return super(DataSourceCreateView, self).form_valid(form)
 
 
@@ -42,5 +43,6 @@ class DataSourceDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class DataProviderListView(LoginRequiredMixin, ListView):
-    queryset = DataSource.objects.all()
+    model = DataProvider
+    # queryset = DataProvider.objects.all()
     template_name = 'datasource/data_providers_list.html'
