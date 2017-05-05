@@ -26,7 +26,7 @@
                         {% for datasource in object_list %}
                             <tr>
                                 <td class="datasources-table-name"><span class="icon icon-{{ datasource.data_provider.name }}"></span>{{ datasource.name }}</td>
-                                <td class="datasources-type">{{ datasource.provider }}</td>
+                                <td class="datasources-type">{{ datasource.data_provider.title}}</td>
                                 <td class="datasources-actions">
                                     <a href="{% url "data_loader:datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>
 {#                                    <a href="javascript:void(0);" onclick="document.getElementById('update-form-{{ datasource.pk }}').submit(); return false;" class="button button-action">#}
