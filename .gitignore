@@ -102,4 +102,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
+embulk-checkout/*
 media/
+
