@@ -24,3 +24,14 @@ class DataSource(models.Model):
 
     def filename(self):
         return os.path.basename(self.upload_file.name)
+
+
+class DataFlowSettings(models.Model):
+    TIME_INTERVALS = ((1, '30 min'),
+                      (2, '1 hour'),
+                      (3, '2 hours'),
+                      (4, '5 hours'),
+                      (5, '10 hours'),
+                      (6, '24 hours'))
+    user = models.ForeignKey(Customer)
+    sync_interval = models.SmallIntegerField(choices=TIME_INTERVALS)

@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class="page datasources-add">
+        <div class="page-title">
+            <div class="content">
+                <h1>Profile info</h1>
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="content">
+
+                <div class="box">
+                    <div class="form-note">
+                        <span class="fa fa-lock"></span>
+                         Edit profile information
+                    </div>
+                    <div class="row">
+                        <div class="col col-50">
+                            <form id="form-profile-update" method="POST" action="" enctype="multipart/form-data">
+                                    {% for error in form.non_field_errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-label">First name:</div>
+                                    {% for error in form.first_name.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ form.first_name }}
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">Last name:</div>
+                                    {% for error in form.last_name.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ form.second_name }}
+                                </div>
+                                <div class="form-buttons">
+{#                                    <a href="#" class="button button-gray">Preview</a>#}
+                                    <a href="javascript:void(0);" onclick="document.getElementById('form-profile-update').submit(); return false;" class="button button-green">Save & Collect</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

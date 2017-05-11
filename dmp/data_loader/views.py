@@ -1,8 +1,8 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from data_loader.models import DataSource, DataProvider
+from data_loader.models import DataSource, DataProvider, DataFlowSettings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
-from data_loader.forms import DataSourceCreateForm, DataSourceUpdateForm
+from data_loader.forms import DataSourceCreateForm, DataSourceUpdateForm, DataFlowSettingsForm
 
 
 class DataSourceListView(LoginRequiredMixin, ListView):
@@ -46,3 +46,7 @@ class DataProviderListView(LoginRequiredMixin, ListView):
     model = DataProvider
     # queryset = DataProvider.objects.all()
     template_name = 'datasource/data_providers_list.html'
+
+
+class DataFlowSettingsUpdateView(LoginRequiredMixin, UpdateView):
+    model = DataFlowSettings

@@ -26,3 +26,7 @@ class DataSourceCreateForm(forms.ModelForm):
 
 class DataSourceUpdateForm(forms.Form):
     pass
+
+
+class DataFlowSettingsForm(forms.Form):
+    pass

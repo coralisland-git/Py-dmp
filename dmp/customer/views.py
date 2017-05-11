@@ -4,9 +4,13 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic import FormView, RedirectView
-from django.urls import reverse
-from customer.forms import UserAuthenticationForm
+from django.views.generic import FormView, RedirectView, UpdateView
+from django.views.generic.edit import UpdateView
+from django.urls import reverse, reverse_lazy
+from customer.forms import UserAuthenticationForm, UserProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from customer.models import Profile
+
 
 
 class LoginView(FormView):
@@ -57,3 +61,14 @@ class LogoutView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse(self.url)
+
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = UserProfileForm
+    template_name = 'profile.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
