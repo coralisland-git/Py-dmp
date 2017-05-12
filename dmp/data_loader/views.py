@@ -50,3 +50,10 @@ class DataProviderListView(LoginRequiredMixin, ListView):
 
 class DataFlowSettingsUpdateView(LoginRequiredMixin, UpdateView):
     model = DataFlowSettings
+    form_class = DataFlowSettingsForm
+    success_url = reverse_lazy('index')
+    template_name = 'settings.html'
+
+    def get_object(self, queryset=None):
+        settings, created = DataFlowSettings.objects.get_or_create(user=self.request.user)
+        return settings

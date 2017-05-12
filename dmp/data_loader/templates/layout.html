@@ -20,8 +20,8 @@
     <div class="logo"><img src="{% static "img/logo.png" %}" class="logo-img" /></div>
     <ul class="nav-links">
         <li class="active"><a href="{% url "data_loader:datasource-list" %}"><span class="fa fa-database"></span></a><span class="nav-links-label">Data Sources</span></li>
-        <li><a href="{% url "" %}"><span class="fa fa-cog"></span></a><span class="nav-links-label">Settings</span></li>
-        <li><a href="{% url "" %}"><span class="fa fa-user"></span></a><span class="nav-links-label">Profile</span></li>
+        <li><a href="{% url "data_loader:datasource-settings" %}"><span class="fa fa-cog"></span></a><span class="nav-links-label">Settings</span></li>
+        <li><a href="{% url "customer:profile" %}"><span class="fa fa-user"></span></a><span class="nav-links-label">Profile</span></li>
         <li class="nav-links-bottom"><a href="{% url "customer:logout" %}"><span class="fa fa-sign-out"></span></a><span class="nav-links-label">Sign Out</span></li>
     </ul>
 </div>

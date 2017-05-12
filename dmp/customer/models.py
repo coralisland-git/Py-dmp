@@ -39,4 +39,4 @@ class Profile(models.Model):
     """
     user = models.ForeignKey(Customer)
     first_name = models.CharField(_('first name'), max_length=120, blank=True, null=True)
-    second_name = models.CharField(_('second name'), max_length=120, blank=True, null=True)
+    last_name = models.CharField(_('last name'), max_length=120, blank=True, null=True)

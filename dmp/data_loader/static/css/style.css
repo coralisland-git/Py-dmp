@@ -176,6 +176,12 @@ h1, h2, h3 {
 	box-sizing: border-box;
 }
 
+.form-input.dropdown{
+	width: 22%;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
 .form-input:focus {
 	background: #fff;
 	border-color: #1bafaa;
@@ -324,12 +330,12 @@ h1, h2, h3 {
 /* icons */
 .icon {
 	display: inline-block;
-	width: 30px;
-	height: 30px;
-	background: url(/static/img/icons.png) 30px 30px no-repeat;
-	-webkit-background-size: 180px 90px;
-	-o-background-size: 180px 90px;
-	background-size: 180px 90px;
+	width: 31px;
+	height: 31px;
+	background: url(/static/img/icons.png) 31px 31px no-repeat;
+	-webkit-background-size: 180px 150px;
+	-o-background-size: 180px 150px;
+	background-size: 180px 150px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
@@ -378,6 +384,65 @@ h1, h2, h3 {
 	background-position: -90px -30px;
 }
 
+.icon-redshift{
+	background-position: -120px -30px;
+}
+
+.icon-mixpanel{
+	background-position: -90px -60px;
+}
+
+.icon-ftp{
+	background-position: -150px -30px;
+}
+
+.icon-hadoop{
+	background-position: 0 -60px;
+}
+
+.icon-jdbc{
+	background-position: -30px -60px;
+}
+
+.icon-mongodb{
+	background-position: -120px -60px;
+}
+
+.icon-http{
+	background-position: -30px -120px;
+}
+
+.icon-jira{
+	background-position: -60px -60px;
+}
+
+.icon-mssql{
+	background-position: -150px -60px;
+}
+
+.icon-zendesk{
+	background-position: 0 -120px;
+}
+
+.icon-oracledb{
+	background-position: 0 -90px;
+}
+
+.icon-vertica{
+	background-position: -150px -90px;
+}
+
+.icon-teradata{
+	background-position: -120px -90px;
+}
+
+.icon-sftp{
+	background-position: -90px -90px;
+}
+
+.icon-dynamodb{
+	background-position: -30px -90px;
+}
 /* boxes */
 .box {
 	background: #fff;
