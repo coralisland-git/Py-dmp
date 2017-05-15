@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from customer.models import Customer
+from django.conf import settings
 
 
 class DataProvider(models.Model):
@@ -25,6 +26,30 @@ class DataSource(models.Model):
     def filename(self):
         return os.path.basename(self.upload_file.name)
 
+    def check_config_path(self):
+        path = os.path.join(settings.BASE_DIR, self._meta.app_label, 'embulk_configs', self.data_provider.name)
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return path
+
+    def create_config_file(self, path):
+
+        import yaml
+
+        fname = os.path.join(path, "config.yml")
+
+        stream = open(fname, 'r')
+        data = yaml.load(stream)
+
+        data['instances'][0]['host'] = '1.2.3.4'
+        data['instances'][0]['username'] = 'Username'
+        data['instances'][0]['password'] = 'Password'
+
+        with open(fname, 'w') as yaml_file:
+            yaml_file.write(yaml.dump(data, default_flow_style=False))
+
+    def generate_config(self):
+        self.create_config_file(self.check_config_path())
 
 class DataFlowSettings(models.Model):
     TIME_INTERVALS = ((1, '30 minutes'),

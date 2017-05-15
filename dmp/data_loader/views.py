@@ -24,6 +24,7 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         data_source = form.save(commit=False)
         data_source.user = self.request.user
         data_source.data_provider_id = self.kwargs.get('provider_id')
+        data_source.generate_config()
         return super(DataSourceCreateView, self).form_valid(form)
 
 
