@@ -32,24 +32,25 @@ class DataSource(models.Model):
             os.makedirs(path)
         return path
 
-    def create_config_file(self, path):
-
-        import yaml
-
-        fname = os.path.join(path, "config.yml")
-
-        stream = open(fname, 'r')
-        data = yaml.load(stream)
-
-        data['instances'][0]['host'] = '1.2.3.4'
-        data['instances'][0]['username'] = 'Username'
-        data['instances'][0]['password'] = 'Password'
-
-        with open(fname, 'w') as yaml_file:
-            yaml_file.write(yaml.dump(data, default_flow_style=False))
-
-    def generate_config(self):
-        self.create_config_file(self.check_config_path())
+    #TODO: debug and adjust configs after redshift and superset full setup
+    # def create_config_file(self, path):
+    #
+    #     import yaml
+    #
+    #     fname = os.path.join(path, "config.yml")
+    #
+    #     stream = open(fname, 'r')
+    #     data = yaml.load(stream)
+    #
+    #     data['instances'][0]['host'] = '1.2.3.4'
+    #     data['instances'][0]['username'] = 'Username'
+    #     data['instances'][0]['password'] = 'Password'
+    #
+    #     with open(fname, 'w') as yaml_file:
+    #         yaml_file.write(yaml.dump(data, default_flow_style=False))
+    #
+    # def generate_config(self):
+    #     self.create_config_file(self.check_config_path())
 
 class DataFlowSettings(models.Model):
     TIME_INTERVALS = ((1, '30 minutes'),
