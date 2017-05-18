@@ -64,7 +64,7 @@ class DataSource(models.Model):
 
     def process_data(self, fname):
         from subprocess import call
-        return call("~/.embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
+        return call("home/web-user/.embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
 
 
 
