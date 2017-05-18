@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
 import codecs
 from django.db import models
@@ -46,7 +48,7 @@ class DataSource(models.Model):
         from django.conf import settings
         template = self.check_config_template()
         if template:
-            with codecs.open(template, 'r', 'utf-8-sig') as fi:
+            with codecs.open(template, 'r', 'utf-8') as fi:
                 template_data = yaml.round_trip_load(fi, preserve_quotes=True)
             with open(os.path.join(settings.MEDIA_ROOT, self.upload_file.name)) as key_file:
                 key_data = key_file.read()
@@ -55,7 +57,7 @@ class DataSource(models.Model):
             template_data['out']['table'] = "{}_{}".format(self.data_provider.name, self.account_id)
 
             fname = os.path.join(path, "config_{}.yml".format(self.account_id))
-            with codecs.open(fname, 'w') as yaml_file:
+            with codecs.open(fname, 'w', 'utf-8') as yaml_file:
                 yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True))
             return fname
 
