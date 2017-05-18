@@ -26,12 +26,16 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         data_source.user = self.request.user
         data_source.data_provider_id = self.kwargs.get('provider_id')
         config_file = data_source.generate_config()
+
+        form = super(DataSourceCreateView, self).form_valid(form)
+
         result_code = data_source.process_data(config_file)
         if result_code == 0:
             messages.success(self.request, 'Data has been loaded successfully')
         else:
             messages.warning(self.request, 'Data loading has been failed')
-        return super(DataSourceCreateView, self).form_valid(form)
+
+        return form
 
 
 class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
