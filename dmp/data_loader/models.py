@@ -48,7 +48,7 @@ class DataSource(models.Model):
         if template:
             with codecs.open(template, 'r', 'utf-8-sig') as fi:
                 template_data = yaml.round_trip_load(fi, preserve_quotes=True)
-            with open(os.path.join(settings.MEDIA_ROOT, 'file_uploads', self.upload_file.name), encoding="utf-8") as key_file:
+            with open(os.path.join(settings.MEDIA_ROOT, 'file_uploads', self.upload_file.name)) as key_file:
                 key_data = key_file.read()
             template_data['in']['json_key_content'] = key_data
             template_data['in']['view_id'] = self.account_id
