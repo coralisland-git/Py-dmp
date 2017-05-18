@@ -55,7 +55,7 @@ class DataSource(models.Model):
             template_data['out']['table'] = "{}_{}".format(self.data_provider.name, self.account_id)
 
             fname = os.path.join(path, "config_{}.yml".format(self.account_id))
-            with codecs.open(fname, 'w', 'utf-8-sig') as yaml_file:
+            with codecs.open(fname, 'w') as yaml_file:
                 yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True))
             return fname
 
@@ -66,9 +66,6 @@ class DataSource(models.Model):
         from subprocess import call
         return call("home/web-user/.embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
 
-
-
-        pass
 class DataFlowSettings(models.Model):
     TIME_INTERVALS = ((1, '30 minutes'),
                       (2, '1 hour'),
