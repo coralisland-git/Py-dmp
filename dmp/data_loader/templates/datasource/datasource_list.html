@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 {%  block content %}
+
+
     <div class="page datasources">
         <div class="page-title">
             <div class="content">
@@ -22,6 +24,11 @@
                     </div>
                 </div>
                 <div class="box datasources-list">
+                    {% if messages %}
+                        {% for message in messages %}
+                          <span class="{{ message.tags }}">{{ message }}</span>
+                        {% endfor %}
+                    {% endif %}
                     <table cellspacing="0" class="datasources-table">
                         {% for datasource in object_list %}
                             <tr>

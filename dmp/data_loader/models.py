@@ -1,8 +1,10 @@
 import os
+import codecs
 from django.db import models
 from django.contrib.auth.models import User
 from customer.models import Customer
 from django.conf import settings
+import ruamel.yaml as yaml
 
 
 class DataProvider(models.Model):
@@ -15,8 +17,8 @@ class DataSource(models.Model):
     user = models.ForeignKey(Customer)
     name = models.CharField('Data Source Name', max_length=255, default=None)
     data_provider = models.ForeignKey(DataProvider, null=True)
-    account_id = models.CharField('Account ID', max_length=255, blank=True, default=None)
-    upload_file = models.FileField('Upload file', upload_to='file_uploads', blank=True, default=None)
+    account_id = models.CharField('Account ID', max_length=255, default=None)
+    upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None)
     created_at = models.DateTimeField('Created at', auto_now_add=True)
 
     class Meta:
@@ -26,32 +28,47 @@ class DataSource(models.Model):
     def filename(self):
         return os.path.basename(self.upload_file.name)
 
+    def base_path(self):
+        return os.path.join(settings.BASE_DIR, self._meta.app_label, 'embulk_configs')
+
     def check_config_path(self):
-        path = os.path.join(settings.BASE_DIR, self._meta.app_label, 'embulk_configs', self.data_provider.name)
+        path = os.path.join(self.base_path(), 'providers', self.data_provider.name)
         if not os.path.exists(path):
             os.makedirs(path)
         return path
 
-    #TODO: debug and adjust configs after redshift and superset full setup
-    # def create_config_file(self, path):
-    #
-    #     import yaml
-    #
-    #     fname = os.path.join(path, "config.yml")
-    #
-    #     stream = open(fname, 'r')
-    #     data = yaml.load(stream)
-    #
-    #     data['instances'][0]['host'] = '1.2.3.4'
-    #     data['instances'][0]['username'] = 'Username'
-    #     data['instances'][0]['password'] = 'Password'
-    #
-    #     with open(fname, 'w') as yaml_file:
-    #         yaml_file.write(yaml.dump(data, default_flow_style=False))
-    #
-    # def generate_config(self):
-    #     self.create_config_file(self.check_config_path())
+    def check_config_template(self):
+        template_path = os.path.join(self.base_path(), 'config_templates', 'template.yml')
+        if os.path.exists(template_path):
+            return template_path
 
+    def create_config_file(self, path):
+        from django.conf import settings
+        template = self.check_config_template()
+        if template:
+            with codecs.open(template, 'r', 'utf-8-sig') as fi:
+                template_data = yaml.round_trip_load(fi, preserve_quotes=True)
+            with open(os.path.join(settings.MEDIA_ROOT, 'file_uploads', self.upload_file.name), encoding="utf-8") as key_file:
+                key_data = key_file.read()
+            template_data['in']['json_key_content'] = key_data
+            template_data['in']['view_id'] = self.account_id
+            template_data['out']['table'] = "{}_{}".format(self.data_provider.name, self.account_id)
+
+            fname = os.path.join(path, "config_{}.yml".format(self.account_id))
+            with codecs.open(fname, 'w', 'utf-8-sig') as yaml_file:
+                yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True))
+            return fname
+
+    def generate_config(self):
+        return self.create_config_file(self.check_config_path())
+
+    def process_data(self, fname):
+        from subprocess import call
+        return call("~/.embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
+
+
+
+        pass
 class DataFlowSettings(models.Model):
     TIME_INTERVALS = ((1, '30 minutes'),
                       (2, '1 hour'),

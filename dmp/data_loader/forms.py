@@ -1,6 +1,7 @@
 from django import forms
 from data_loader.models import DataSource, DataFlowSettings
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import FileExtensionValidator
 
 
 class DataSourceCreateForm(forms.ModelForm):
@@ -13,7 +14,8 @@ class DataSourceCreateForm(forms.ModelForm):
                                                                                'placeholder': _('Account ID'),
                                                                                'maxlength': 255}))
 
-    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}))
+    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
     class Meta:
         model = DataSource

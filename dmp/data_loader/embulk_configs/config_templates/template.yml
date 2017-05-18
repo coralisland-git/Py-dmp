@@ -1,0 +1,43 @@
+in:
+  type: google_analytics
+  json_key_content: |
+    {
+      "type": "service_account",
+      "project_id": "fenno-12",
+      "private_key_id": "649e9b2feb265362e82a4c124b3e4f811eca4f56",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD8WRnpPaUbuWKr\nBWyAK25dzQm9+UXbAK3akdg+7+u1o82cvGFzeYWrWIiMk7B9zP0Gt0MzdavunCOl\ndLfa5vVHttCV5Xi0iuXGlxaIjS7FhIU0Xzzlcun7IYadURyM84rOy3cMsKVtSiv2\nIuKsOcK5EXmJ2vpKeUUCw/4iN3bYWrG3FKQleozH7PzRCDgc1XlM9HYTtoeLDNhq\nVcOKhJYV95fTIDK8EbyQaH2nhtkUJzBNiKTvh+RNe37ouNzolTQxxotKHDZamMwY\nPVKC1490gXXH/P/naQIoe0X7N5D5oFz+SK+eF1SKMLrTpycI8iPHLL4FxvLBu62N\nI5wkSkl1AgMBAAECggEBAIu30a7gYNBu3oCOajq00VDCO8ihgdn2EExaP/7o2/sg\nDLHhY5uKB0aNqF0dULT2kIntYhnV5zIf5WSwsTNUeS4RvH+iJCjiVsKT2PgWI3Vd\nIFuU96Sa8Y4IS/5CcKpiFdLVuL6f95gBX0HSoup0uKm7US3QvpAJgPo9BjJvvy+e\nPh6Ucbk89+T1NYY1fou1c/H3usY9opkkrigwHshHUNw2mDaMmeEtc+gFoPGAqjZP\nF1ZuXqhK4ePw4js3xeNDac4vYWqLFiVRDkmlYF71cD2IdZ4KqFGHlbOqsADzT39H\neIG+E+b9z2gZGDO/GlqQlWoFtbannle6wNt1E7WiNKkCgYEA/wYH63r9jqa3Qmv4\nJVzmhe97+R9QfSph/pMBtcydx3JsrD32xYLBoV4qdxJZJZ60Qh+K2WxIW5faOZ+o\nKAQl5aOSA93MmlvfiLEeYPFOuDyU7c4uu30T5l4H4FNTNn0gERhOJrZskhkpr30T\n3q9dMTr8mW33B6aeGi9K4mI89E8CgYEA/VByovsfa6OQxv/NJMKHmK71fAYMJzL4\nQ5cjsQHa8lc9K6JypB0jw7s2ad4hcPqnSAznu7DI6K5F66SgNoAouHDRzaK3UFyl\ndJmRIwIMzeKCqzvExMJ+QlSy85BcdKgNYpfN72hPoi+46ha7XmgJwE+wpU2RxTXx\n/D7jse+dQPsCgYBZdvUqUABJngTmQVhRSzD3xZb5Q1oKPucX1tyfuYOUZ3jmR+qd\nSYzCHnXJRd+OSgm0tLoSImGT+EavNmpYd3QQBnz/7DyN3jMiEfi1S5IxIdehQVa1\noWBszYn30WN81xJ7zMoF3LNj4X31OWzSDzUjQy1AagpiXbpTN0oO9yWpEwKBgAOQ\nUCyOz+BZyr2h96bevb2eKIH4K8+ZXfjFdZEV75idNZUZkfdRGaG1ToyqvVmzjQrs\nc44mbI0pdn5cMIzTvL7rh2gXM/EDfKhpSKtvafKzjxcNnjUOb2xLeMEIdOSHQLj0\nXcdSdlxXw4g3jadEW27DMD8DGlvl6GOeFuH39wRlAoGBAIRQteSrxHTums0Q2ieb\nvOi3ZqGg4OO/SmNN8A6A1qSmF181puncEIZmyGdvM9eaEe+PWNcZ1k6vDuzyUmEz\ny1aOi40BFfV8+ZOQNTxgTGQSrAUgq2C3RxjZhyGNAjLff4rGIiUMz4Ab4hyVgFx1\nzY9DlUxkOdGUh6S7XFYo/i7v\n-----END PRIVATE KEY-----\n",
+      "client_email": "embulk1@fenno-12.iam.gserviceaccount.com",
+      "client_id": "117700232598270606818",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://accounts.google.com/o/oauth2/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/embulk1%40fenno-12.iam.gserviceaccount.com"
+    }
+
+  view_id: 147986188
+  time_series: "ga:dateHour" # hourly basis
+
+  dimensions:
+    - "ga:browser"
+  metrics:
+    - "ga:visits"
+    - "ga:pageviews"
+
+  start_date: "2016-01-01"
+  end_date: "2017-10-28"
+
+out:
+  type: redshift
+  host: dmp-redshift.cmdjyatye0iv.eu-central-1.redshift.amazonaws.com
+  port: 5439
+  user: artespankov
+  password: Fruruce7hE
+  database: dmp
+  table: ga_147986188
+  aws_access_key_id: AKIAIP7STKA7WFEAF2QA
+  aws_secret_access_key: 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
+  iam_user_name: artespankov
+  s3_bucket: dmp-redshift
+  s3_key_prefix: redshift/
+  mode: insert
+

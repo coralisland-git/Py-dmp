@@ -825,6 +825,11 @@ table th, table td {
 	padding: 0;
 }
 
+.success{
+	color: red;
+    margin: 15px;
+}
+
 .datasources-table-name {
 	line-height: 30px;
 	padding: 10px 10px;
