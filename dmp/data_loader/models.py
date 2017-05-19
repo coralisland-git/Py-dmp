@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import os
 import codecs
 from django.db import models
@@ -66,7 +64,7 @@ class DataSource(models.Model):
 
     def process_data(self, fname):
         from subprocess import call
-        return call("home/web-user/.embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
+        return call("~/.embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
 
 class DataFlowSettings(models.Model):
     TIME_INTERVALS = ((1, '30 minutes'),
