@@ -68,8 +68,8 @@ class DataSource(models.Model):
         if not os.path.exists(log_path):
             os.makedirs(log_path)
         log_file = open(os.path.join(log_path, 'embulk_stdout.log'), "w+")
-        call(". {embulk_path}.bashrc".format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
-        return call("/home/web-user/.embulk/bin/embulk run {filename}".format(embulk_path=settings.EMBULK_USER_PATH,
+        # call(.format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
+        return call(". {embulk_path}.bashrc; {embulk_path}.embulk/bin/embulk run {filename}".format(embulk_path=settings.EMBULK_USER_PATH,
                                                                             filename=fname), shell=True, stdout=log_file)
 
 
