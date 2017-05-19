@@ -64,8 +64,7 @@ class DataSource(models.Model):
 
     def process_data(self, fname):
         from subprocess import call
-        call("cd ~/", shell=True)
-        return call(".embulk/bin/embulk run {filename}".format(filename=fname), shell=True)
+        return call("{embulk_path}.embulk/bin/embulk run {filename}".format(embulk_path=settings.EMBULK_PATH, filename=fname), shell=True)
 
 class DataFlowSettings(models.Model):
     TIME_INTERVALS = ((1, '30 minutes'),

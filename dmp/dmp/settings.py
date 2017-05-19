@@ -138,3 +138,10 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+EMBULK_PATH = '/home/web-user/'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
