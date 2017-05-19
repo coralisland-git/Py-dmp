@@ -139,7 +139,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-EMBULK_PATH = '/home/web-user/'
+EMBULK_USER_PATH = '/home/web-user/'
 
 try:
     from .local_settings import *
