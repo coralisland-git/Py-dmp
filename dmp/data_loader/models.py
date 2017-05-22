@@ -71,7 +71,7 @@ class DataSource(models.Model):
         log_file = open(os.path.join(log_path, 'embulk_stdout.log'), "w+")
         # apipe = subprocess.Popen('sudo -u someuser /execution', shell=True, stdout=subprocess.PIPE)
         # call("which embulk; embulk".format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
-        return call(". {embulk_path}.bashrc; . {embulk_path}.embulk/.rvm/scripts/rvm; {embulk_path}.embulk/bin/embulk gem list".format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
+        return call(". {embulk_path}.bashrc;. {embulk_path}.embulk/.rvm/scripts/rvm; {embulk_path}.embulk/bin/embulk gem list".format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
         # return call("w; whoami; . {embulk_path}.bashrc; {embulk_path}.embulk/bin/embulk gem list".format(embulk_path=settings.EMBULK_USER_PATH,
         #                                                                     filename=fname), shell=True, stdout=log_file)
 
