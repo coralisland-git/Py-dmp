@@ -11,15 +11,20 @@ class DataSourceCreateForm(forms.ModelForm):
                                                                          'maxlength': 255}))
 
     account_id = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-input',
-                                                                               'placeholder': _('Account ID'),
+                                                                               'placeholder': _('ID'),
                                                                                'maxlength': 255}))
 
     upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
+    # google-spreadsheets specific field
+    document_url = forms.CharField(max_length=355, required=False, widget=forms.TextInput(attrs={'class': 'form-input',
+                                                                               'placeholder': _('Spreadsheets URL'),
+                                                                               'maxlength': 355}))
+
     class Meta:
         model = DataSource
-        fields = ('name', 'account_id', 'upload_file')
+        fields = ('name', 'account_id', 'upload_file', 'document_url')
 
 
 class DataSourceUpdateForm(forms.Form):

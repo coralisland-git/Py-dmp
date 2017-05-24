@@ -34,8 +34,17 @@
                                     {% endfor %}
                                     {{ form.name }}
                                 </div>
+                                {% if provider.name == "spreadsheets" %}
+                                   <div class="form-row">
+                                        <div class="form-label">{{ form.document_url.label }}:</div>
+                                        {% for error in form.document_url.errors %}
+                                            <p class="errors">{{ error }}</p>
+                                        {% endfor %}
+                                        {{ form.document_url }}
+                                    </div>
+                                {% endif %}
                                 <div class="form-row">
-                                    <div class="form-label">View ID:</div>
+                                    <div class="form-label">{% if provider.name == "spreadsheets" %}Worksheet ID{% else %}View ID:{% endif %}</div>
                                     {% for error in form.account_id.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}

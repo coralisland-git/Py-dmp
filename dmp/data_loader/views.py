@@ -29,6 +29,12 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         data_source.generate_config()
         return form
 
+    def get_context_data(self, **kwargs):
+        context = super(DataSourceCreateView, self).get_context_data(**kwargs)
+        provider = DataProvider.objects.get(id=self.kwargs.get('provider_id'))
+        context['provider'] = provider
+        return context
+
 
 class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
     model = DataSource

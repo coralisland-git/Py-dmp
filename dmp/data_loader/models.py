@@ -20,6 +20,7 @@ class DataSource(models.Model):
     account_id = models.CharField('Account ID', max_length=255, default=None)
     upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None)
     created_at = models.DateTimeField('Created at', auto_now_add=True)
+    document_url = models.CharField('Document URL', max_length=355, default=None, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Data source'
@@ -61,19 +62,6 @@ class DataSource(models.Model):
 
     def generate_config(self):
         return self.create_config_file(self.check_config_path())
-
-    def process_data(self, fname):
-        from subprocess import call
-        import subprocess
-        log_path = os.path.join(settings.BASE_DIR, 'logs')
-        if not os.path.exists(log_path):
-            os.makedirs(log_path)
-        log_file = open(os.path.join(log_path, 'embulk_stdout.log'), "w+")
-        # apipe = subprocess.Popen('sudo -u someuser /execution', shell=True, stdout=subprocess.PIPE)
-        # call("which embulk; embulk".format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
-        return call("which embulk;export PATH=\"$HOME/.embulk/bin:$PATH\";export PATH=\"$PATH:$HOME/.rvm/bin\";which embulk;. {embulk_path}.rvm/scripts/rvm; {embulk_path}.embulk/bin/embulk gem environment; {embulk_path}.embulk/bin/embulk gem list; embulk gem list;".format(embulk_path=settings.EMBULK_USER_PATH), shell=True, stdout=log_file)
-        # return call("w; whoami; . {embulk_path}.bashrc; {embulk_path}.embulk/bin/embulk gem list".format(embulk_path=settings.EMBULK_USER_PATH,
-        #                                                                     filename=fname), shell=True, stdout=log_file)
 
 
 class DataFlowSettings(models.Model):
