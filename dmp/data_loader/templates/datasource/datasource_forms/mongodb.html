@@ -34,32 +34,29 @@
                                     {% endfor %}
                                     {{ form.name }}
                                 </div>
-                                {% if provider.name == "spreadsheets" %}
-                                   <div class="form-row">
-                                        <div class="form-label">{{ form.document_url.label }}:</div>
-                                        {% for error in form.document_url.errors %}
-                                            <p class="errors">{{ error }}</p>
-                                        {% endfor %}
-                                        {{ form.document_url }}
-                                    </div>
-                                {% endif %}
                                 <div class="form-row">
-                                    <div class="form-label">{% if provider.name == "spreadsheets" %}Worksheet ID{% else %}View ID:{% endif %}</div>
-                                    {% for error in form.account_id.errors %}
-                                        <p class="errors">{{ error }}</p>
-                                    {% endfor %}
-                                    {{ form.account_id }}
+                                    <div class="form-label">URI:</div>
+                                    <input type="text" name="uri" maxlength="255" placeholder="MongoDB connection string URI" class="form-input" required="" id="id_uri">
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-label">Private Key:</div>
-                                    {% for error in form.upload_file.errors %}
-                                        <p class="errors">{{ error }}</p>
-                                    {% endfor %}
-                                    <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder"> Upload file...</span>
-                                        {{ form.upload_file }}
-                                    </div>
-
+                                    <div class="form-label">Hosts:</div>
+                                    <input type="text" name="hosts" maxlength="255" placeholder="List of hosts(separated by comma)" class="form-input" required="" id="id_hosts">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">Port:</div>
+                                    <input type="text" name="Port" maxlength="255" placeholder="Port number" class="form-input" required="" id="id_port">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">User:</div>
+                                    <input type="text" name="username" maxlength="255" placeholder="Username" class="form-input" required="" id="id_user_">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">Password:</div>
+                                    <input type="password" name="password_" maxlength="255" placeholder="Password" class="form-input" required="" id="id_password_">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">Database:</div>
+                                    <input type="text" name="database" maxlength="255" placeholder="Database name" class="form-input" required="" id="id_database">
                                 </div>
                                 <div class="form-buttons">
 {#                                    <a href="#" class="button button-gray">Preview</a>#}

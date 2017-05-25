@@ -21,12 +21,23 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
     template_name = 'datasource/datasource_create.html'
     success_url = reverse_lazy('index')
 
+    def get_template_names(self):
+        templates = super(DataSourceCreateView, self).get_template_names()
+        try:
+            provider = DataProvider.objects.get(id=self.kwargs.get('provider_id'))
+            templates.insert(0, 'datasource/datasource_forms/{template_name}.html'.format(template_name=provider.name))
+        except DataProvider.DoesNotExist:
+            pass
+        return templates
+
     def form_valid(self, form):
         data_source = form.save(commit=False)
         data_source.user = self.request.user
         data_source.data_provider_id = self.kwargs.get('provider_id')
         form = super(DataSourceCreateView, self).form_valid(form)
-        data_source.generate_config()
+        provider = DataProvider.objects.get(id=self.kwargs.get('provider_id'))
+        if provider.name == 'analytics':
+            data_source.generate_config()
         return form
 
     def get_context_data(self, **kwargs):

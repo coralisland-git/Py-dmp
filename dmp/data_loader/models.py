@@ -17,8 +17,8 @@ class DataSource(models.Model):
     user = models.ForeignKey(Customer)
     name = models.CharField('Data Source Name', max_length=255, default=None)
     data_provider = models.ForeignKey(DataProvider, null=True)
-    account_id = models.CharField('Account ID', max_length=255, default=None)
-    upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None)
+    account_id = models.CharField('Account ID', max_length=255, default=None, blank=True, null=True)
+    upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None, blank=True, null=True)
     created_at = models.DateTimeField('Created at', auto_now_add=True)
     document_url = models.CharField('Document URL', max_length=355, default=None, blank=True, null=True)
 

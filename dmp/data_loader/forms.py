@@ -10,11 +10,11 @@ class DataSourceCreateForm(forms.ModelForm):
                                                                          'placeholder': _('Data Source Name'),
                                                                          'maxlength': 255}))
 
-    account_id = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-input',
+    account_id = forms.CharField(required=False, max_length=255, widget=forms.TextInput(attrs={'class': 'form-input',
                                                                                'placeholder': _('ID'),
                                                                                'maxlength': 255}))
 
-    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+    upload_file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
     # google-spreadsheets specific field
