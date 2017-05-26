@@ -50,8 +50,23 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
     model = DataSource
     form_class = DataSourceCreateForm
-    template_name = 'datasource/datasource_update.html'
+    template_name = 'datasource/datasource_create.html'
     success_url = reverse_lazy('index')
+
+    def get_template_names(self):
+        templates = super(DataSourceUpdateView, self).get_template_names()
+        try:
+            provider = DataProvider.objects.get(id=self.object.data_provider.id)
+            templates.insert(0, 'datasource/datasource_forms/{template_name}.html'.format(template_name=provider.name))
+        except DataProvider.DoesNotExist:
+            pass
+        return templates
+
+    def get_context_data(self, **kwargs):
+        context = super(DataSourceUpdateView, self).get_context_data(**kwargs)
+        provider = DataProvider.objects.get(id=self.object.data_provider.id)
+        context['provider'] = provider
+        return context
 
 
 class DataSourceDeleteView(LoginRequiredMixin, DeleteView):

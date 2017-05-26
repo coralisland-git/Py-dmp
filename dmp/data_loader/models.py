@@ -65,11 +65,12 @@ class DataSource(models.Model):
 
 
 class DataFlowSettings(models.Model):
-    TIME_INTERVALS = ((1, '30 minutes'),
-                      (2, '1 hour'),
-                      (3, '2 hours'),
-                      (4, '5 hours'),
-                      (5, '10 hours'),
-                      (6, '24 hours'))
+    TIME_INTERVALS = ((1, '5 minutes'),
+                      (2, '30 minutes'),
+                      (3, '1 hour'),
+                      (4, '2 hours'),
+                      (5, '5 hours'),
+                      (6, '10 hours'),
+                      (7, '24 hours'))
     user = models.ForeignKey(Customer)
-    sync_interval = models.SmallIntegerField(choices=TIME_INTERVALS, default=1)
+    sync_interval = models.SmallIntegerField(choices=TIME_INTERVALS, default=2)

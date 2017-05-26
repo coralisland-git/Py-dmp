@@ -8,7 +8,7 @@
     <div class="page datasources-add">
         <div class="page-title">
             <div class="content">
-                <h1>Add Data Source - {{ provider.name }}</h1>
+                <h1>{% if form.instance.pk %}Update{% else %}Add{% endif %} Data Source - {{ provider.name }}</h1>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="form-buttons">
 {#                                    <a href="#" class="button button-gray">Preview</a>#}
-                                    <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">Save & Collect</a>
+                                    <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>
                         </div>
