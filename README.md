@@ -1,29 +1,28 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Recommended server configuration ###
 
-### What is this repository for? ###
+Ubuntu 14.04 LTS
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Apache/2.4.7 (Ubuntu)
 
-### How do I get set up? ###
+MySQL 5.5
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Apache/Mysql installation ###
 
-### Contribution guidelines ###
+```
+#!
 
-* Writing tests
-* Code review
-* Other guidelines
+sudo apt-get update && sudo apt-get install apache2 mysql-server libapache2-mod-wsgi-py3
 
-### Who do I talk to? ###
+```
 
-* Repo owner or admin
-* Other community or team contact
+### Project source code ###
+Clone project into apache web directory
+
+```
+#!
+
+cd /var/www/html
+sudo git clone https://<user>@bitbucket.org/axisbits/data-management-platform.git
+```
