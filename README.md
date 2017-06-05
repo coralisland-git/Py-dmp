@@ -16,6 +16,7 @@ MySQL 5.5
 sudo apt-get update && sudo apt-get install apache2 mysql-server libmysqlclient-dev libapache2-mod-wsgi-py3 
 
 ```
+You should be prompted for database root user password.
 
 ### Project source code ###
 Clone project into apache web directory
@@ -114,4 +115,40 @@ Replace defult configuration with updated content and restart web-server:
 
 sudo cp dmp.conf 000-default.conf
 sudo service apache2 restart
+```
+
+### Database setup ###
+Create database, user and grant all privileges to user on created database (replace <database_name>, <user_name>, <user_pass> with actual values).
+
+```
+#!
+
+mysql -u root -p
+```
+You should be prompted for root user password.
+
+```
+#!
+
+CREATE DATABASE <database_name> CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER '<user_name>'@'localhost' IDENTIFIED BY '<user_pass>';
+GRANT ALL PRIVILEGES ON <database_name>.* TO <user_name>@'localhost';
+```
+Copy file for local settings from example file:
+
+
+```
+#!
+
+cd /var/www/html/data-management-platform/dmp/dmp
+sudo cp local_settings_example.py local_settings.py
+```
+
+Edit database credentials in local_settings.py and save:
+
+```
+#!
+'NAME': '<database_name>'
+'USER': '<user_name>'
+'PASSWORD': '<user_pass>'
 ```
