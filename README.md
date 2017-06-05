@@ -52,3 +52,66 @@ Create and activate new virtual environment for project:
 virtualenv -p python3 .virtualenvs/dmp
 source .virtualenvs/dmp/bin/activate
 ```
+Install dependencies for project into virtual environment:
+
+```
+#!
+
+pip3 install -r /var/www/html/data-management-platform/dmp/requirements.txt
+```
+
+### Virtual host setup ###
+Update default apache hosts configuration file (000-default.conf)
+
+
+```
+#!
+
+cd /etc/apache2/sites-available
+sudo cp 000-default.conf 000-default.conf.backup
+sudo touch dmp.conf 
+sudo nano dmp.conf
+```
+
+Paste listed configuration into dmp.conf and save:
+
+```
+#!
+
+<VirtualHost *:80>
+
+       WSGIScriptAlias / /var/www/html/data-management-platform/dmp/wsgi.py
+
+       <Directory /var/www/html/data-management-platform/dmp/>
+                <Files wsgi.py>
+                       Require all granted
+                </Files>
+        </Directory>
+
+        Alias /static/ /var/www/html/data-management-platform/dmp/dmp/static/
+        Alias /favicon.ico /var/www/html/data-management-platform/dmp/dmp/static/images/favicon.ico
+        Alias /media/ /var/www/html/data-management-platform/dmp/dmp/media/
+
+        <Location "/static/">
+                Options -Indexes
+        </Location>
+        <Directory /var/www/html/data-management-platform/dmp/dmp/static>
+                Require all granted
+        </Directory>
+        <Location "/media/">
+                Options -Indexes
+        </Location>
+ <Directory /var/www/html/data-management-platform/dmp/dmp/media>
+                Require all granted
+        </Directory>
+</VirtualHost>
+```
+Replace defult configuration with updated content and restart web-server:
+
+```
+#!
+
+
+sudo cp dmp.conf 000-default.conf
+sudo service apache2 restart
+```
