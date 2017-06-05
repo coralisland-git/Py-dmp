@@ -3,7 +3,7 @@ import sys
 import site
 
 # Add the site-packages of the chosen virtualenv to work with
-site.addsitedir('/home/web-user/.virtualenvs/dmp/lib/python3.4/site-packages')
+site.addsitedir('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
 
 # Add the app's directory to the PYTHONPATH
 sys.path.append('/var/www/html/data-management-platform/dmp')
@@ -12,7 +12,7 @@ sys.path.append('/var/www/html/data-management-platform/dmp/dmp')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'dmp.settings'
 
 # Activate your virtual env
-activate_env=os.path.expanduser("/home/web-user/.virtualenvs/dmp/bin/activate_this.py")
+activate_env=os.path.expanduser("/var/www/html/.virtualenvs/dmp/bin/activate_this.py")
 #python2+ style
 #execfile(activate_env, dict(__file__=activate_env))
 
