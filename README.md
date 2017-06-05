@@ -152,3 +152,20 @@ Edit database credentials in local_settings.py and save:
 'USER': '<user_name>'
 'PASSWORD': '<user_pass>'
 ```
+
+Run project database migrations:
+
+```
+#!
+
+cd /var/www/html/data-management-platform/dmp/
+python3 manage.py migrate
+```
+
+Load initial data for providers
+
+```
+#!
+
+python3 manage.py loaddata data_provider_initial
+```
