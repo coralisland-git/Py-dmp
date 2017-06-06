@@ -187,6 +187,7 @@ Copy file for local settings from example file:
 
 cd /var/www/html/data-management-platform/dmp/dmp
 sudo cp local_settings_example.py local_settings.py
+sudo nano local_settings.py
 ```
 
 Edit database credentials in local_settings.py and save:
