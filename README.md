@@ -54,7 +54,7 @@ Create and activate new virtual environment for project:
 #!
 
 virtualenv -p python3 .virtualenvs/dmp
-source .virtualenvs/dmp/bin/activate
+source /var/www/html/.virtualenvs/dmp/bin/activate
 ```
 Install dependencies for project into virtual environment:
 
@@ -226,3 +226,13 @@ sudo mkdir /var/www/html/data-management-platform/dmp/dmp/static && sudo chmod 7
 sudo mkdir /var/www/html/data-management-platform/dmp/dmp/media && sudo chmod 777 -R /var/www/html/data-management-platform/dmp/dmp/media
 python3 manage.py collectstatic
 ```
+### Create new user ###
+
+```
+#!
+
+source /var/www/html/.virtualenvs/dmp/bin/activate
+cd /var/www/html/data-management-platform/dmp
+python3 manage.py add_user
+```
+You will be prompted for email and password.
