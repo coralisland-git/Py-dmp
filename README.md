@@ -39,12 +39,15 @@ cd /var/www/html
 sudo mkdir .virtualenvs && sudo chmod -R o+rwx .virtualenvs/
 ```
 Install pip and virtualenv tools for python 3:
+To avoid errors caused by undefined locale valriables, set them to UTF8 and reconfigure locales, you will be prompted for few options during setup, so just keep default options.
 
 ```
 #!
-
+export LC_ALL="en_US.UTF-8" && export LC_CTYPE="en_US.UTF-8" && sudo dpkg-reconfigure locales
 sudo apt-get update && sudo apt-get install python3-pip && pip3 install virtualenv
 ```
+
+
 Create and activate new virtual environment for project:
 
 ```
@@ -61,9 +64,51 @@ Install dependencies for project into virtual environment:
 pip3 install -r /var/www/html/data-management-platform/dmp/requirements.txt
 ```
 
+### WSGI script ###
+Create wsgi script.
+
+```
+#!
+
+cd /var/www/html/data-management-platform/dmp
+sudo touch wsgi.py
+```
+
+Copy wsgi template and edit site packages path ('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
+and activate env script path ('/var/www/html/.virtualenvs/dmp/bin/activate_this.py') 
+accordingly to your project virtual environment setup and location
+
+```
+#!
+
+import os
+import sys
+import site
+
+# Add the site-packages of the chosen virtualenv to work with
+site.addsitedir('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
+
+# Add the app's directory to the PYTHONPATH
+sys.path.append('/var/www/html/data-management-platform/dmp')
+sys.path.append('/var/www/html/data-management-platform/dmp/dmp')
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'dmp.settings'
+
+# Activate your virtual env
+activate_env=os.path.expanduser("/var/www/html/.virtualenvs/dmp/bin/activate_this.py")
+#python2+ style
+#execfile(activate_env, dict(__file__=activate_env))
+
+#python3+ style
+exec(compile(open(activate_env, "rb").read(), activate_env, 'exec'), dict(__file__=activate_env))
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+```
+
+ 
+
 ### Virtual host setup ###
 Update default apache hosts configuration file (000-default.conf)
-
 
 ```
 #!
@@ -168,4 +213,15 @@ Load initial data for providers
 #!
 
 python3 manage.py loaddata data_provider_initial
+```
+
+### Static files ###
+Create folders for static and media files (css, images, uploads etc) and run command to collect static content in one place for web-server.
+```
+#!
+
+sudo mkdir /var/www/html/data-management-platform/dmp/static && sudo chmod 777 -R /var/www/html/data-management-platform/dmp/static
+sudo mkdir /var/www/html/data-management-platform/dmp/dmp/static && sudo chmod 777 -R /var/www/html/data-management-platform/dmp/dmp/static
+sudo mkdir /var/www/html/data-management-platform/dmp/dmp/media && sudo chmod 777 -R /var/www/html/data-management-platform/dmp/dmp/media
+python3 manage.py collectstatic
 ```
