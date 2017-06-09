@@ -36,24 +36,36 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">View ID:</div>
-                                    {% for error in form.account_id.errors %}
+                                    {% for error in details_form.account_id.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
-                                    {{ form.account_id }}
+                                    {{ details_form.account_id }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Private Key:</div>
-                                    {% for error in form.upload_file.errors %}
+                                    {% for error in details_form.upload_file.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-file">
                                         <span id="file-text-lable" class="form-placeholder"> Upload file...</span>
-                                        {{ form.upload_file }}
+                                        {{ details_form.upload_file }}
                                     </div>
-
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">View ID:</div>
+                                    {% for error in details_form.dimensions.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.dimensions }}
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">View ID:</div>
+                                    {% for error in details_form.metrics.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.metrics }}
                                 </div>
                                 <div class="form-buttons">
-{#                                    <a href="#" class="button button-gray">Preview</a>#}
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>

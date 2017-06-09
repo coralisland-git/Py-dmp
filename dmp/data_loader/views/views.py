@@ -2,8 +2,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from data_loader.models import DataSource, DataProvider, DataFlowSettings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
-from data_loader.forms import DataSourceCreateForm, DataSourceUpdateForm, DataFlowSettingsForm
-from django.contrib import messages
+from data_loader.forms import DataSourceCreateForm, DataFlowSettingsForm
 
 
 class DataSourceListView(LoginRequiredMixin, ListView):
@@ -35,10 +34,16 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         data_source.user = self.request.user
         data_source.data_provider_id = self.kwargs.get('provider_id')
         form = super(DataSourceCreateView, self).form_valid(form)
-        provider = DataProvider.objects.get(id=self.kwargs.get('provider_id'))
-        if provider.name == 'analytics':
-            data_source.generate_config()
         return form
+
+
+    # def get_form_kwargs(self):
+    #     kwargs = super(DataSourceCreateView, self).get_form_kwargs()
+    #     kwargs.update(instance={
+    #         'data_source': self.object,
+    #         'analytics_data_source': AnalyticsDataSource.objects.get(data_source__pk=self.object.pk),
+    #     })
+    #     return kwargs
 
     def get_context_data(self, **kwargs):
         context = super(DataSourceCreateView, self).get_context_data(**kwargs)
@@ -79,7 +84,6 @@ class DataSourceDeleteView(LoginRequiredMixin, DeleteView):
 
 class DataProviderListView(LoginRequiredMixin, ListView):
     model = DataProvider
-    # queryset = DataProvider.objects.all()
     template_name = 'datasource/data_providers_list.html'
 
 
