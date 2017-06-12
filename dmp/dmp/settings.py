@@ -83,7 +83,7 @@ DATABASES = {
         'PASSWORD': 'fdir498djd4',
         'HOST': '127.0.0.1',
         'PORT': '',
-        'OPTIONS'  : { 'init_command' : 'SET storage_engine=InnoDB', },
+        'OPTIONS'  : { 'init_command' : 'SET storage_engine=InnoDB;SET foreign_key_checks = 0;', },
     },
 }
 

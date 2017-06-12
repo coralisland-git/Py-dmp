@@ -16,12 +16,12 @@ class DataSourceCreateForm(forms.ModelForm):
 
 
 class AnalyticsDataSourceForm(forms.ModelForm):
-    account_id = forms.CharField(required=False, max_length=255, widget=forms.TextInput(
+    account_id = forms.CharField(max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-input',
                'placeholder': _('ID'),
                'maxlength': 255}))
 
-    upload_file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-input'}),
+    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
     dimensions = forms.CharField(required=False, max_length=255, widget=forms.TextInput(
@@ -56,3 +56,8 @@ class DataFlowSettingsForm(forms.ModelForm):
     class Meta:
         model = DataFlowSettings
         fields = ('sync_interval', )
+
+
+Provider_DataSources_Forms_Set = {
+    'analytics': AnalyticsDataSourceForm
+}

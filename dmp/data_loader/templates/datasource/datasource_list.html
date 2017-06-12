@@ -35,13 +35,11 @@
                                 <td class="datasources-table-name"><span class="icon icon-{{ datasource.data_provider.name }}"></span>{{ datasource.name }}</td>
                                 <td class="datasources-type">{{ datasource.data_provider.title}}</td>
                                 <td class="datasources-actions">
-                                    <a href="{% url "data_loader:datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>
-{#                                    <a href="javascript:void(0);" onclick="document.getElementById('update-form-{{ datasource.pk }}').submit(); return false;" class="button button-action">#}
-{#                                        <form id="update-form-{{ datasource.pk }}" action="{% url "data_loader:datasource-update" pk=datasource.pk %}" method ="post">#}
-{#                                            {% csrf_token %}#}
-{#                                        <span class="fa fa-pencil"></span>#}
-{#                                        </form>#}
-{#                                    </a>#}
+                                    {% if datasource.data_provider.name == 'analytics' %}
+                                        <a href="{% url "data_loader:analytics-datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>
+                                    {% else %}
+                                        <a href="{% url "data_loader:datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>
+                                    {% endif %}
                                     <a href="javascript:void(0);" onclick="document.getElementById('delete-form-{{ datasource.pk }}').submit(); return false;"  class="button button-action">
                                         <form id="delete-form-{{ datasource.pk }}" action="{% url "data_loader:datasource-delete" pk=datasource.pk %}" method ="post">
                                             {% csrf_token %}

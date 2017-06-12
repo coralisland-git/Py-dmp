@@ -20,6 +20,71 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
     template_name = 'datasource/datasource_create.html'
     success_url = reverse_lazy('index')
 
+    def get_details_form_class(self):
+        return None
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  details_form=self.get_details_form_class()))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        details_form = self.get_details_form_class()
+
+        # TODO: Refactor this after all datasources will be added
+        if details_form:
+            details_form = details_form(self.request.POST, self.request.FILES)
+            if form.is_valid() and details_form.is_valid():
+                return self.form_valid(form, details_form)
+            else:
+                return self.form_invalid(form, details_form)
+        else:
+            if form.is_valid():
+                return self.form_valid(form, details_form)
+            else:
+                return self.form_invalid(form, details_form)
+
+    def form_valid(self, form, details_form):
+        """
+        Called if all forms are valid. Creates a Recipe instance along with
+        associated Ingredients and Instructions and then redirects to a
+        success page.
+        """
+        data_source = form.save(commit=False)
+        data_source.user = self.request.user
+        data_source.data_provider_id = self.kwargs.get('provider_id')
+        data_source.save()
+        if details_form:
+            detailed_data_source = details_form.save(commit=False)
+            detailed_data_source.data_source = data_source
+            detailed_data_source.save()
+        form = super(DataSourceCreateView, self).form_valid(form)
+        return form
+
+    def form_invalid(self, form, details_form):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  details_form=details_form))
+
     def get_template_names(self):
         templates = super(DataSourceCreateView, self).get_template_names()
         try:
@@ -28,22 +93,6 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         except DataProvider.DoesNotExist:
             pass
         return templates
-
-    def form_valid(self, form):
-        data_source = form.save(commit=False)
-        data_source.user = self.request.user
-        data_source.data_provider_id = self.kwargs.get('provider_id')
-        form = super(DataSourceCreateView, self).form_valid(form)
-        return form
-
-
-    # def get_form_kwargs(self):
-    #     kwargs = super(DataSourceCreateView, self).get_form_kwargs()
-    #     kwargs.update(instance={
-    #         'data_source': self.object,
-    #         'analytics_data_source': AnalyticsDataSource.objects.get(data_source__pk=self.object.pk),
-    #     })
-    #     return kwargs
 
     def get_context_data(self, **kwargs):
         context = super(DataSourceCreateView, self).get_context_data(**kwargs)
