@@ -6,27 +6,51 @@ from data_loader.forms import DataSourceCreateForm, DataFlowSettingsForm
 
 
 class DataSourceListView(LoginRequiredMixin, ListView):
+    """
+    Used to list DataSources in UI for home page.
+    """
     login_url = '/customer/login/'
     model = DataSource
     template_name = 'datasource/datasource_list.html'
 
     def get_queryset(self):
+        """
+        Returns modified queryset to obtain set of DataSources
+        by user.
+        :return:
+         Set of DataSource models associated with
+         authorized user.
+        """
         return self.model.objects.filter(user=self.request.user)
 
 
 class DataSourceCreateView(LoginRequiredMixin, CreateView):
+    """
+    Used to create DataSource object - render and validate
+    DataSource and detailed data source profile, save
+    both basic and detailed data source objects.
+    Must be inherited for particular Data source model.
+    """
     model = DataSource
     form_class = DataSourceCreateForm
     template_name = 'datasource/datasource_create.html'
     success_url = reverse_lazy('index')
 
     def get_details_form_class(self):
+        """
+        Basic method to initialize form for concrete DataSource
+        :return:
+         1. None for general parent DataSource view
+         2. Form class for particular DataSource (i.e. Analytics,
+          Spreadsheets etc.)
+        """
         return None
 
     def get(self, request, *args, **kwargs):
         """
-        Handles GET requests and instantiates blank versions of the form
-        and its inline formsets.
+        Handles GET requests, instantiating a DataSource form instance
+        and details_form for concrete DataSource and then renders them
+        for UI.
         """
         self.object = None
         form_class = self.get_form_class()
@@ -37,9 +61,9 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         """
-        Handles POST requests, instantiating a form instance and its inline
-        formsets with the passed POST variables and then checking them for
-        validity.
+        Handles POST requests, instantiating a DataSource form instance
+        and details_form for concrete DataSource with the passed
+        POST variables and then checking them for validity.
         """
         self.object = None
         form_class = self.get_form_class()
@@ -61,9 +85,9 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form, details_form):
         """
-        Called if all forms are valid. Creates a Recipe instance along with
-        associated Ingredients and Instructions and then redirects to a
-        success page.
+        Called if both form and details_form are valid.
+        Creates a DataSource instance along with associated detailed
+        datasource data object and then redirects to a success page.
         """
         data_source = form.save(commit=False)
         data_source.user = self.request.user
@@ -78,7 +102,7 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
     def form_invalid(self, form, details_form):
         """
-        Called if a form is invalid. Re-renders the context data with the
+        Called if any form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
         return self.render_to_response(
@@ -86,6 +110,14 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
                                   details_form=details_form))
 
     def get_template_names(self):
+        """
+        Checks if template for form UI is exists and
+        adds it's name to set of templates with
+        highest priority
+        :return:
+         Set of template names including form template
+         associated with current DataProvider
+        """
         templates = super(DataSourceCreateView, self).get_template_names()
         try:
             provider = DataProvider.objects.get(id=self.kwargs.get('provider_id'))
@@ -95,6 +127,13 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         return templates
 
     def get_context_data(self, **kwargs):
+        """
+        Updates context object with DataProvider object
+        to be used in form template
+        :param kwargs:
+        :return:
+         Updated context object
+        """
         context = super(DataSourceCreateView, self).get_context_data(**kwargs)
         provider = DataProvider.objects.get(id=self.kwargs.get('provider_id'))
         context['provider'] = provider
@@ -102,6 +141,9 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
 
 class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
+    """
+
+    """
     model = DataSource
     form_class = DataSourceCreateForm
     template_name = 'datasource/datasource_create.html'
@@ -124,6 +166,9 @@ class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class DataSourceDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Deletes DataSource object from database by it's id
+    """
     model = DataSource
     success_url = reverse_lazy('index')
 
@@ -132,16 +177,28 @@ class DataSourceDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class DataProviderListView(LoginRequiredMixin, ListView):
+    """
+    Renders DataProviders list
+    """
     model = DataProvider
     template_name = 'datasource/data_providers_list.html'
 
 
 class DataFlowSettingsUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Updates UserProfile-related settings (like sync_interval etc)
+    """
     model = DataFlowSettings
     form_class = DataFlowSettingsForm
     success_url = reverse_lazy('index')
     template_name = 'settings.html'
 
     def get_object(self, queryset=None):
+        """
+        Takes or creates (if not exists) Settings object for authorized user
+        :param queryset:
+        :return:
+         Settings object for currently authorized user
+        """
         settings, created = DataFlowSettings.objects.get_or_create(user=self.request.user)
         return settings
