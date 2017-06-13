@@ -22,6 +22,13 @@ class AnalyticsDataSource(DataSource):
     def filename(self):
         return os.path.basename(self.upload_file.name)
 
+
+    def check_config_template_path(self):
+        template_path = os.path.join(self.get_configs_base_path(), 'config_templates', 'analytics_template.yml')
+        if os.path.exists(template_path):
+            return template_path
+
+
     def write_config_content(self, path, template_data):
         fname = os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
                                                                                   data_source_id=self.id))
