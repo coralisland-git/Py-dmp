@@ -43,7 +43,7 @@ class DataSource(models.Model):
         return template_data
 
     def write_config_content(self, path, template_data):
-        fname = os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.user_id,
+        fname = os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.user.id,
                                                                                   data_source_id=self.id))
         with codecs.open(fname, 'w', 'utf-8') as yaml_file:
             yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True))

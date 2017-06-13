@@ -3,6 +3,7 @@ from data_loader.models import DataSource, DataProvider, DataFlowSettings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from data_loader.forms import DataSourceCreateForm, DataFlowSettingsForm
+from django.shortcuts import get_object_or_404
 
 
 class DataSourceListView(LoginRequiredMixin, ListView):
@@ -27,14 +28,20 @@ class DataSourceListView(LoginRequiredMixin, ListView):
 class DataSourceCreateView(LoginRequiredMixin, CreateView):
     """
     Used to create DataSource object - render and validate
-    DataSource and detailed data source profile, save
+    DataSource and detailed data source object, save
     both basic and detailed data source objects.
-    Must be inherited for particular Data source model.
+    Might be inherited for particular Data source model.
     """
     model = DataSource
+    detailed_model = None
     form_class = DataSourceCreateForm
     template_name = 'datasource/datasource_create.html'
     success_url = reverse_lazy('index')
+    details_model_class = None
+
+    def get_detailed_data_source_object(self):
+        return None
+        # return self.details_model_class.objects.get(id=self.object.id)
 
     def get_details_form_class(self):
         """
@@ -98,6 +105,8 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
             detailed_data_source.data_source = data_source
             detailed_data_source.save()
         form = super(DataSourceCreateView, self).form_valid(form)
+        if details_form:
+            detailed_data_source.create_config_file()
         return form
 
     def form_invalid(self, form, details_form):
@@ -142,14 +151,108 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
 class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
     """
-
+    Used to update existing DataSource object - render and validate
+    DataSource and detailed data source object, make updates for
+    both basic and detailed data source objects.
+    Might be inherited for particular Data source model.
     """
     model = DataSource
     form_class = DataSourceCreateForm
     template_name = 'datasource/datasource_create.html'
     success_url = reverse_lazy('index')
 
+
+    def get_details_form_class(self):
+        """
+        Basic method to initialize form for concrete DataSource
+        :return:
+         1. None for general parent DataSource view
+         2. Form class for particular DataSource (i.e. Analytics,
+          Spreadsheets etc.)
+        """
+        return None
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(DataSource, pk=self.kwargs['pk'])
+
+    def get_detailed_data_source_object(self):
+        return None
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests, instantiating a DataSource form instance
+        and details_form for concrete DataSource and then renders them
+        for UI.
+        """
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        details_form = self.get_details_form_class()
+        if self.get_detailed_data_source_object():
+            details_form = details_form(instance=self.get_detailed_data_source_object())
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  details_form=details_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a DataSource form instance
+        and details_form for concrete DataSource with the passed
+        POST variables and then checking them for validity.
+        """
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        details_form = self.get_details_form_class()
+
+        # TODO: Refactor this after all datasources will be added
+        if details_form:
+            details_form = details_form(self.request.POST, self.request.FILES)
+            if form.is_valid() and details_form.is_valid():
+                return self.form_valid(form, details_form)
+            else:
+                return self.form_invalid(form, details_form)
+        else:
+            if form.is_valid():
+                return self.form_valid(form, details_form)
+            else:
+                return self.form_invalid(form, details_form)
+
+    def form_valid(self, form, details_form):
+        """
+        Called if both form and details_form are valid.
+        Creates a DataSource instance along with associated detailed
+        datasource data object and then redirects to a success page.
+        """
+        data_source = form.save(commit=False)
+        # data_source.user = self.request.user
+        # data_source.data_provider_id = self.kwargs.get('provider_id')
+        # data_source.save()
+        if details_form:
+            detailed_data_source = details_form.save(commit=False)
+            detailed_data_source.data_source = data_source
+            detailed_data_source.save()
+        form = super(DataSourceUpdateView, self).form_valid(form)
+        return form
+
+    def form_invalid(self, form, details_form):
+        """
+        Called if any form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  details_form=details_form))
+
     def get_template_names(self):
+        """
+        Checks if template for form UI is exists and
+        adds it's name to set of templates with
+        highest priority
+        :return:
+         Set of template names including form template
+         associated with current DataProvider
+        """
         templates = super(DataSourceUpdateView, self).get_template_names()
         try:
             provider = DataProvider.objects.get(id=self.object.data_provider.id)
@@ -159,6 +262,13 @@ class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
         return templates
 
     def get_context_data(self, **kwargs):
+        """
+        Updates context object with DataProvider object
+        to be used in form template
+        :param kwargs:
+        :return:
+         Updated context object
+        """
         context = super(DataSourceUpdateView, self).get_context_data(**kwargs)
         provider = DataProvider.objects.get(id=self.object.data_provider.id)
         context['provider'] = provider

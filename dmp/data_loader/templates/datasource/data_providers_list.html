@@ -42,39 +42,18 @@
                                     <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
                                 </a>
                             {% else %}
-                                <a href="{% url 'data_loader:datasource-create' provider_id=provider.pk %}" class="button button-outline">
-                                    <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
-                                </a>
+                                {% if provider.name == 'spreadsheets' %}
+                                    <a href="{% url 'data_loader:spreadsheets-datasource-create' provider_id=provider.pk %}" class="button button-outline">
+                                        <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'data_loader:datasource-create' provider_id=provider.pk %}" class="button button-outline">
+                                        <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
+                                    </a>
+                                {% endif %}
                             {% endif %}
                             </li>
                         {% endfor %}
-{#                        <li><a href="{% url 'data_loader:datasource-create' %}" class="button button-outline">#}
-{#                                <span class="icon icon-analytics"></span> Google Analytics#}
-{#                            </a></li>#}
-{#                        <li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-salesforce"></span> Salesforce</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-amazon"></span> Amazon S3</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-spreadsheets"></span> Google Spreadsheets</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-marketo"></span> Marketo Marketing Automated Platform</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-mysql"></span> MySQL Database</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-postgres"></span> Postgres</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-googlecloud"></span> Google Cloud Storage</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-redshift"></span> Amazon Redshift</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> JDBC Database connection</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Hadoop filesysytem</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Mixpanel</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Mongo Database</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Data over HTTP connection</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Atlassian Jira</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Oracle Database</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Zendesk</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Microsoft SQL Server</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> FTP Server</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Amazon DynamoDB</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Secure FTP</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> HP Vertica Database</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Twitter Archive</a></li><li>#}
-{#                        <a href="{% url 'data_loader:datasource-create' %}" class="button button-outline"><span class="icon icon-"></span> Teradata</a></li>#}
                     </ul>
                 </div>
             </div>

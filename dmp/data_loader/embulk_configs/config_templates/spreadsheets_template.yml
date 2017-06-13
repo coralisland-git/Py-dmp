@@ -1,0 +1,37 @@
+in:
+  type: google_spreadsheets
+  auth_method: service_account
+  json_keyfile: private_key.json
+  spreadsheets_url: https://docs.google.com/spreadsheets/d/1e3T8AAzMMl7ffWuxv-lHhjgoqofYbiJ1epB58gihjJU/edit?usp=sharing
+  worksheet_title: embulk_campaigns
+  start_row: 2
+  default_timezone: Europe/Kiev
+  default_typecast: strict
+  value_render_option: FORMATTED_VALUE
+  default_timestamp_format: '%Y.%m.%d'
+  columns:
+    - {name: date, type: timestamp}
+    - {name: visits, type: double}
+    - {name: Adwords_spend, type: double}
+    - {name: Facebook_spend, type: double}
+    - {name: LinkedIn_spend, type: double}
+    - {name: Total adspend, type: double}
+    - {name: random figure, type: double}
+
+out:
+  type: redshift
+  host: dmp-redshift.cmdjyatye0iv.eu-central-1.redshift.amazonaws.com
+  port: 5439
+  user: artespankov
+  password: Fruruce7hE
+  database: dmp
+  table: spreadsheets
+  aws_access_key_id: AKIAIP7STKA7WFEAF2QA
+  aws_secret_access_key: zKE04swTdf4Kl+B12OAIZYuiQH3zRmKiuYwZNt3z
+  iam_user_name: artespankov
+  s3_bucket: dmp-redshift
+  s3_key_prefix: redshift/
+  mode: replace
+  column_options:
+    date: {value_type: date}
+    visits: {type: float}

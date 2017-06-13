@@ -1,5 +1,5 @@
 from django import forms
-from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource
+from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -34,14 +34,28 @@ class AnalyticsDataSourceForm(forms.ModelForm):
                'placeholder': _('Analytics metrics'),
                'maxlength': 255}))
 
-    # # google-spreadsheets specific field
-    # document_url = forms.CharField(max_length=355, required=False, widget=forms.TextInput(attrs={'class': 'form-input',
-    #                                                                            'placeholder': _('Spreadsheets URL'),
-    #                                                                            'maxlength': 355}))
-
     class Meta:
         model = AnalyticsDataSource
         fields = ('account_id', 'upload_file', 'dimensions', 'metrics')
+
+
+class SpreadsheetsDataSourceForm(forms.ModelForm):
+
+    worksheet_id = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('ID'),
+               'maxlength': 255}))
+
+    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json'])])
+
+    document_url = forms.CharField(max_length=355, widget=forms.TextInput(attrs={'class': 'form-input',
+                                                                                 'placeholder': _('Spreadsheets URL'),
+                                                                                 'maxlength': 355}))
+
+    class Meta:
+        model = SpreadsheetsDataSource
+        fields = ('worksheet_id', 'upload_file', 'document_url')
 
 
 class DataSourceUpdateForm(forms.Form):
