@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col col-50">
                             <form id="form-create" method="POST" action="" enctype="multipart/form-data">
-                                    {% for error in form.non_field_errors %}
+                                    {% for error in details_form.non_field_errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                 {% csrf_token %}

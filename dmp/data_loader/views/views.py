@@ -207,7 +207,7 @@ class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
 
         # TODO: Refactor this after all datasources will be added
         if details_form:
-            details_form = details_form(self.request.POST, self.request.FILES)
+            details_form = details_form(self.request.POST, self.request.FILES, instance=self.get_detailed_data_source_object())
             if form.is_valid() and details_form.is_valid():
                 return self.form_valid(form, details_form)
             else:
@@ -225,14 +225,13 @@ class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
         datasource data object and then redirects to a success page.
         """
         data_source = form.save(commit=False)
-        # data_source.user = self.request.user
-        # data_source.data_provider_id = self.kwargs.get('provider_id')
-        # data_source.save()
         if details_form:
             detailed_data_source = details_form.save(commit=False)
             detailed_data_source.data_source = data_source
             detailed_data_source.save()
         form = super(DataSourceUpdateView, self).form_valid(form)
+        if details_form:
+            detailed_data_source.update_config_file()
         return form
 
     def form_invalid(self, form, details_form):

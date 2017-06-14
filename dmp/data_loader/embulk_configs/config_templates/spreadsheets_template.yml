@@ -17,7 +17,6 @@ in:
     - {name: LinkedIn_spend, type: double}
     - {name: Total adspend, type: double}
     - {name: random figure, type: double}
-
 out:
   type: redshift
   host: dmp-redshift.cmdjyatye0iv.eu-central-1.redshift.amazonaws.com

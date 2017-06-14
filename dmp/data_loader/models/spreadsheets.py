@@ -27,10 +27,9 @@ class SpreadsheetsDataSource(DataSource):
             return template_path
 
     def write_config_content(self, path, template_data):
-        fname = os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
-                                                                                  data_source_id=self.id))
+        fname = self.get_config_path(path)
         with codecs.open(fname, 'w', 'utf-8') as yaml_file:
-            yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True))
+            yaml_file.write(yaml.round_trip_dump(template_data))
         return fname
 
     def check_provider_configs_path(self):
@@ -41,9 +40,10 @@ class SpreadsheetsDataSource(DataSource):
 
     def update_config_content_for_analytics(self, template_data):
         from django.conf import settings
-        with codecs.open(os.path.join(settings.MEDIA_ROOT, self.upload_file.name), 'r', 'utf-8') as key_file:
-            key_data = key_file.read()
-        template_data['in']['json_keyfile'] = key_data
+        # with codecs.open(os.path.join(settings.MEDIA_ROOT, self.upload_file.name), 'r', 'utf-8') as key_file:
+        #     key_data = key_file.read()
+
+        template_data['in']['json_keyfile'] = self.upload_file.path
         template_data['in']['spreadsheets_url'] = self.document_url
         template_data['in']['worksheet_title'] = self.worksheet_id
         template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
@@ -53,5 +53,15 @@ class SpreadsheetsDataSource(DataSource):
 
     def create_config_file(self):
         template_content = self.get_config_template_content()
+        template_content = self.update_config_content_for_analytics(template_content)
+        return self.write_config_content(self.check_provider_configs_path(), template_content)
+
+
+    def get_config_path(self, path):
+        return os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
+                                                                          data_source_id=self.id))
+
+    def update_config_file(self):
+        template_content = self.get_config_template_content(path=self.get_config_path(self.check_provider_configs_path()))
         template_content = self.update_config_content_for_analytics(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)

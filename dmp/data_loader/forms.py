@@ -21,15 +21,15 @@ class AnalyticsDataSourceForm(forms.ModelForm):
                'placeholder': _('ID'),
                'maxlength': 255}))
 
-    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+    upload_file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
-    dimensions = forms.CharField(required=False, max_length=255, widget=forms.TextInput(
+    dimensions = forms.CharField(max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-input',
                'placeholder': _('Analytics dimensions'),
                'maxlength': 255}))
 
-    metrics = forms.CharField(required=False, max_length=255, widget=forms.TextInput(
+    metrics = forms.CharField(max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-input',
                'placeholder': _('Analytics metrics'),
                'maxlength': 255}))
@@ -46,7 +46,7 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
                'placeholder': _('ID'),
                'maxlength': 255}))
 
-    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+    upload_file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
     document_url = forms.CharField(max_length=355, widget=forms.TextInput(attrs={'class': 'form-input',

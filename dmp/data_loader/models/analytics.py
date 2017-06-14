@@ -9,8 +9,8 @@ class AnalyticsDataSource(DataSource):
     data_source = models.OneToOneField(DataSource)
     account_id = models.CharField('Account ID', max_length=255, default=None)
     upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None)
-    dimensions = models.CharField('Analytics dimensions', max_length=355, blank=True, null=True)
-    metrics = models.CharField('Analytics metrics', max_length=355, blank=True, null=True)
+    dimensions = models.CharField('Analytics dimensions', max_length=355, default=None)
+    metrics = models.CharField('Analytics metrics', max_length=355, default=None)
 
     class Meta:
         verbose_name = 'Google Analytics Data source'
@@ -28,10 +28,12 @@ class AnalyticsDataSource(DataSource):
         if os.path.exists(template_path):
             return template_path
 
+    def get_config_path(self, path):
+        return os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
+                                                                          data_source_id=self.id))
 
     def write_config_content(self, path, template_data):
-        fname = os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
-                                                                                  data_source_id=self.id))
+        fname = self.get_config_path(path)
         with codecs.open(fname, 'w', 'utf-8') as yaml_file:
             yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True))
         return fname
@@ -74,5 +76,10 @@ class AnalyticsDataSource(DataSource):
 
     def create_config_file(self):
         template_content = self.get_config_template_content()
+        template_content = self.update_config_content_for_analytics(template_content)
+        return self.write_config_content(self.check_provider_configs_path(), template_content)
+
+    def update_config_file(self):
+        template_content = self.get_config_template_content(path=self.get_config_path(self.check_provider_configs_path()))
         template_content = self.update_config_content_for_analytics(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)

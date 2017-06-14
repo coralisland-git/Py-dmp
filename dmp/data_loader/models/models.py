@@ -36,11 +36,16 @@ class DataSource(models.Model):
         if os.path.exists(template_path):
             return template_path
 
-    def get_config_template_content(self):
-        template = self.check_config_template_path()
-        with codecs.open(template, 'r', 'utf-8') as fi:
-            template_data = yaml.round_trip_load(fi, preserve_quotes=True)
-        return template_data
+    def get_config_template_content(self, path=None):
+        if path:
+            with codecs.open(path, 'r', 'utf-8') as fi:
+                config_data = yaml.round_trip_load(fi, preserve_quotes=True)
+            return config_data
+        else:
+            template = self.check_config_template_path()
+            with codecs.open(template, 'r', 'utf-8') as fi:
+                template_data = yaml.round_trip_load(fi, preserve_quotes=True)
+            return template_data
 
     def write_config_content(self, path, template_data):
         fname = os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.user.id,
