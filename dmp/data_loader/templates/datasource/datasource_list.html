@@ -35,6 +35,7 @@
                                 <td class="datasources-table-name"><span class="icon icon-{{ datasource.data_provider.name }}"></span>{{ datasource.name }}</td>
                                 <td class="datasources-type">{{ datasource.data_provider.title}}</td>
                                 <td class="datasources-actions">
+                                    <span class="ds-info">{{ datasource.id }}</span>
                                     {% if datasource.data_provider.name == 'analytics' %}
                                         <a href="{% url "data_loader:analytics-datasource-update" pk=datasource.pk %}" class="button button-action"><span class="fa fa-pencil"></span></a>
                                     {% else %}

@@ -6,16 +6,23 @@
         <div class="page-title">
             <div class="content">
                 <h1>Profile info</h1>
+                <div class="page-title-actions">
+                    <span class="user-info-id">{{ request.user.id }}</span>
+                    <span class="user-info">{{ request.user.email|truncatechars:40 }}</span>
+                </div>
             </div>
+
         </div>
 
         <div class="page-content">
             <div class="content">
 
                 <div class="box">
+
                     <div class="form-note">
                          Please tell us about your personality.
                     </div>
+
                     <div class="row">
                         <div class="col col-50">
                             <form id="form-profile-update" method="POST" action="">
@@ -38,7 +45,6 @@
                                     {{ form.last_name }}
                                 </div>
                                 <div class="form-buttons">
-{#                                    <a href="#" class="button button-gray">Preview</a>#}
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-profile-update').submit(); return false;" class="button button-green">Update</a>
                                 </div>
                             </form>
