@@ -39,14 +39,14 @@ class AnalyticsDataSource(DataSource):
 
     def get_dimensions(self):
         if self.dimensions:
-            dimensions = ['ga:{}'.format(dimension.strip()) for dimension in self.dimensions.split(';')]
+            dimensions = ['{}'.format(dimension.strip()) for dimension in self.dimensions.split(';')]
             return dimensions
         else:
             return None
 
     def get_metrics(self):
         if self.metrics:
-            metrics = ['ga:{}'.format(metrics.strip()) for metrics in self.metrics.split(';')]
+            metrics = ['{}'.format(metrics.strip()) for metrics in self.metrics.split(';')]
             return metrics
         else:
             return None

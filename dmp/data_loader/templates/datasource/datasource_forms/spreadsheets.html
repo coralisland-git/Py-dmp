@@ -19,6 +19,11 @@
                     <div class="form-note">
                         <span class="fa fa-lock"></span>
                         All sensitive information is encrypted before stored
+                        {% if form.instance.pk %}
+                            <br>
+                            <br>
+                            <b>Note:</b> Implied table name for output storage - {{ provider.name }}_{{ request.user.id }}_{{ form.instance.id }}
+                        {% endif %}
                     </div>
                     <div class="row">
                         <div class="col col-50">
