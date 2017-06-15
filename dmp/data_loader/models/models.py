@@ -22,6 +22,13 @@ class DataSource(models.Model):
         verbose_name = 'Data source'
         verbose_name_plural = 'Data source'
 
+    def get_output_table_name(self):
+        return "Default table name for output storage - {provider_name}_{user_id}_{data_source_id}"\
+            .format(provider_name=self.data_provider.name,
+                    user_id=self.user.id,
+                    data_source_id=self.id)
+
+
     def get_configs_base_path(self):
         return os.path.join(settings.BASE_DIR, self._meta.app_label, 'embulk_configs')
 
