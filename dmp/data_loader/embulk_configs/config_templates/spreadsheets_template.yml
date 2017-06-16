@@ -1,9 +1,6 @@
 in:
   type: google_spreadsheets
   auth_method: service_account
-  json_keyfile: private_key.json
-  spreadsheets_url: https://docs.google.com/spreadsheets/d/1e3T8AAzMMl7ffWuxv-lHhjgoqofYbiJ1epB58gihjJU/edit?usp=sharing
-  worksheet_title: embulk_campaigns
   start_row: 2
   default_timezone: Europe/Kiev
   default_typecast: strict
@@ -31,6 +28,3 @@ out:
   s3_bucket: dmp-redshift
   s3_key_prefix: redshift/
   mode: replace
-  column_options:
-    date: {value_type: date}
-    visits: {type: float}

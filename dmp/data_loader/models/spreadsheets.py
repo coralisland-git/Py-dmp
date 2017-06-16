@@ -3,13 +3,24 @@ import codecs
 from django.db import models
 from .models import DataSource
 import ruamel.yaml as yaml
+from jsonfield import JSONField
 
 
 class SpreadsheetsDataSource(DataSource):
+
+    COLUMN_TYPES = {1: 'boolean',
+                    2: 'long',
+                    3: 'double',
+                    4: 'string',
+                    5: 'timestamp',
+                    6: 'json'}
+
     data_source = models.OneToOneField(DataSource)
     worksheet_id = models.CharField('Account ID', max_length=255, default=None)
     upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None)
     document_url = models.CharField('Document URL', max_length=355, default=None)
+    field_list = JSONField('Embulk-related set of fields serialized into JSON-format. '
+                           'Default schema is column_name:column_type', default=None)
 
     class Meta:
         verbose_name = 'Google Analytics Data source'
