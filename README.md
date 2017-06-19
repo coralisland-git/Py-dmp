@@ -236,3 +236,13 @@ cd /var/www/html/data-management-platform/dmp
 python3 manage.py add_user
 ```
 You will be prompted for email and password.
+
+## Project architecture ##
+
+### Current state ###
+
+![Untitled Diagram (1).png](https://bitbucket.org/repo/baanxyR/images/3992100494-Untitled%20Diagram%20(1).png)
+
+### Project architecture TBD ###
+
+![DMP Flow Diagram (1).png](https://bitbucket.org/repo/baanxyR/images/1893256626-DMP%20Flow%20Diagram%20(1).png)
