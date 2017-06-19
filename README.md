@@ -241,8 +241,7 @@ You will be prompted for email and password.
 
 ### Current state ###
 
-![Untitled Diagram (1).png](https://bitbucket.org/repo/baanxyR/images/3992100494-Untitled%20Diagram%20(1).png)
+![DMPCurrentFlowDiagram.png](https://bitbucket.org/repo/baanxyR/images/2119264928-DMPCurrentFlowDiagram.png)
 
 ### Project architecture TBD ###
-
-![DMP Flow Diagram (1).png](https://bitbucket.org/repo/baanxyR/images/1893256626-DMP%20Flow%20Diagram%20(1).png)
+![DMPFlowDiagram .png](https://bitbucket.org/repo/baanxyR/images/1876695687-DMPFlowDiagram%20.png)
