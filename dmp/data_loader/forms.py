@@ -53,6 +53,8 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
                                                                                  'placeholder': _('Spreadsheets URL'),
                                                                                  'maxlength': 355}))
 
+    field_types = forms.ChoiceField(choices=list((x,y) for x,y  in SpreadsheetsDataSource.COLUMN_TYPES.items()))
+
     class Meta:
         model = SpreadsheetsDataSource
         fields = ('worksheet_id', 'upload_file', 'document_url')

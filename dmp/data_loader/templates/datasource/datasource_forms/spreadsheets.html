@@ -58,6 +58,44 @@
                                         {{ details_form.upload_file }}
                                     </div>
                                 </div>
+                                {# Fields block for embulk logic #}
+                                <div class="form-row">
+                                    <div class="form-label">Fields structure of input spreadsheets document:</div>
+                                    <div class="form-label"></div>
+{#                                    <div class="row clearfix">#}
+{#                                        <div class="col-md-12 column">#}
+                                            <table class="table table-spreadsheets" id="tab_logic">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <span class="th-field-title">Field name</span>
+                                                        </th>
+                                                        <th>
+                                                            <span class="th-field-title">Field type</span>
+                                                        </th>
+                                                        <th>
+                                                            <a id="add_row" class="button button-green">Add Row</a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr id='field0'>
+                                                        <td>
+                                                        <input type="text" name='name0'  placeholder='Field name (i.e )' class="form-input"/>
+                                                        </td>
+                                                        <td>
+{#                                                        <input type="text" name='type0' placeholder='Field type' class="form-input"/>#}
+                                                            {{ details_form.field_types }}
+                                                        </td>
+                                                        <td class="td-last"></td>
+                                                    </tr>
+                                                    <tr id='field1'></tr>
+                                                </tbody>
+                                            </table>
+{#                                        </div>#}
+{#                                    </div>#}
+
+                                </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
