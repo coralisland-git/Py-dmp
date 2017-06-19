@@ -65,7 +65,13 @@ pip3 install -r /var/www/html/data-management-platform/dmp/requirements.txt
 ```
 
 ### WSGI script ###
+
 Create wsgi script.
+
+Copy wsgi template and check 2 paths (edit if necessary).Just check that paths are exists becuase it depends on your virtual environment setup, files location and version of python available on OS distribution (used by default in **Python environment setup** section - python 3.5):
+
+1. Site packages path ('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
+2. Activate env script path ('/var/www/html/.virtualenvs/dmp/bin/activate_this.py') 
 
 ```
 #!
@@ -74,9 +80,12 @@ cd /var/www/html/data-management-platform/dmp
 sudo touch wsgi.py
 ```
 
-Copy wsgi template and edit site packages path ('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
-and activate env script path ('/var/www/html/.virtualenvs/dmp/bin/activate_this.py') 
-accordingly to your project virtual environment setup and location
+
+
+Notice:
+/var/www/html/.virtualenvs/dmp - path to virtual environment mentioned in **Python environment setup** section
+
+
 
 ```
 #!
@@ -236,3 +245,24 @@ cd /var/www/html/data-management-platform/dmp
 python3 manage.py add_user
 ```
 You will be prompted for email and password.
+
+## Project architecture ##
+
+### Current state ###
+
+[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/2119264928-DMPCurrentFlowDiagram.png)
+
+![DMPCurrentFlowDiagram.png](https://bitbucket.org/repo/baanxyR/images/2119264928-DMPCurrentFlowDiagram.png)
+
+### Project architecture TBD ###
+
+[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/1876695687-DMPFlowDiagram%20.png)
+
+![DMPFlowDiagram .png](https://bitbucket.org/repo/baanxyR/images/1876695687-DMPFlowDiagram%20.png)
+
+
+### DB scheme ###
+
+[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/2665672642-DB.png)
+
+![DB.png](https://bitbucket.org/repo/baanxyR/images/2665672642-DB.png)
