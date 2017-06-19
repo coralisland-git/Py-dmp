@@ -244,4 +244,10 @@ You will be prompted for email and password.
 ![DMPCurrentFlowDiagram.png](https://bitbucket.org/repo/baanxyR/images/2119264928-DMPCurrentFlowDiagram.png)
 
 ### Project architecture TBD ###
+
 ![DMPFlowDiagram .png](https://bitbucket.org/repo/baanxyR/images/1876695687-DMPFlowDiagram%20.png)
+
+
+### DB scheme ###
+
+![DB diagram.png](https://bitbucket.org/repo/baanxyR/images/2359028539-DB%20diagram.png)
