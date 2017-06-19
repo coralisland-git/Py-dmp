@@ -65,7 +65,13 @@ pip3 install -r /var/www/html/data-management-platform/dmp/requirements.txt
 ```
 
 ### WSGI script ###
+
 Create wsgi script.
+
+Copy wsgi template and check 2 paths (edit if necessary).Just check that paths are exists becuase it depends on your virtual environment setup, files location and version of python available on OS distribution (used by default in **Python environment setup** section - python 3.5):
+
+1. Site packages path ('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
+2. Activate env script path ('/var/www/html/.virtualenvs/dmp/bin/activate_this.py') 
 
 ```
 #!
@@ -74,9 +80,12 @@ cd /var/www/html/data-management-platform/dmp
 sudo touch wsgi.py
 ```
 
-Copy wsgi template and edit site packages path ('/var/www/html/.virtualenvs/dmp/lib/python3.5/site-packages')
-and activate env script path ('/var/www/html/.virtualenvs/dmp/bin/activate_this.py') 
-accordingly to your project virtual environment setup and location
+
+
+Notice:
+/var/www/html/.virtualenvs/dmp - path to virtual environment mentioned in **Python environment setup** section
+
+
 
 ```
 #!
