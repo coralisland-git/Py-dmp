@@ -4,27 +4,30 @@ from django.db import models
 from .models import DataSource
 import ruamel.yaml as yaml
 from jsonfield import JSONField
-
-
+import json
+from ruamel.yaml.comments import CommentedMap, CommentedSeq
+from ruamel.yaml.compat import ordereddict
 class SpreadsheetsDataSource(DataSource):
 
-    COLUMN_TYPES = {1: 'boolean',
-                    2: 'long',
-                    3: 'double',
-                    4: 'string',
-                    5: 'timestamp',
-                    6: 'json'}
+    COLUMN_TYPES = ['boolean',
+                    'long',
+                    'double',
+                    'string',
+                    'timestamp',
+                    'json']
 
     data_source = models.OneToOneField(DataSource)
     worksheet_id = models.CharField('Account ID', max_length=255, default=None)
     upload_file = models.FileField('Upload file', upload_to='file_uploads', default=None)
     document_url = models.CharField('Document URL', max_length=355, default=None)
     field_list = JSONField('Embulk-related set of fields serialized into JSON-format. '
-                           'Default schema is column_name:column_type', default=None)
+                           'Default schema is column_name:column_type', default={})
 
     class Meta:
         verbose_name = 'Google Analytics Data source'
         verbose_name_plural = 'Google Analytics Data source'
+
+
 
     #TODO: Refactor all things which not related on details model but on linked DataSource model
     # (check_config_template_path, check_provider_configs_path, update_config_content_for_analytics, write_config_content)
@@ -40,7 +43,7 @@ class SpreadsheetsDataSource(DataSource):
     def write_config_content(self, path, template_data):
         fname = self.get_config_path(path)
         with codecs.open(fname, 'w', 'utf-8') as yaml_file:
-            yaml_file.write(yaml.round_trip_dump(template_data))
+            yaml_file.write(yaml.round_trip_dump(template_data, block_seq_indent=True, default_flow_style=True))
         return fname
 
     def check_provider_configs_path(self):
@@ -50,13 +53,13 @@ class SpreadsheetsDataSource(DataSource):
         return path
 
     def update_config_content_for_analytics(self, template_data):
-        from django.conf import settings
-        # with codecs.open(os.path.join(settings.MEDIA_ROOT, self.upload_file.name), 'r', 'utf-8') as key_file:
-        #     key_data = key_file.read()
-
         template_data['in']['json_keyfile'] = self.upload_file.path
         template_data['in']['spreadsheets_url'] = self.document_url
         template_data['in']['worksheet_title'] = self.worksheet_id
+        fields = list()
+        for key, value in self.field_list.items():
+            fields.append({'name': key, 'type': value})
+        template_data['in']['columns'] = fields
         template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
                                                           self.data_source.user_id,
                                                           self.id)

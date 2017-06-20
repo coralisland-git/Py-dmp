@@ -62,9 +62,10 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        details_form = self.get_details_form_class()
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  details_form=self.get_details_form_class()))
+                                  details_form=details_form(request=request)))
 
     def post(self, request, *args, **kwargs):
         """
@@ -79,7 +80,7 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
         # TODO: Refactor this after all datasources will be added
         if details_form:
-            details_form = details_form(self.request.POST, self.request.FILES)
+            details_form = details_form(self.request.POST, self.request.FILES, request=request)
             if form.is_valid() and details_form.is_valid():
                 return self.form_valid(form, details_form)
             else:
@@ -189,7 +190,7 @@ class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
         form = self.get_form(form_class)
         details_form = self.get_details_form_class()
         if self.get_detailed_data_source_object():
-            details_form = details_form(instance=self.get_detailed_data_source_object())
+            details_form = details_form(instance=self.get_detailed_data_source_object(), request=request)
         return self.render_to_response(
             self.get_context_data(form=form,
                                   details_form=details_form))
@@ -207,7 +208,7 @@ class DataSourceUpdateView(LoginRequiredMixin, UpdateView):
 
         # TODO: Refactor this after all datasources will be added
         if details_form:
-            details_form = details_form(self.request.POST, self.request.FILES, instance=self.get_detailed_data_source_object())
+            details_form = details_form(self.request.POST, self.request.FILES, instance=self.get_detailed_data_source_object(), request=request)
             if form.is_valid() and details_form.is_valid():
                 return self.form_valid(form, details_form)
             else:

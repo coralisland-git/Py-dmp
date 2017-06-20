@@ -12,18 +12,29 @@ $(document).ready(function(){
 
      });
 
+  function createRow(){
+      var field_name_elem = $('input[name=field_name0]').clone();
+      var field_type_elem =$('select[name=field_type0]').clone();
+      field_name_elem.attr('name', 'field_name'+i);
+      field_name_elem.attr('id', 'id_field_name'+i);
+      field_name_elem.val('');
+      field_type_elem.attr('name','field_type'+i );
+      field_type_elem.attr('id', 'id_field_type'+i);
+      var outer_html = $('#field'+i).html($('<td></td>').append(field_name_elem));
+      outer_html.append($('<td></td>').append(field_type_elem));
+      outer_html.append("<td class='td-last'><a class='button button-green delete-row'>Delete</a></td>");
+      return outer_html;
+  }
+
   function addTableRow(){
-            $('#field'+i).html(
-                "<td><input  name='name"+i+"' type='text' placeholder='Field name'  class='form-input'></td>" +
-                "<td><input  name='type"+i+"' type='text' placeholder='Field type'  class='form-input'></td>"+
-                "<td class='td-last'><a class='button button-green delete-row'>Delete</a></td>"
-            );
+            createRow();
+            // $('#field'+i).html(createRow());
             $('#tab_logic').append('<tr id="field'+(i+1)+'"></tr>');
-            deleteTableRow();
+            initializeDeleteTableRow();
           i++;
   }
 
-  function deleteTableRow(){
+  function initializeDeleteTableRow(){
         $('.delete-row').click(function () {
             $(this).closest('tr').remove();
         });

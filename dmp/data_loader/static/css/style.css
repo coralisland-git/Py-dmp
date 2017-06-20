@@ -697,6 +697,10 @@ table th, table td {
     background: #f5f5f5;
 }
 
+.select-dropdown{
+	width:100%;
+}
+
 @media screen and (max-width: 980px) {
 	.page-supplements .col-33 {
 		width: 50%;

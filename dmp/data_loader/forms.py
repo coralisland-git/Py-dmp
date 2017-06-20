@@ -34,6 +34,10 @@ class AnalyticsDataSourceForm(forms.ModelForm):
                'placeholder': _('Analytics metrics'),
                'maxlength': 255}))
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(AnalyticsDataSourceForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = AnalyticsDataSource
         fields = ('account_id', 'upload_file', 'dimensions', 'metrics')
@@ -53,12 +57,43 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
                                                                                  'placeholder': _('Spreadsheets URL'),
                                                                                  'maxlength': 355}))
 
-    field_types = forms.ChoiceField(choices=list((x,y) for x,y  in SpreadsheetsDataSource.COLUMN_TYPES.items()))
+    field_type0 = forms.ChoiceField(choices=list((x,y) for x,y  in enumerate(SpreadsheetsDataSource.COLUMN_TYPES)),
+                                    widget=forms.Select(attrs={'class': 'form-input'})
+                                    )
+
+    field_name0 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+
+        'class': 'form-input',
+                                                                               'placeholder': _('Field name'),
+                                                                               'maxlength': 100}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(SpreadsheetsDataSourceForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = SpreadsheetsDataSource
         fields = ('worksheet_id', 'upload_file', 'document_url')
 
+    def prepare_fields_list(self):
+        fields_count = 0
+        fields = dict()
+        for key in self.request.POST.keys():
+            if 'field_name' in key:
+                fields_count += 1
+
+        for i in range(0, fields_count):
+            fields.update({self.request.POST.get('field_name'+str(i)): SpreadsheetsDataSource.COLUMN_TYPES[int(self.request.POST.get('field_type'+str(i)))]})
+        return fields
+
+
+    def save(self, commit=True):
+        spreadsheets_ds = super(SpreadsheetsDataSourceForm, self).save(commit=False)
+        spreadsheets_ds.field_list = self.prepare_fields_list()
+
+        if commit:
+            spreadsheets_ds.save()
+        return spreadsheets_ds
 
 class DataSourceUpdateForm(forms.Form):
     pass

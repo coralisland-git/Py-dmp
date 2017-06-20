@@ -4,6 +4,7 @@ from data_loader.models import SpreadsheetsDataSource
 
 
 class SpreadsheetsDataSourceCreateView(DataSourceCreateView):
+    details_model_class = SpreadsheetsDataSource
 
     def get_details_form_class(self):
         return SpreadsheetsDataSourceForm
