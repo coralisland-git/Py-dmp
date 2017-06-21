@@ -2,6 +2,7 @@ from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
+from collections import OrderedDict
 
 
 class DataSourceCreateForm(forms.ModelForm):
@@ -61,11 +62,11 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
                                     widget=forms.Select(attrs={'class': 'form-input'})
                                     )
 
-    field_name0 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
-
-        'class': 'form-input',
-                                                                               'placeholder': _('Field name'),
-                                                                               'maxlength': 100}))
+    field_name0 = forms.CharField(max_length=100, error_messages={'required': 'Please, provide information '
+                                                                              'about one field at least.'},
+                                  widget=forms.TextInput(attrs={'class': 'form-input',
+                                                                'placeholder': _('Field name'),
+                                                                'maxlength': 100}))
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
@@ -77,7 +78,7 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
 
     def prepare_fields_list(self):
         fields_count = 0
-        fields = dict()
+        fields = OrderedDict()
         for key in self.request.POST.keys():
             if 'field_name' in key:
                 fields_count += 1

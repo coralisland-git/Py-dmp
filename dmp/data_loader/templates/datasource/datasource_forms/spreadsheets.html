@@ -60,7 +60,15 @@
                                 </div>
                                 {# Fields block for embulk logic #}
                                 <div class="form-row">
-                                    <div class="form-label">Fields structure of input spreadsheets document:</div>
+                                    <div class="form-label">Fields structure of input spreadsheets document</div>
+                                    <div class="form-note">
+                                            <b>Note:</b> Provide information about one
+                                                         or more fields (column name and type) from source spreadsheets
+                                                         document to help us to process data correctly
+                                    </div>
+                                    {% for error in details_form.field_name0.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
                                     <div class="form-label"></div>
 {#                                    <div class="row clearfix">#}
 {#                                        <div class="col-md-12 column">#}

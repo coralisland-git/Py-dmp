@@ -4,9 +4,8 @@ from django.db import models
 from .models import DataSource
 import ruamel.yaml as yaml
 from jsonfield import JSONField
-import json
-from ruamel.yaml.comments import CommentedMap, CommentedSeq
-from ruamel.yaml.compat import ordereddict
+
+
 class SpreadsheetsDataSource(DataSource):
 
     COLUMN_TYPES = ['boolean',
@@ -26,7 +25,6 @@ class SpreadsheetsDataSource(DataSource):
     class Meta:
         verbose_name = 'Google Analytics Data source'
         verbose_name_plural = 'Google Analytics Data source'
-
 
 
     #TODO: Refactor all things which not related on details model but on linked DataSource model
@@ -52,14 +50,17 @@ class SpreadsheetsDataSource(DataSource):
             os.makedirs(path)
         return path
 
+    def make_column_list(self):
+        fields = list()
+        for key, value in self.field_list.items():
+            fields.append({'name': key, 'type': value})
+        return fields
+
     def update_config_content_for_analytics(self, template_data):
         template_data['in']['json_keyfile'] = self.upload_file.path
         template_data['in']['spreadsheets_url'] = self.document_url
         template_data['in']['worksheet_title'] = self.worksheet_id
-        fields = list()
-        for key, value in self.field_list.items():
-            fields.append({'name': key, 'type': value})
-        template_data['in']['columns'] = fields
+        template_data['in']['columns'] = self.make_column_list()
         template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
                                                           self.data_source.user_id,
                                                           self.id)
@@ -70,10 +71,9 @@ class SpreadsheetsDataSource(DataSource):
         template_content = self.update_config_content_for_analytics(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)
 
-
     def get_config_path(self, path):
         return os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
-                                                                          data_source_id=self.id))
+                                                                                 data_source_id=self.id))
 
     def update_config_file(self):
         template_content = self.get_config_template_content(path=self.get_config_path(self.check_provider_configs_path()))
