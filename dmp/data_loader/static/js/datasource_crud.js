@@ -6,11 +6,11 @@ $(document).on('change', ':file', function() {
 
 
 $(document).ready(function(){
-      var i=1;
+     var i=parseInt($("#tab_logic").find('tr').last().attr('data-counter'));
      $("#add_row").click(function(){
          addTableRow();
-
      });
+    initializeDeleteTableRow();
 
   function createRow(){
       var field_name_elem = $('input[name=field_name0]').clone();
@@ -28,7 +28,6 @@ $(document).ready(function(){
 
   function addTableRow(){
             createRow();
-            // $('#field'+i).html(createRow());
             $('#tab_logic').append('<tr id="field'+(i+1)+'"></tr>');
             initializeDeleteTableRow();
           i++;

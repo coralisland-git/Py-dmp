@@ -70,40 +70,56 @@
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-label"></div>
-{#                                    <div class="row clearfix">#}
-{#                                        <div class="col-md-12 column">#}
-                                            <table class="table table-spreadsheets" id="tab_logic">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <span class="th-field-title">Field name</span>
-                                                        </th>
-                                                        <th>
-                                                            <span class="th-field-title">Field type</span>
-                                                        </th>
-                                                        <th>
-                                                            <a id="add_row" class="button button-green">Add Row</a>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr id='field0'>
+                                    <table class="table table-spreadsheets" id="tab_logic">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <span class="th-field-title">Field name</span>
+                                                </th>
+                                                <th>
+                                                    <span class="th-field-title">Field type</span>
+                                                </th>
+                                                <th>
+                                                    <a id="add_row" class="button button-green">Add Row</a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if not form.instance.pk or not details_form.instance.get_field_list %}
+                                                <tr id='field0'>
+                                                    <td>
+                                                        {{ details_form.field_name0 }}
+                                                    </td>
+                                                    <td>
+                                                        {{ details_form.field_type0 }}
+                                                    </td>
+                                                    <td class="td-last"></td>
+                                                </tr>
+                                                <tr id='field1' data-counter="1"></tr>
+                                            {% else %}
+                                                {% for field_name_value, field_type_value in details_form.instance.get_field_list.items  %}
+                                                    <tr id='field{{ forloop.counter0 }}'>
                                                         <td>
-                                                            {{ details_form.field_name0 }}
-{#                                                        <input type="text" name='name0'  placeholder='Field name (i.e )' class="form-input"/>#}
+                                                            <input type="text" name="field_name{{ forloop.counter0 }}" class="form-input" maxlength="100" required="" id="id_field_name0" placeholder="Field name" value="{{ field_name_value }}">
                                                         </td>
                                                         <td>
-{#                                                        <input type="text" name='type0' placeholder='Field type' class="form-input"/>#}
-                                                            {{ details_form.field_type0 }}
+                                                            <select name="field_type{{ forloop.counter0 }}" class="form-input" id="id_field_type{{ forloop.counter0 }}">
+                                                                {% for type in details_form.instance.COLUMN_TYPES %}
+                                                                    <option value="{{ forloop.counter0 }}" {% if type == field_type_value %} selected {% endif %}>{{ type }}</option>
+                                                                {% endfor %}
+                                                            </select>
                                                         </td>
-                                                        <td class="td-last"></td>
+                                                        {% if forloop.counter0 != 0 %}
+                                                            <td class='td-last'><a class='button button-green delete-row'>Delete</a></td>
+                                                        {% else %}
+                                                            <td class="td-last"></td>
+                                                        {% endif %}
                                                     </tr>
-                                                    <tr id='field1'></tr>
-                                                </tbody>
-                                            </table>
-{#                                        </div>#}
-{#                                    </div>#}
-
+                                                    {% if forloop.last %} <tr id='field{{ forloop.counter }}' data-counter="{{ forloop.counter }}"></tr>{% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>

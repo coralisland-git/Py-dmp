@@ -4,7 +4,7 @@ from django.db import models
 from .models import DataSource
 import ruamel.yaml as yaml
 from jsonfield import JSONField
-
+from collections import OrderedDict
 
 class SpreadsheetsDataSource(DataSource):
 
@@ -26,6 +26,11 @@ class SpreadsheetsDataSource(DataSource):
         verbose_name = 'Google Analytics Data source'
         verbose_name_plural = 'Google Analytics Data source'
 
+    def get_field_list(self):
+        fields = OrderedDict()
+        for key in self.field_list.keys():
+            fields[key] = self.field_list[key]
+        return fields
 
     #TODO: Refactor all things which not related on details model but on linked DataSource model
     # (check_config_template_path, check_provider_configs_path, update_config_content_for_analytics, write_config_content)
