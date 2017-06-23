@@ -28,7 +28,6 @@ class DataSource(models.Model):
                     user_id=self.user.id,
                     data_source_id=self.id)
 
-
     def get_configs_base_path(self):
         return os.path.join(settings.BASE_DIR, self._meta.app_label, 'embulk_configs')
 
@@ -45,8 +44,13 @@ class DataSource(models.Model):
 
     def get_config_template_content(self, path=None):
         if path:
-            with codecs.open(path, 'r', 'utf-8') as fi:
-                config_data = yaml.round_trip_load(fi, preserve_quotes=True)
+            try:
+                with codecs.open(path, 'r', 'utf-8') as fi:
+                    config_data = yaml.round_trip_load(fi, preserve_quotes=True)
+            except FileNotFoundError:
+                template = self.check_config_template_path()
+                with codecs.open(template, 'r', 'utf-8') as fi:
+                    config_data = yaml.round_trip_load(fi, preserve_quotes=True)
             return config_data
         else:
             template = self.check_config_template_path()

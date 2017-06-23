@@ -22,7 +22,6 @@ class AnalyticsDataSource(DataSource):
     def filename(self):
         return os.path.basename(self.upload_file.name)
 
-
     def check_config_template_path(self):
         template_path = os.path.join(self.get_configs_base_path(), 'config_templates', 'analytics_template.yml')
         if os.path.exists(template_path):
@@ -30,7 +29,7 @@ class AnalyticsDataSource(DataSource):
 
     def get_config_path(self, path):
         return os.path.join(path, "config_{user_id}_{data_source_id}.yml".format(user_id=self.data_source.user_id,
-                                                                          data_source_id=self.id))
+                                                                                 data_source_id=self.id))
 
     def write_config_content(self, path, template_data):
         fname = self.get_config_path(path)
@@ -59,27 +58,28 @@ class AnalyticsDataSource(DataSource):
             os.makedirs(path)
         return path
 
-    def update_config_content_for_analytics(self, template_data):
+    def update_config_content(self, template_data):
         from django.conf import settings
         with codecs.open(os.path.join(settings.MEDIA_ROOT, self.upload_file.name), 'r', 'utf-8') as key_file:
             key_data = key_file.read()
-        template_data['in']['json_key_content'] = key_data
-        template_data['in']['view_id'] = self.account_id
-        if self.get_dimensions():
-            template_data['in']['dimensions'] = self.get_dimensions()
-        if self.get_metrics():
-            template_data['in']['metrics'] = self.get_metrics()
-        template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
-                                                          self.data_source.user_id,
-                                                          self.id)
+        if template_data:
+            template_data['in']['json_key_content'] = key_data
+            template_data['in']['view_id'] = self.account_id
+            if self.get_dimensions():
+                template_data['in']['dimensions'] = self.get_dimensions()
+            if self.get_metrics():
+                template_data['in']['metrics'] = self.get_metrics()
+            template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
+                                                              self.data_source.user_id,
+                                                              self.id)
         return template_data
 
     def create_config_file(self):
         template_content = self.get_config_template_content()
-        template_content = self.update_config_content_for_analytics(template_content)
+        template_content = self.update_config_content(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)
 
     def update_config_file(self):
         template_content = self.get_config_template_content(path=self.get_config_path(self.check_provider_configs_path()))
-        template_content = self.update_config_content_for_analytics(template_content)
+        template_content = self.update_config_content(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)

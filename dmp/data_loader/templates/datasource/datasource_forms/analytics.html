@@ -47,7 +47,7 @@
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder"> Upload file...</span>
+                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.upload_file %} {{ details_form.instance.filename }} {% else %}Upload file...{% endif %}</span>
                                         {{ details_form.upload_file }}
                                     </div>
                                 </div>

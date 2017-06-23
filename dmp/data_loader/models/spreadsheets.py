@@ -4,7 +4,7 @@ from django.db import models
 from .models import DataSource
 import ruamel.yaml as yaml
 from jsonfield import JSONField
-from collections import OrderedDict
+
 
 class SpreadsheetsDataSource(DataSource):
 
@@ -27,10 +27,10 @@ class SpreadsheetsDataSource(DataSource):
         verbose_name_plural = 'Google Analytics Data source'
 
     def get_field_list(self):
-        fields = OrderedDict()
-        for key in self.field_list.keys():
-            fields[key] = self.field_list[key]
-        return fields
+        try:
+            return sorted(self.field_list, key=lambda x: x["order"])
+        except (TypeError, IndexError):
+            return None
 
     #TODO: Refactor all things which not related on details model but on linked DataSource model
     # (check_config_template_path, check_provider_configs_path, update_config_content_for_analytics, write_config_content)
@@ -55,25 +55,27 @@ class SpreadsheetsDataSource(DataSource):
             os.makedirs(path)
         return path
 
-    def make_column_list(self):
-        fields = list()
-        for key, value in self.field_list.items():
-            fields.append({'name': key, 'type': value})
-        return fields
+    def get_column_list(self):
+        fields_data = sorted(self.field_list, key=lambda x:x["order"])
+        column_list = list()
+        for item in fields_data:
+            column_list.append({'name': item['name'], 'type': item['type']})
+        return column_list
 
-    def update_config_content_for_analytics(self, template_data):
-        template_data['in']['json_keyfile'] = self.upload_file.path
-        template_data['in']['spreadsheets_url'] = self.document_url
-        template_data['in']['worksheet_title'] = self.worksheet_id
-        template_data['in']['columns'] = self.make_column_list()
-        template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
-                                                          self.data_source.user_id,
-                                                          self.id)
+    def update_config_content(self, template_data):
+        if template_data:
+            template_data['in']['json_keyfile'] = self.upload_file.path
+            template_data['in']['spreadsheets_url'] = self.document_url
+            template_data['in']['worksheet_title'] = self.worksheet_id
+            template_data['in']['columns'] = self.get_column_list()
+            template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
+                                                              self.data_source.user_id,
+                                                              self.id)
         return template_data
 
     def create_config_file(self):
         template_content = self.get_config_template_content()
-        template_content = self.update_config_content_for_analytics(template_content)
+        template_content = self.update_config_content(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)
 
     def get_config_path(self, path):
@@ -82,5 +84,5 @@ class SpreadsheetsDataSource(DataSource):
 
     def update_config_file(self):
         template_content = self.get_config_template_content(path=self.get_config_path(self.check_provider_configs_path()))
-        template_content = self.update_config_content_for_analytics(template_content)
+        template_content = self.update_config_content(template_content)
         return self.write_config_content(self.check_provider_configs_path(), template_content)

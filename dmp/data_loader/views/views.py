@@ -63,9 +63,11 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         details_form = self.get_details_form_class()
+        if details_form:
+            details_form = details_form(request=request)
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  details_form=details_form(request=request)))
+                                  details_form=details_form))
 
     def post(self, request, *args, **kwargs):
         """

@@ -2,7 +2,6 @@ from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
-from collections import OrderedDict
 
 
 class DataSourceCreateForm(forms.ModelForm):
@@ -22,7 +21,7 @@ class AnalyticsDataSourceForm(forms.ModelForm):
                'placeholder': _('ID'),
                'maxlength': 255}))
 
-    upload_file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-input'}),
+    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
     dimensions = forms.CharField(max_length=255, widget=forms.TextInput(
@@ -51,7 +50,7 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
                'placeholder': _('ID'),
                'maxlength': 255}))
 
-    upload_file = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form-input'}),
+    upload_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
                                   validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
     document_url = forms.CharField(max_length=355, widget=forms.TextInput(attrs={'class': 'form-input',
@@ -78,15 +77,16 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
 
     def prepare_fields_list(self):
         fields_count = 0
-        fields = OrderedDict()
+        fields = list()
         for key in self.request.POST.keys():
             if 'field_name' in key:
                 fields_count += 1
 
         for i in range(0, fields_count):
-            fields.update({self.request.POST.get('field_name'+str(i)): SpreadsheetsDataSource.COLUMN_TYPES[int(self.request.POST.get('field_type'+str(i)))]})
+            fields.append({"order": i,
+                           "name": self.request.POST.get('field_name'+str(i)),
+                           "type": SpreadsheetsDataSource.COLUMN_TYPES[int(self.request.POST.get('field_type'+str(i)))]})
         return fields
-
 
     def save(self, commit=True):
         spreadsheets_ds = super(SpreadsheetsDataSourceForm, self).save(commit=False)
@@ -95,6 +95,7 @@ class SpreadsheetsDataSourceForm(forms.ModelForm):
         if commit:
             spreadsheets_ds.save()
         return spreadsheets_ds
+
 
 class DataSourceUpdateForm(forms.Form):
     pass

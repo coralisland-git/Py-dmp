@@ -54,7 +54,7 @@
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder"> Upload file...</span>
+                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.upload_file %} {{ details_form.instance.filename }} {% else %}Upload file...{% endif %}</span>
                                         {{ details_form.upload_file }}
                                     </div>
                                 </div>
@@ -97,15 +97,15 @@
                                                 </tr>
                                                 <tr id='field1' data-counter="1"></tr>
                                             {% else %}
-                                                {% for field_name_value, field_type_value in details_form.instance.get_field_list.items  %}
+                                                {% for field in details_form.instance.get_field_list %}
                                                     <tr id='field{{ forloop.counter0 }}'>
                                                         <td>
-                                                            <input type="text" name="field_name{{ forloop.counter0 }}" class="form-input" maxlength="100" required="" id="id_field_name0" placeholder="Field name" value="{{ field_name_value }}">
+                                                            <input type="text" name="field_name{{ forloop.counter0 }}" class="form-input" maxlength="100" required="" id="id_field_name0" placeholder="Field name" value="{{ field.name }}">
                                                         </td>
                                                         <td>
                                                             <select name="field_type{{ forloop.counter0 }}" class="form-input" id="id_field_type{{ forloop.counter0 }}">
                                                                 {% for type in details_form.instance.COLUMN_TYPES %}
-                                                                    <option value="{{ forloop.counter0 }}" {% if type == field_type_value %} selected {% endif %}>{{ type }}</option>
+                                                                    <option value="{{ forloop.counter0 }}" {% if type == field.type %} selected {% endif %}>{{ type }}</option>
                                                                 {% endfor %}
                                                             </select>
                                                         </td>
