@@ -13,7 +13,7 @@ MySQL 5.5
 ```
 #!
 
-sudo apt-get update && sudo apt-get install apache2 mysql-server libmysqlclient-dev libapache2-mod-wsgi-py3 
+sudo apt-get update && sudo apt-get install apache2 mysql-server python3-dev libmysqlclient-dev libapache2-mod-wsgi-py3 
 
 ```
 You should be prompted for database root user password.
