@@ -7,6 +7,9 @@ from data_loader.views.spreadsheets import SpreadsheetsDataSourceCreateView, Spr
 from data_loader.views.postgresql import PostgreSQLDataSourceCreateView, PostgreSQLDataSourceUpdateView
 from data_loader.views.vertica import VerticaDataSourceCreateView, VerticaDataSourceUpdateView
 from data_loader.views.jdbc import JDBCDataSourceCreateView, JDBCDataSourceUpdateView
+from data_loader.views.mongodb import MongoDBDataSourceCreateView, MongoDBDataSourceUpdateView
+from data_loader.views.ftp import FTPDataSourceCreateView, FTPDataSourceUpdateView
+from data_loader.views.oracledb import OracleDBDataSourceCreateView, OracleDBDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -71,9 +74,9 @@ urlpatterns = [
     url(r'mixpanel-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='mixpanel-datasource-update'),
 
-    url(r'mongodb-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'mongodb-create/(?P<provider_id>[0-9]+)/$', MongoDBDataSourceCreateView.as_view(),
         name='mongodb-datasource-create'),
-    url(r'mongodb-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'mongodb-update/(?P<pk>[0-9]+)/$', MongoDBDataSourceUpdateView.as_view(),
         name='mongodb-datasource-update'),
 
     url(r'http-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -86,9 +89,9 @@ urlpatterns = [
     url(r'jira-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='jira-datasource-update'),
 
-    url(r'oracledb-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'oracledb-create/(?P<provider_id>[0-9]+)/$', OracleDBDataSourceCreateView.as_view(),
         name='oracledb-datasource-create'),
-    url(r'oracledb-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'oracledb-update/(?P<pk>[0-9]+)/$', OracleDBDataSourceUpdateView.as_view(),
         name='oracledb-datasource-update'),
 
     url(r'zendesk-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -101,9 +104,9 @@ urlpatterns = [
     url(r'mssql-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='mssql-datasource-update'),
 
-    url(r'ftp-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'ftp-create/(?P<provider_id>[0-9]+)/$', FTPDataSourceCreateView.as_view(),
         name='ftp-datasource-create'),
-    url(r'ftp-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'ftp-update/(?P<pk>[0-9]+)/$', FTPDataSourceUpdateView.as_view(),
         name='ftp-datasource-update'),
 
     url(r'dynamodb-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),

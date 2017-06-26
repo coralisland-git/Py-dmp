@@ -1,6 +1,6 @@
 from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
-    PostgreSQLDataSource, VerticaDataSource, JDBCDataSource
+    PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -140,7 +140,7 @@ class PostgreSQLDataSourceForm(forms.ModelForm):
                'maxlength': 255}))
 
     schema_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
-                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yaml'])])
+                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
@@ -221,3 +221,121 @@ class JDBCDataSourceForm(forms.ModelForm):
     class Meta:
         model = JDBCDataSource
         fields = ('url', 'driver_class', 'username', 'password')
+
+
+class OracleDBDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    schema_name = forms.CharField(max_length=255,
+                                  widget=forms.TextInput(attrs={'class': 'form-input',
+                                                                'placeholder': _('Schema name'),
+                                                                'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(OracleDBDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = OracleDBDataSource
+        fields = ('host', 'port', 'username', 'password', 'database', 'schema_name')
+
+
+class FTPDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('FTP server address'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('FTP server port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    prefix = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Prefix of target files'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(FTPDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = FTPDataSource
+        fields = ('host', 'port', 'username', 'password', 'prefix')
+
+
+class MongoDBDataSourceForm(forms.ModelForm):
+
+    uri = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('MongoDB connection string URI'),
+               'maxlength': 255}))
+
+    hosts = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('List of hosts(separated by comma)'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(MongoDBDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = MongoDBDataSource
+        fields = ('uri', 'hosts', 'port', 'username', 'password', 'database')
