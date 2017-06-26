@@ -11,6 +11,9 @@ class DataProvider(models.Model):
     name = models.CharField('Provider Name', max_length=255, blank=True, default="Google Analytics")
     order = models.IntegerField('Provider ordering in list', blank=True, default=999)
 
+    def get_add_url_name(self):
+        return 'data_loader:{}-datasource-create'.format(self.name)
+
 
 class DataSource(models.Model):
     user = models.ForeignKey(Customer)
@@ -21,6 +24,9 @@ class DataSource(models.Model):
     class Meta:
         verbose_name = 'Data source'
         verbose_name_plural = 'Data source'
+
+    def get_update_url_name(self):
+        return 'data_loader:{}-datasource-update'.format(self.data_provider.name)
 
     def get_output_table_name(self):
         return "Default table name for output storage - {provider_name}_{user_id}_{data_source_id}"\

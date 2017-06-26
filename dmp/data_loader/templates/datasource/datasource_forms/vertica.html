@@ -22,7 +22,7 @@
                     </div>
                     <div class="row">
                         <div class="col col-50">
-                            <form id="form-create" method="POST" action="" enctype="multipart/form-data">
+                            <form id="form-create" method="POST" action="">
                                     {% for error in form.non_field_errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
@@ -36,33 +36,47 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Host:</div>
-                                    <input type="text" name="host" maxlength="255" placeholder="Host name" class="form-input" required="" id="id_host">
+                                    {% for error in details_form.host.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.host }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Port:</div>
-                                    <input type="text" name="Port" maxlength="255" placeholder="Port number" class="form-input" required="" id="id_port">
+                                    {% for error in details_form.port.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.port }}
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-label">User:</div>
-                                    <input type="text" name="user" maxlength="255" placeholder="Username" class="form-input" required="" id="id_user">
+                                    <div class="form-label">Username:</div>
+                                    {% for error in details_form.username.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.username }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Password:</div>
-                                    <input type="password" name="password" maxlength="255" placeholder="Password" class="form-input" required="" id="id_password">
+                                    {% for error in details_form.password.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.password }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Database:</div>
-                                    <input type="text" name="database" maxlength="255" placeholder="Database name" class="form-input" required="" id="id_database">
+                                    {% for error in details_form.database.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.database }}
                                 </div>
-
                                 <div class="form-row">
-                                    <div class="form-label">Schema:</div>
-                                    <input type="text" name="schema" maxlength="255" placeholder="Destination schema name" class="form-input" required="" id="id_schema">
+                                    <div class="form-label">Schema name:</div>
+                                    {% for error in details_form.schema_name.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.schema_name }}
                                 </div>
-
-
                                 <div class="form-buttons">
-{#                                    <a href="#" class="button button-gray">Preview</a>#}
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>

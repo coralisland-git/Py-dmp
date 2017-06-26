@@ -23,8 +23,8 @@ class SpreadsheetsDataSource(DataSource):
                            'Default schema is column_name:column_type', default={})
 
     class Meta:
-        verbose_name = 'Google Analytics Data source'
-        verbose_name_plural = 'Google Analytics Data source'
+        verbose_name = 'Spreadsheets Data source'
+        verbose_name_plural = 'Spreadsheets Data sources'
 
     def get_field_list(self):
         try:

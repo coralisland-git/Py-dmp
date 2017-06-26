@@ -1,5 +1,6 @@
 from django import forms
-from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource
+from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
+    PostgreSQLDataSource, VerticaDataSource, JDBCDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -111,6 +112,112 @@ class DataFlowSettingsForm(forms.ModelForm):
         fields = ('sync_interval', )
 
 
-Provider_DataSources_Forms_Set = {
-    'analytics': AnalyticsDataSourceForm
-}
+class PostgreSQLDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    schema_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yaml'])])
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(PostgreSQLDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = PostgreSQLDataSource
+        fields = ('host', 'port', 'username', 'password', 'database', 'schema_file')
+
+
+class VerticaDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    schema_name = forms.CharField(max_length=255,
+                             widget=forms.TextInput(attrs={'class': 'form-input',
+                                                                    'placeholder': _('Destination schema name'),
+                                                                    'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(VerticaDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = VerticaDataSource
+        fields = ('host', 'port', 'username', 'password', 'database', 'schema_name', )
+
+
+class JDBCDataSourceForm(forms.ModelForm):
+
+    url = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('URL of the JDBC connection (e.g. "jdbc:sqlite:mydb.sqlite3")'),
+               'maxlength': 255}))
+
+    driver_class = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Class name of the JDBC driver (e.g. "org.sqlite.JDBC")'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(JDBCDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = JDBCDataSource
+        fields = ('url', 'driver_class', 'username', 'password')

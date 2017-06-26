@@ -14,7 +14,7 @@ class AnalyticsDataSource(DataSource):
 
     class Meta:
         verbose_name = 'Google Analytics Data source'
-        verbose_name_plural = 'Google Analytics Data source'
+        verbose_name_plural = 'Google Analytics Data sources'
 
     #TODO: Refactor all things which not related on details model but on linked DataSource model
     # (check_provider_configs_path, update_config_content_for_analytics, write_config_content)

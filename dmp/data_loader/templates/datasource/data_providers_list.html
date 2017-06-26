@@ -37,21 +37,9 @@
                     <ul>
                         {% for provider in object_list %}
                             <li>
-                            {% if provider.name == 'analytics' %}
-                                <a href="{% url 'data_loader:analytics-datasource-create' provider_id=provider.pk %}" class="button button-outline">
+                                <a href="{% url provider.get_add_url_name provider_id=provider.pk %}" class="button button-outline">
                                     <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
                                 </a>
-                            {% else %}
-                                {% if provider.name == 'spreadsheets' %}
-                                    <a href="{% url 'data_loader:spreadsheets-datasource-create' provider_id=provider.pk %}" class="button button-outline">
-                                        <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
-                                    </a>
-                                {% else %}
-                                    <a href="{% url 'data_loader:datasource-create' provider_id=provider.pk %}" class="button button-outline">
-                                        <span class="icon icon-{{ provider.name }}"></span>{{ provider.title }}
-                                    </a>
-                                {% endif %}
-                            {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
