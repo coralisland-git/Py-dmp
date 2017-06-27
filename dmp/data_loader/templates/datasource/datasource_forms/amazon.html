@@ -36,23 +36,38 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Bucket:</div>
-                                    <input type="text" name="bucket" maxlength="255" placeholder="S3 bucket name" class="form-input" required="" id="id_bucket">
+                                    {% for error in details_form.bucket.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.bucket }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Path prefix:</div>
-                                    <input type="text" name="path_prefix" maxlength="255" placeholder="Prefix of target keys" class="form-input" required="" id="id_path_prefix">
+                                    {% for error in details_form.path_prefix.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.path_prefix }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Access key:</div>
-                                    <input type="text" name="access_key" maxlength="255" placeholder="AWS access key ID" class="form-input" required="" id="id_access_key">
+                                    {% for error in details_form.access_key.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.access_key }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Secret key:</div>
-                                    <input type="password" name="key" maxlength="255" placeholder="AWS secret access key" class="form-input" required="" id="id_secret_key">
+                                    {% for error in details_form.secret_key.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.secret_key }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Endpoint:</div>
-                                    <input type="text" name="endpoint" maxlength="255" placeholder="S3 endpoint login user name" class="form-input" required="" id="id_endpoint">
+                                    {% for error in details_form.endpoint.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.endpoint }}
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>

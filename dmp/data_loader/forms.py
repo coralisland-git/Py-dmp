@@ -2,7 +2,7 @@ from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
     SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
-    HTTPDataSource, TwitterDataSource, ZendeskDataSource
+    HTTPDataSource, TwitterDataSource, ZendeskDataSource, MySQLDataSource, RedshiftDataSource, AmazonS3DataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -598,3 +598,116 @@ class ZendeskDataSourceForm(forms.ModelForm):
     class Meta:
         model = ZendeskDataSource
         fields = ('login_url', 'username', 'password', 'target')
+
+
+class MySQLDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(MySQLDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = MySQLDataSource
+        fields = ('host', 'port', 'username', 'password', 'database')
+
+
+class RedshiftDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    schema_name = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Destination schema name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(RedshiftDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = RedshiftDataSource
+        fields = ('host', 'port', 'username', 'password', 'database', 'schema_name')
+
+
+class AmazonS3DataSourceForm(forms.ModelForm):
+
+    bucket = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('S3 bucket name'),
+               'maxlength': 255}))
+
+    path_prefix = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Prefix of target keys'),
+               'maxlength': 255}))
+
+    access_key = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('AWS access key ID'),
+               'maxlength': 255}))
+
+    secret_key = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('AWS secret access key'),
+               'maxlength': 255}))
+
+    endpoint = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('S3 endpoint login user name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(AmazonS3DataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = AmazonS3DataSource
+        fields = ('bucket', 'path_prefix', 'access_key', 'secret_key', 'endpoint')

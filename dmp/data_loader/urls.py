@@ -18,6 +18,9 @@ from data_loader.views.twitter import TwitterDataSourceCreateView, TwitterDataSo
 from data_loader.views.dynamodb import DynamoDBDataSourceCreateView, DynamoDBDataSourceUpdateView
 from data_loader.views.http import HTTPDataSourceCreateView, HTTPDataSourceUpdateView
 from data_loader.views.zendesk import ZendeskDataSourceCreateView, ZendeskDataSourceUpdateView
+from data_loader.views.amazons3 import AmazonS3DataSourceCreateView, AmazonS3DataSourceUpdateView
+from data_loader.views.redshift import RedshiftDataSourceCreateView, RedshiftDataSourceUpdateView
+from data_loader.views.mysql import MySQLDataSourceCreateView, MySQLDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -42,9 +45,9 @@ urlpatterns = [
     url(r'salesforce-update/(?P<pk>[0-9]+)/$', SalesforceDataSourceUpdateView.as_view(),
         name='salesforce-datasource-update'),
 
-    url(r'amazon-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'amazon-create/(?P<provider_id>[0-9]+)/$', AmazonS3DataSourceCreateView.as_view(),
         name='amazon-datasource-create'),
-    url(r'amazon-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'amazon-update/(?P<pk>[0-9]+)/$', AmazonS3DataSourceUpdateView.as_view(),
         name='amazon-datasource-update'),
 
     url(r'marketo-create/(?P<provider_id>[0-9]+)/$', MarketoDataSourceCreateView.as_view(),
@@ -52,9 +55,9 @@ urlpatterns = [
     url(r'marketo-update/(?P<pk>[0-9]+)/$', MarketoDataSourceUpdateView.as_view(),
         name='marketo-datasource-update'),
 
-    url(r'mysql-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'mysql-create/(?P<provider_id>[0-9]+)/$', MySQLDataSourceCreateView.as_view(),
         name='mysql-datasource-create'),
-    url(r'mysql-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'mysql-update/(?P<pk>[0-9]+)/$', MySQLDataSourceUpdateView.as_view(),
         name='mysql-datasource-update'),
 
     url(r'googlecloud-create/(?P<provider_id>[0-9]+)/$', GoogleCloudDataSourceCreateView.as_view(),
@@ -62,9 +65,9 @@ urlpatterns = [
     url(r'googlecloud-update/(?P<pk>[0-9]+)/$', GoogleCloudDataSourceUpdateView.as_view(),
         name='googlecloud-datasource-update'),
 
-    url(r'redshift-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'redshift-create/(?P<provider_id>[0-9]+)/$', RedshiftDataSourceCreateView.as_view(),
         name='redshift-datasource-create'),
-    url(r'redshift-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'redshift-update/(?P<pk>[0-9]+)/$', RedshiftDataSourceUpdateView.as_view(),
         name='redshift-datasource-update'),
 
     url(r'jdbc-create/(?P<provider_id>[0-9]+)/$', JDBCDataSourceCreateView.as_view(),

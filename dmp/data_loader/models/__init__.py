@@ -14,4 +14,7 @@ from .twitter import TwitterDataSource
 from .dynamobd import DynamoDBDataSource
 from .zendesk import ZendeskDataSource
 from .http import HTTPDataSource
+from .mysql import MySQLDataSource
+from .amazons3 import AmazonS3DataSource
+from .redshift import RedshiftDataSource
 from .models import DataSource, DataProvider, DataFlowSettings
