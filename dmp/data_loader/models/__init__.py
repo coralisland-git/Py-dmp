@@ -10,4 +10,8 @@ from .salesforce import SalesforceDataSource
 from .hadoop import HadoopDataSource
 from .googlecloud import GoogleCloudDataSource
 from .marketo import MarketoDataSource
+from .twitter import TwitterDataSource
+from .dynamobd import DynamoDBDataSource
+from .zendesk import ZendeskDataSource
+from .http import HTTPDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

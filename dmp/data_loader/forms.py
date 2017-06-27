@@ -1,7 +1,8 @@
 from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
-    SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource
+    SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
+    HTTPDataSource, TwitterDataSource, ZendeskDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -463,3 +464,137 @@ class MarketoDataSourceForm(forms.ModelForm):
     class Meta:
         model = MarketoDataSource
         fields = ('endpoint', 'account_id', 'start_time', 'key_file')
+
+
+class DynamoDBDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    access_key = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('AWS access key'),
+               'maxlength': 255}))
+
+    secret_key = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('AWS secret key'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    region = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Region name'),
+               'maxlength': 255}))
+
+    endpoint = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Endpoint URL'),
+               'maxlength': 255}))
+
+    table = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Table name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(DynamoDBDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = DynamoDBDataSource
+        fields = ('host', 'port', 'access_key', 'secret_key', 'database', 'region', 'table')
+
+
+class HTTPDataSourceForm(forms.ModelForm):
+
+    url = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Base url string'),
+               'maxlength': 255}))
+
+    method = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('HTTP method'),
+               'maxlength': 255}))
+
+    params = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Pairs of name/value to specify query parameters'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(HTTPDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = HTTPDataSource
+        fields = ('url', 'method', 'params')
+
+
+class TwitterDataSourceForm(forms.ModelForm):
+
+    account_id = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('User ID'),
+               'maxlength': 255}))
+
+    archive_id = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Archive/Feed ID'),
+               'maxlength': 255}))
+
+    archive_link = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Archive/Feed Public Link URL'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(TwitterDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = TwitterDataSource
+        fields = ('account_id', 'archive_id', 'archive_link')
+
+
+class ZendeskDataSourceForm(forms.ModelForm):
+
+    login_url = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Login URL for Zendesk'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    target = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Zendesk export resource type'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(ZendeskDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = ZendeskDataSource
+        fields = ('login_url', 'username', 'password', 'target')

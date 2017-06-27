@@ -1,9 +1,9 @@
 from django.conf.urls import url
-
-from data_loader.views import DataSourceListView, DataSourceCreateView, \
-    DataProviderListView, DataSourceDeleteView, DataSourceUpdateView, DataFlowSettingsUpdateView
-from data_loader.views.analytics import AnalyticsDataSourceCreateView, AnalyticsDataSourceUpdateView
-from data_loader.views.spreadsheets import SpreadsheetsDataSourceCreateView, SpreadsheetsDataSourceUpdateView
+from data_loader.views import *
+# from data_loader.views import DataSourceListView, DataSourceCreateView, \
+#     DataProviderListView, DataSourceDeleteView, DataSourceUpdateView, DataFlowSettingsUpdateView
+# from data_loader.views.analytics import AnalyticsDataSourceCreateView, AnalyticsDataSourceUpdateView
+# from data_loader.views.spreadsheets import SpreadsheetsDataSourceCreateView, SpreadsheetsDataSourceUpdateView
 from data_loader.views.postgresql import PostgreSQLDataSourceCreateView, PostgreSQLDataSourceUpdateView
 from data_loader.views.vertica import VerticaDataSourceCreateView, VerticaDataSourceUpdateView
 from data_loader.views.jdbc import JDBCDataSourceCreateView, JDBCDataSourceUpdateView
@@ -14,6 +14,10 @@ from data_loader.views.salesforce import SalesforceDataSourceCreateView, Salesfo
 from data_loader.views.hadoop import HadoopDataSourceCreateView, HadoopDataSourceUpdateView
 from data_loader.views.googlecloud import GoogleCloudDataSourceCreateView, GoogleCloudDataSourceUpdateView
 from data_loader.views.marketo import MarketoDataSourceCreateView, MarketoDataSourceUpdateView
+from data_loader.views.twitter import TwitterDataSourceCreateView, TwitterDataSourceUpdateView
+from data_loader.views.dynamodb import DynamoDBDataSourceCreateView, DynamoDBDataSourceUpdateView
+from data_loader.views.http import HTTPDataSourceCreateView, HTTPDataSourceUpdateView
+from data_loader.views.zendesk import ZendeskDataSourceCreateView, ZendeskDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -83,9 +87,9 @@ urlpatterns = [
     url(r'mongodb-update/(?P<pk>[0-9]+)/$', MongoDBDataSourceUpdateView.as_view(),
         name='mongodb-datasource-update'),
 
-    url(r'http-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'http-create/(?P<provider_id>[0-9]+)/$', HTTPDataSourceCreateView.as_view(),
         name='http-datasource-create'),
-    url(r'http-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'http-update/(?P<pk>[0-9]+)/$', HTTPDataSourceUpdateView.as_view(),
         name='http-datasource-update'),
 
     url(r'jira-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -98,9 +102,9 @@ urlpatterns = [
     url(r'oracledb-update/(?P<pk>[0-9]+)/$', OracleDBDataSourceUpdateView.as_view(),
         name='oracledb-datasource-update'),
 
-    url(r'zendesk-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'zendesk-create/(?P<provider_id>[0-9]+)/$', ZendeskDataSourceCreateView.as_view(),
         name='zendesk-datasource-create'),
-    url(r'zendesk-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'zendesk-update/(?P<pk>[0-9]+)/$', ZendeskDataSourceUpdateView.as_view(),
         name='zendesk-datasource-update'),
 
     url(r'mssql-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -113,9 +117,9 @@ urlpatterns = [
     url(r'ftp-update/(?P<pk>[0-9]+)/$', FTPDataSourceUpdateView.as_view(),
         name='ftp-datasource-update'),
 
-    url(r'dynamodb-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'dynamodb-create/(?P<provider_id>[0-9]+)/$', DynamoDBDataSourceCreateView.as_view(),
         name='dynamodb-datasource-create'),
-    url(r'dynamodb-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'dynamodb-update/(?P<pk>[0-9]+)/$', DynamoDBDataSourceUpdateView.as_view(),
         name='dynamodb-datasource-update'),
 
     url(r'sftp-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -128,9 +132,9 @@ urlpatterns = [
     url(r'vertica-update/(?P<pk>[0-9]+)/$', VerticaDataSourceUpdateView.as_view(),
         name='vertica-datasource-update'),
 
-    url(r'twitter-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'twitter-create/(?P<provider_id>[0-9]+)/$', TwitterDataSourceCreateView.as_view(),
         name='twitter-datasource-create'),
-    url(r'twitter-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'twitter-update/(?P<pk>[0-9]+)/$', TwitterDataSourceUpdateView.as_view(),
         name='twitter-datasource-update'),
 
     url(r'teradata-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),

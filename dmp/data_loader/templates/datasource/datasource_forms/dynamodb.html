@@ -36,35 +36,59 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Host:</div>
-                                    <input type="text" name="host" maxlength="255" placeholder="Host name" class="form-input" required="" id="id_host">
+                                    {% for error in details_form.host.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.host }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Port:</div>
-                                    <input type="text" name="Port" maxlength="255" placeholder="Port number" class="form-input" required="" id="id_port">
+                                    {% for error in details_form.port.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.port }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Access key:</div>
-                                    <input type="text" name="access_key" maxlength="255" placeholder="AWS access key" class="form-input" required="" id="id_access_key">
+                                    {% for error in details_form.access_key.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.access_key }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Secret key:</div>
-                                    <input type="password" name="key" maxlength="255" placeholder="AWS secret key" class="form-input" required="" id="id_secret_key">
+                                    {% for error in details_form.secret_key.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.secret_key }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Database:</div>
-                                    <input type="text" name="database" maxlength="255" placeholder="Database name" class="form-input" required="" id="id_database">
+                                    {% for error in details_form.database.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.database }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Region:</div>
-                                    <input type="text" name="region" maxlength="255" placeholder="Region name" class="form-input" required="" id="id_region">
+                                    {% for error in details_form.region.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.region }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Endpoint:</div>
-                                    <input type="text" name="endpoint" maxlength="255" placeholder="Endpoint URL" class="form-input" required="" id="id_endpoint">
+                                    {% for error in details_form.endpoint.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.endpoint }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Table:</div>
-                                    <input type="text" name="table" maxlength="255" placeholder="Table name" class="form-input" required="" id="id_table">
+                                    {% for error in details_form.table.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.table }}
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>

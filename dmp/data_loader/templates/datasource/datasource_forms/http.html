@@ -36,15 +36,24 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">URL:</div>
-                                    <input type="text" name="url_" maxlength="255" placeholder="Base url string" class="form-input" required="" id="id_url_">
+                                    {% for error in details_form.url.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.url }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Method:</div>
-                                    <input type="text" name="method" maxlength="255" placeholder="HTTP method" class="form-input" required="" id="id_method">
+                                    {% for error in details_form.method.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.method }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Params:</div>
-                                    <input type="text" name="params" maxlength="255" placeholder="Pair of name/value to specify query parameter" class="form-input" required="" id="id_params">
+                                    {% for error in details_form.params.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.params }}
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>

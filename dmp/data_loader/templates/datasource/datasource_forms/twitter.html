@@ -36,18 +36,26 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Twitter user ID:</div>
-                                    <input type="text" name="tw_name" maxlength="255" placeholder="User ID" class="form-input" required="" id="id_user_">
+                                    {% for error in details_form.account_id.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.account_id }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Archive/Feed ID:</div>
-                                    <input type="text" name="feed_id" maxlength="255" placeholder="Archive/Feed ID" class="form-input" required="" id="feed_id">
+                                    {% for error in details_form.archive_id.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.archive_id }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Archive/Feed Public Link:</div>
-                                    <input type="text" name="feed_link" maxlength="255" placeholder="Archive/Feed Public Link URL" class="form-input" required="" id="feed_link">
+                                    {% for error in details_form.archive_link.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.archive_link }}
                                 </div>
                                 <div class="form-buttons">
-{#                                    <a href="#" class="button button-gray">Preview</a>#}
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>
