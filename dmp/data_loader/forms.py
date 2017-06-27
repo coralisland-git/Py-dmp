@@ -514,7 +514,7 @@ class DynamoDBDataSourceForm(forms.ModelForm):
 
     class Meta:
         model = DynamoDBDataSource
-        fields = ('host', 'port', 'access_key', 'secret_key', 'database', 'region', 'table')
+        fields = ('host', 'port', 'access_key', 'secret_key', 'database', 'region', 'endpoint', 'table')
 
 
 class HTTPDataSourceForm(forms.ModelForm):
