@@ -6,4 +6,8 @@ from .jdbc import JDBCDataSource
 from .vertica import VerticaDataSource
 from .oracledb import OracleDBDataSource
 from .ftp import FTPDataSource
+from .salesforce import SalesforceDataSource
+from .hadoop import HadoopDataSource
+from .googlecloud import GoogleCloudDataSource
+from .marketo import MarketoDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

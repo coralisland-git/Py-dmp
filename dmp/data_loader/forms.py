@@ -1,6 +1,7 @@
 from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
-    PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource
+    PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
+    SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -339,3 +340,126 @@ class MongoDBDataSourceForm(forms.ModelForm):
     class Meta:
         model = MongoDBDataSource
         fields = ('uri', 'hosts', 'port', 'username', 'password', 'database')
+
+
+class HadoopDataSourceForm(forms.ModelForm):
+
+    path = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('File path on Hadoop filesystem'),
+               'maxlength': 255}))
+
+    os_config_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
+
+    os_config_params = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Configuration\'s parameters to overwrite'),
+               'maxlength': 255}))
+
+    log_level = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Set log level of Hadoop Parquet reader module'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(HadoopDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = HadoopDataSource
+        fields = ('path', 'os_config_file', 'os_config_params', 'log_level')
+
+
+class SalesforceDataSourceForm(forms.ModelForm):
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    endpoint = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Login endpoint URL'),
+               'maxlength': 255}))
+
+    sf_object = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('API object\'s name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(SalesforceDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = SalesforceDataSource
+        fields = ('username', 'password', 'endpoint', 'sf_object')
+
+
+class GoogleCloudDataSourceForm(forms.ModelForm):
+
+    bucket = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('GCS bucket name'),
+               'maxlength': 255}))
+
+    paths = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('List of target keys'),
+               'maxlength': 255}))
+
+    account_email = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('GCS service account email'),
+               'maxlength': 255}))
+
+    private_key = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
+
+    app_name = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Application name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(GoogleCloudDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = GoogleCloudDataSource
+        fields = ('bucket', 'paths', 'account_email', 'app_name', 'private_key')
+
+
+class MarketoDataSourceForm(forms.ModelForm):
+
+    endpoint = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('SOAP endpoint URL for your account'),
+               'maxlength': 255}))
+
+    account_id = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('User ID'),
+               'maxlength': 255}))
+
+    start_time = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Fetch leads since this time'),
+               'maxlength': 255}))
+
+    key_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(MarketoDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = MarketoDataSource
+        fields = ('endpoint', 'account_id', 'start_time', 'key_file')

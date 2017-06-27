@@ -36,26 +36,35 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Path:</div>
-                                    <input type="text" name="bucket" maxlength="255" placeholder="File path on Hadoop filesystem" class="form-input" required="" id="id_bucket">
+                                    {% for error in details_form.path.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.path }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Config file:</div>
-                                    {% for error in form.upload_file.errors %}
+                                    {% for error in details_form.os_config_file.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder"> Upload Hadoop's configuration file...</span>
-                                        {{ form.upload_file }}
+                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.os_config_file %} {{ details_form.instance.filename }} {% else %}Upload Hadoop's configuration file...{% endif %}</span>
+                                        {{ details_form.os_config_file }}
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-label">Config parameters:</div>
-                                    <input type="text" name="config" maxlength="255" placeholder="Configuration's parameters to overwrite" class="form-input" required="" id="id_config">
+                                    <div class="form-label">Configuration parameters:</div>
+                                    {% for error in details_form.os_config_params.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.os_config_params }}
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-label">Log level:</div>
-                                    <input type="text" name="log" maxlength="255" placeholder="Set log level of Hadoop Parquet reader module" class="form-input" required="" id="id_log">
+                                    {% for error in details_form.log_level.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.log_level }}
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>

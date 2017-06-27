@@ -10,6 +10,10 @@ from data_loader.views.jdbc import JDBCDataSourceCreateView, JDBCDataSourceUpdat
 from data_loader.views.mongodb import MongoDBDataSourceCreateView, MongoDBDataSourceUpdateView
 from data_loader.views.ftp import FTPDataSourceCreateView, FTPDataSourceUpdateView
 from data_loader.views.oracledb import OracleDBDataSourceCreateView, OracleDBDataSourceUpdateView
+from data_loader.views.salesforce import SalesforceDataSourceCreateView, SalesforceDataSourceUpdateView
+from data_loader.views.hadoop import HadoopDataSourceCreateView, HadoopDataSourceUpdateView
+from data_loader.views.googlecloud import GoogleCloudDataSourceCreateView, GoogleCloudDataSourceUpdateView
+from data_loader.views.marketo import MarketoDataSourceCreateView, MarketoDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -29,9 +33,9 @@ urlpatterns = [
     url(r'postgresql-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='postgres-datasource-update'),
 
-    url(r'salesforce-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'salesforce-create/(?P<provider_id>[0-9]+)/$', SalesforceDataSourceCreateView.as_view(),
         name='salesforce-datasource-create'),
-    url(r'salesforce-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'salesforce-update/(?P<pk>[0-9]+)/$', SalesforceDataSourceUpdateView.as_view(),
         name='salesforce-datasource-update'),
 
     url(r'amazon-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -39,9 +43,9 @@ urlpatterns = [
     url(r'amazon-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='amazon-datasource-update'),
 
-    url(r'marketo-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'marketo-create/(?P<provider_id>[0-9]+)/$', MarketoDataSourceCreateView.as_view(),
         name='marketo-datasource-create'),
-    url(r'marketo-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'marketo-update/(?P<pk>[0-9]+)/$', MarketoDataSourceUpdateView.as_view(),
         name='marketo-datasource-update'),
 
     url(r'mysql-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -49,9 +53,9 @@ urlpatterns = [
     url(r'mysql-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='mysql-datasource-update'),
 
-    url(r'googlecloud-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'googlecloud-create/(?P<provider_id>[0-9]+)/$', GoogleCloudDataSourceCreateView.as_view(),
         name='googlecloud-datasource-create'),
-    url(r'googlecloud-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'googlecloud-update/(?P<pk>[0-9]+)/$', GoogleCloudDataSourceUpdateView.as_view(),
         name='googlecloud-datasource-update'),
 
     url(r'redshift-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
@@ -64,9 +68,9 @@ urlpatterns = [
     url(r'jdbc-update/(?P<pk>[0-9]+)/$', JDBCDataSourceUpdateView.as_view(),
         name='jdbc-datasource-update'),
 
-    url(r'hadoop-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'hadoop-create/(?P<provider_id>[0-9]+)/$', HadoopDataSourceCreateView.as_view(),
         name='hadoop-datasource-create'),
-    url(r'hadoop-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'hadoop-update/(?P<pk>[0-9]+)/$', HadoopDataSourceUpdateView.as_view(),
         name='hadoop-datasource-update'),
 
     url(r'mixpanel-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),

@@ -36,29 +36,41 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Bucket:</div>
-                                    <input type="text" name="bucket" maxlength="255" placeholder="GCS bucket name" class="form-input" required="" id="id_bucket">
+                                    {% for error in details_form.bucket.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.bucket }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Paths:</div>
-                                    <input type="text" name="paths" maxlength="255" placeholder="List of target keys" class="form-input" required="" id="id_paths">
+                                    {% for error in details_form.paths.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.paths }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Account email:</div>
-                                    <input type="text" name="user" maxlength="255" placeholder="GCS service account email" class="form-input" required="" id="id_user">
+                                    {% for error in details_form.account_email.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.account_email }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Private Key:</div>
-                                    {% for error in form.upload_file.errors %}
+                                    {% for error in details_form.private_key.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder"> Upload GCS P12 keyfile...</span>
-                                        {{ form.upload_file }}
+                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.private_key %} {{ details_form.instance.filename }} {% else %}Upload GCS P12 keyfile...{% endif %} </span>
+                                        {{ details_form.private_key }}
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Application name:</div>
-                                    <input type="text" name="app" maxlength="255" placeholder="Application name" class="form-input" required="" id="id_app">
+                                    {% for error in details_form.app_name.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.app_name }}
                                 </div>
                                 <div class="form-buttons">
 {#                                    <a href="#" class="button button-gray">Preview</a>#}

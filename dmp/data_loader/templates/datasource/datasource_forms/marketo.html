@@ -36,19 +36,34 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Endpoint:</div>
-                                    <input type="text" name="endpoint" maxlength="255" placeholder="SOAP endpoint URL for your account" class="form-input" required="" id="id_endpoint">
+                                    {% for error in details_form.endpoint.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.endpoint }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">User:</div>
-                                    <input type="text" name="user_" maxlength="255" placeholder="User ID" class="form-input" required="" id="id_user_">
+                                    {% for error in details_form.account_id.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.account_id }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Key:</div>
-                                    <input type="text" name="encryption_key" maxlength="255" placeholder="Your encryption key" class="form-input" required="" id="id_key">
+                                    {% for error in details_form.key_file.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    <div class="form-file">
+                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.key_file %} {{ details_form.instance.filename }} {% else %}Your encryption keyfile...{% endif %}</span>
+                                        {{ details_form.key_file }}
+                                    </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Start time:</div>
-                                    <input type="text" name="time" maxlength="255" placeholder="Fetch leads since this time" class="form-input" required="" id="id_time">
+                                    {% for error in details_form.start_time.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.start_time }}
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
