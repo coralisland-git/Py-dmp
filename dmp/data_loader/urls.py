@@ -1,9 +1,5 @@
 from django.conf.urls import url
 from data_loader.views import *
-# from data_loader.views import DataSourceListView, DataSourceCreateView, \
-#     DataProviderListView, DataSourceDeleteView, DataSourceUpdateView, DataFlowSettingsUpdateView
-# from data_loader.views.analytics import AnalyticsDataSourceCreateView, AnalyticsDataSourceUpdateView
-# from data_loader.views.spreadsheets import SpreadsheetsDataSourceCreateView, SpreadsheetsDataSourceUpdateView
 from data_loader.views.postgresql import PostgreSQLDataSourceCreateView, PostgreSQLDataSourceUpdateView
 from data_loader.views.vertica import VerticaDataSourceCreateView, VerticaDataSourceUpdateView
 from data_loader.views.jdbc import JDBCDataSourceCreateView, JDBCDataSourceUpdateView
@@ -21,6 +17,9 @@ from data_loader.views.zendesk import ZendeskDataSourceCreateView, ZendeskDataSo
 from data_loader.views.amazons3 import AmazonS3DataSourceCreateView, AmazonS3DataSourceUpdateView
 from data_loader.views.redshift import RedshiftDataSourceCreateView, RedshiftDataSourceUpdateView
 from data_loader.views.mysql import MySQLDataSourceCreateView, MySQLDataSourceUpdateView
+from data_loader.views.jira import JiraDataSourceCreateView, JiraDataSourceUpdateView
+from data_loader.views.mssql import MSSQLDataSourceCreateView, MSSQLDataSourceUpdateView
+from data_loader.views.mixpanel import MixpanelDataSourceCreateView, MixpanelDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -80,9 +79,9 @@ urlpatterns = [
     url(r'hadoop-update/(?P<pk>[0-9]+)/$', HadoopDataSourceUpdateView.as_view(),
         name='hadoop-datasource-update'),
 
-    url(r'mixpanel-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'mixpanel-create/(?P<provider_id>[0-9]+)/$', MixpanelDataSourceCreateView.as_view(),
         name='mixpanel-datasource-create'),
-    url(r'mixpanel-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'mixpanel-update/(?P<pk>[0-9]+)/$', MixpanelDataSourceUpdateView.as_view(),
         name='mixpanel-datasource-update'),
 
     url(r'mongodb-create/(?P<provider_id>[0-9]+)/$', MongoDBDataSourceCreateView.as_view(),
@@ -95,9 +94,9 @@ urlpatterns = [
     url(r'http-update/(?P<pk>[0-9]+)/$', HTTPDataSourceUpdateView.as_view(),
         name='http-datasource-update'),
 
-    url(r'jira-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'jira-create/(?P<provider_id>[0-9]+)/$', JiraDataSourceCreateView.as_view(),
         name='jira-datasource-create'),
-    url(r'jira-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'jira-update/(?P<pk>[0-9]+)/$', JiraDataSourceUpdateView.as_view(),
         name='jira-datasource-update'),
 
     url(r'oracledb-create/(?P<provider_id>[0-9]+)/$', OracleDBDataSourceCreateView.as_view(),
@@ -110,9 +109,9 @@ urlpatterns = [
     url(r'zendesk-update/(?P<pk>[0-9]+)/$', ZendeskDataSourceUpdateView.as_view(),
         name='zendesk-datasource-update'),
 
-    url(r'mssql-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'mssql-create/(?P<provider_id>[0-9]+)/$', MSSQLDataSourceCreateView.as_view(),
         name='mssql-datasource-create'),
-    url(r'mssql-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'mssql-update/(?P<pk>[0-9]+)/$', MSSQLDataSourceUpdateView.as_view(),
         name='mssql-datasource-update'),
 
     url(r'ftp-create/(?P<provider_id>[0-9]+)/$', FTPDataSourceCreateView.as_view(),

@@ -17,4 +17,7 @@ from .http import HTTPDataSource
 from .mysql import MySQLDataSource
 from .amazons3 import AmazonS3DataSource
 from .redshift import RedshiftDataSource
+from .mixpanel import MixpanelDataSource
+from .jira import JiraDataSource
+from .mssql import MSSQLDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

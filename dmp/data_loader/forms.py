@@ -2,7 +2,8 @@ from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
     SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
-    HTTPDataSource, TwitterDataSource, ZendeskDataSource, MySQLDataSource, RedshiftDataSource, AmazonS3DataSource
+    HTTPDataSource, TwitterDataSource, ZendeskDataSource, MySQLDataSource, RedshiftDataSource, AmazonS3DataSource, \
+    MSSQLDataSource, JiraDataSource, MixpanelDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -711,3 +712,107 @@ class AmazonS3DataSourceForm(forms.ModelForm):
     class Meta:
         model = AmazonS3DataSource
         fields = ('bucket', 'path_prefix', 'access_key', 'secret_key', 'endpoint')
+
+
+class MSSQLDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Host name'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Database name'),
+               'maxlength': 255}))
+
+    instance = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Destination instance name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(MSSQLDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = MSSQLDataSource
+        fields = ('host', 'port', 'username', 'password', 'database', 'instance')
+
+
+class MixpanelDataSourceForm(forms.ModelForm):
+
+    key = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Project API Key'),
+               'maxlength': 255}))
+
+    secret = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Project API Secret'),
+               'maxlength': 255}))
+
+    timezone = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Project timezone'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(MixpanelDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = MixpanelDataSource
+        fields = ('key', 'secret', 'timezone')
+
+
+class JiraDataSourceForm(forms.ModelForm):
+
+    uri = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('JIRA API endpoint '),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    jql = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('JQL for extract target issues'),
+               'maxlength': 255}))
+
+    issue_columns = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Target issue attributes - key-pair value for attribute\'s name and type'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(JiraDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = JiraDataSource
+        fields = ('uri', 'username', 'password', 'jql', 'issue_columns')
+
