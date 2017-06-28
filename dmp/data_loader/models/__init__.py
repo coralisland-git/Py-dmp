@@ -20,4 +20,6 @@ from .redshift import RedshiftDataSource
 from .mixpanel import MixpanelDataSource
 from .jira import JiraDataSource
 from .mssql import MSSQLDataSource
+from .sftp import SFTPDataSource
+from .teradata import TeradataDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

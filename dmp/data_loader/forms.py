@@ -3,7 +3,7 @@ from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
     SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
     HTTPDataSource, TwitterDataSource, ZendeskDataSource, MySQLDataSource, RedshiftDataSource, AmazonS3DataSource, \
-    MSSQLDataSource, JiraDataSource, MixpanelDataSource
+    MSSQLDataSource, JiraDataSource, MixpanelDataSource, TeradataDataSource, SFTPDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -816,3 +816,77 @@ class JiraDataSourceForm(forms.ModelForm):
         model = JiraDataSource
         fields = ('uri', 'username', 'password', 'jql', 'issue_columns')
 
+
+class TeradataDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('TD host name'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('TD username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    database = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('TD database name'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(TeradataDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = TeradataDataSource
+        fields = ('host', 'username', 'password', 'database')
+
+
+class SFTPDataSourceForm(forms.ModelForm):
+
+    host = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('SFTP server address'),
+               'maxlength': 255}))
+
+    port = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('SFTP server port number'),
+               'maxlength': 255}))
+
+    username = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Username'),
+               'maxlength': 255}))
+
+    password = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Password'),
+               'maxlength': 255}))
+
+    prefix = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Prefix of output paths'),
+               'maxlength': 255}))
+
+    passphrase = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Secret key passphrase'),
+               'maxlength': 255}))
+
+    secret_key = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(SFTPDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = SFTPDataSource
+        fields = ('host', 'port', 'username', 'password', 'prefix', 'passphrase', 'secret_key')

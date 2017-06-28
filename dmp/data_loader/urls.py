@@ -20,6 +20,8 @@ from data_loader.views.mysql import MySQLDataSourceCreateView, MySQLDataSourceUp
 from data_loader.views.jira import JiraDataSourceCreateView, JiraDataSourceUpdateView
 from data_loader.views.mssql import MSSQLDataSourceCreateView, MSSQLDataSourceUpdateView
 from data_loader.views.mixpanel import MixpanelDataSourceCreateView, MixpanelDataSourceUpdateView
+from data_loader.views.teradata import TeradataDataSourceCreateView, TeradataDataSourceUpdateView
+from data_loader.views.sftp import SFTPDataSourceCreateView, SFTPDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -114,6 +116,11 @@ urlpatterns = [
     url(r'mssql-update/(?P<pk>[0-9]+)/$', MSSQLDataSourceUpdateView.as_view(),
         name='mssql-datasource-update'),
 
+    url(r'sftp-create/(?P<provider_id>[0-9]+)/$', SFTPDataSourceCreateView.as_view(),
+        name='sftp-datasource-create'),
+    url(r'sftp-update/(?P<pk>[0-9]+)/$', SFTPDataSourceUpdateView.as_view(),
+        name='sftp-datasource-update'),
+
     url(r'ftp-create/(?P<provider_id>[0-9]+)/$', FTPDataSourceCreateView.as_view(),
         name='ftp-datasource-create'),
     url(r'ftp-update/(?P<pk>[0-9]+)/$', FTPDataSourceUpdateView.as_view(),
@@ -124,10 +131,7 @@ urlpatterns = [
     url(r'dynamodb-update/(?P<pk>[0-9]+)/$', DynamoDBDataSourceUpdateView.as_view(),
         name='dynamodb-datasource-update'),
 
-    url(r'sftp-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
-        name='sftp-datasource-create'),
-    url(r'sftp-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
-        name='sftp-datasource-update'),
+
 
     url(r'vertica-create/(?P<provider_id>[0-9]+)/$', VerticaDataSourceCreateView.as_view(),
         name='vertica-datasource-create'),
@@ -139,9 +143,9 @@ urlpatterns = [
     url(r'twitter-update/(?P<pk>[0-9]+)/$', TwitterDataSourceUpdateView.as_view(),
         name='twitter-datasource-update'),
 
-    url(r'teradata-create/(?P<provider_id>[0-9]+)/$', PostgreSQLDataSourceCreateView.as_view(),
+    url(r'teradata-create/(?P<provider_id>[0-9]+)/$', TeradataDataSourceCreateView.as_view(),
         name='teradata-datasource-create'),
-    url(r'teradata-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
+    url(r'teradata-update/(?P<pk>[0-9]+)/$', TeradataDataSourceUpdateView.as_view(),
         name='teradata-datasource-update'),
 
     url(r'create/(?P<provider_id>[0-9]+)/$', DataSourceCreateView.as_view(), name='datasource-create'),
