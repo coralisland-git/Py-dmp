@@ -263,6 +263,15 @@ You will be prompted for email and password.
 
 ### DB scheme ###
 
+**Diagram A: General DB scheme**
+
 [Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/2665672642-DB.png)
 
 ![DB.png](https://bitbucket.org/repo/baanxyR/images/2665672642-DB.png)
+
+
+**Diagram B: DataSources** 
+
+[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/3124645181-DataSources%20Diagram_.png)
+
+![DataSources Diagram_.png](https://bitbucket.org/repo/baanxyR/images/3124645181-DataSources%20Diagram_.png)
