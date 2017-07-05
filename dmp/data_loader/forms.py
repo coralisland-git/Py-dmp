@@ -2,9 +2,8 @@ from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
     SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
-    HTTPDataSource, TwitterDataSource, ZendeskDataSource, MySQLDataSource, RedshiftDataSource, AmazonS3DataSource, \
-    MSSQLDataSource, JiraDataSource, MixpanelDataSource, TeradataDataSource, SFTPDataSource
-    HTTPDataSource, TwitterDataSource, ZendeskDataSource, AdwordsDataSource
+    MySQLDataSource, RedshiftDataSource, AmazonS3DataSource, MSSQLDataSource, JiraDataSource, MixpanelDataSource, \
+    TeradataDataSource, SFTPDataSource, HTTPDataSource, TwitterDataSource, ZendeskDataSource, AdwordsDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
