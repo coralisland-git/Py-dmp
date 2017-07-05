@@ -2,17 +2,17 @@ from django.db import models
 from .models import DataSource
 
 
-class MySQLDataSource(DataSource):
+class JiraDataSource(DataSource):
     data_source = models.OneToOneField(DataSource)
-    host = models.CharField('Host', max_length=255)
-    port = models.CharField('Port', max_length=255)
+    uri = models.CharField('JIRA API endpoint', max_length=255)
     username = models.CharField('Username', max_length=255)
     password = models.CharField('Password', max_length=255)
-    database = models.CharField('Database', max_length=255)
+    jql = models.CharField('JQL', max_length=255)
+    issue_columns = models.CharField('Issue attributes', max_length=255)
 
     class Meta:
-        verbose_name = 'MySQL Data source'
-        verbose_name_plural = 'MySQL Data sources'
+        verbose_name = 'Jira Data source'
+        verbose_name_plural = 'Jira Data sources'
 
     def create_config_file(self):
         pass

@@ -14,5 +14,13 @@ from .twitter import TwitterDataSource
 from .dynamobd import DynamoDBDataSource
 from .zendesk import ZendeskDataSource
 from .http import HTTPDataSource
+from .mysql import MySQLDataSource
+from .amazons3 import AmazonS3DataSource
+from .redshift import RedshiftDataSource
+from .mixpanel import MixpanelDataSource
+from .jira import JiraDataSource
+from .mssql import MSSQLDataSource
+from .sftp import SFTPDataSource
+from .teradata import TeradataDataSource
 from .adwords import AdwordsDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

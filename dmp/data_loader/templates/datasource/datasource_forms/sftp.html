@@ -36,42 +36,57 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Host:</div>
-                                    <input type="text" name="host" maxlength="255" placeholder="SFTP server address" class="form-input" required="" id="id_host">
+                                    {% for error in details_form.host.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.host }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Port:</div>
-                                    <input type="text" name="Port" maxlength="255" placeholder="SFTP server port number" class="form-input" required="" id="id_port">
+                                    {% for error in details_form.port.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.port }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">User:</div>
-                                    <input type="text" name="user" maxlength="255" placeholder="Username" class="form-input" required="" id="id_user">
+                                    {% for error in details_form.username.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.username }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Password:</div>
-                                    <input type="password" name="password" maxlength="255" placeholder="Password" class="form-input" required="" id="id_password">
+                                    {% for error in details_form.password.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.password }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Path prefix:</div>
-                                    <input type="text" name="prefix" maxlength="255" placeholder="Prefix of output paths" class="form-input" required="" id="id_prefix">
+                                    {% for error in details_form.prefix.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.prefix }}
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-label">Passphrase:</div>
-                                    <input type="text" name="passphrase" maxlength="255" placeholder="Secret key passphrase" class="form-input" required="" id="id_passphrase">
+                                    {% for error in details_form.passphrase.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.passphrase }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Secret Key:</div>
-                                    {% for error in form.upload_file.errors %}
+                                    {% for error in details_form.secret_key.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder"> Upload file...</span>
-                                        {{ form.upload_file }}
+                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.secret_key %} {{ details_form.instance.filename }} {% else %} Upload secret key file...{% endif %}</span>
+                                        {{ details_form.secret_key }}
                                     </div>
                                 </div>
-
                                 <div class="form-buttons">
-{#                                    <a href="#" class="button button-gray">Preview</a>#}
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>

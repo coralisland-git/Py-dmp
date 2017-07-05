@@ -36,15 +36,24 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Key:</div>
-                                    <input type="text" name="api_key" maxlength="255" placeholder="Project API Key" class="form-input" required="" id="id_key">
+                                    {% for error in details_form.key.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.key }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Secret:</div>
-                                    <input type="text" name="api_secret" maxlength="255" placeholder="Project API Secret" class="form-input" required="" id="id_secret">
+                                    {% for error in details_form.secret.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.secret }}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-label">Timezone:</div>
-                                    <input type="text" name="timezone" maxlength="255" placeholder="Project timezone" class="form-input" required="" id="id_timezone">
+                                    {% for error in details_form.timezone.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.timezone }}
                                 </div>
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
