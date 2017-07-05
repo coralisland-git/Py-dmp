@@ -14,4 +14,5 @@ from .twitter import TwitterDataSource
 from .dynamobd import DynamoDBDataSource
 from .zendesk import ZendeskDataSource
 from .http import HTTPDataSource
+from .adwords import AdwordsDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

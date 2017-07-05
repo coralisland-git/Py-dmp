@@ -2,7 +2,7 @@ from django import forms
 from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource, SpreadsheetsDataSource, \
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
     SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
-    HTTPDataSource, TwitterDataSource, ZendeskDataSource
+    HTTPDataSource, TwitterDataSource, ZendeskDataSource, AdwordsDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -598,3 +598,37 @@ class ZendeskDataSourceForm(forms.ModelForm):
     class Meta:
         model = ZendeskDataSource
         fields = ('login_url', 'username', 'password', 'target')
+
+
+class AdwordsDataSourceForm(forms.ModelForm):
+
+    conditions = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Query condition list (e.g. - "CampaignStatus IN")'),
+               'maxlength': 255}))
+
+    field_list = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Field list to query'),
+               'maxlength': 255}))
+
+    date_range = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Date range'),
+               'maxlength': 255}))
+
+    report_type = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Report type'),
+               'maxlength': 255}))
+
+    oauth_key_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
+                                     validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(AdwordsDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = AdwordsDataSource
+        fields = ('conditions', 'field_list', 'date_range', 'report_type', 'oauth_key_file')

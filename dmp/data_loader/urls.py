@@ -18,6 +18,7 @@ from data_loader.views.twitter import TwitterDataSourceCreateView, TwitterDataSo
 from data_loader.views.dynamodb import DynamoDBDataSourceCreateView, DynamoDBDataSourceUpdateView
 from data_loader.views.http import HTTPDataSourceCreateView, HTTPDataSourceUpdateView
 from data_loader.views.zendesk import ZendeskDataSourceCreateView, ZendeskDataSourceUpdateView
+from data_loader.views.adwords import AdwordsDataSourceCreateView, AdwordsDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -141,6 +142,11 @@ urlpatterns = [
         name='teradata-datasource-create'),
     url(r'teradata-update/(?P<pk>[0-9]+)/$', PostgreSQLDataSourceUpdateView.as_view(),
         name='teradata-datasource-update'),
+
+    url(r'adwords-create/(?P<provider_id>[0-9]+)/$', AdwordsDataSourceCreateView.as_view(),
+        name='adwords-datasource-create'),
+    url(r'adwords-update/(?P<pk>[0-9]+)/$', AdwordsDataSourceUpdateView.as_view(),
+        name='adwords-datasource-update'),
 
     url(r'create/(?P<provider_id>[0-9]+)/$', DataSourceCreateView.as_view(), name='datasource-create'),
     url(r'update/(?P<pk>[0-9]+)/$', DataSourceUpdateView.as_view(), name='datasource-update'),

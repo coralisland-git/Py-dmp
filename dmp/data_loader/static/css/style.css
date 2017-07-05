@@ -443,6 +443,11 @@ h1, h2, h3 {
 .icon-dynamodb{
 	background-position: -30px -90px;
 }
+
+.icon-adwords{
+	background-position: -60px -120px;
+}
+
 /* boxes */
 .box {
 	background: #fff;
