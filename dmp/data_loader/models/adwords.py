@@ -5,7 +5,7 @@ from .models import DataSource
 
 class AdwordsDataSource(DataSource):
     data_source = models.OneToOneField(DataSource)
-    conditions = models.CharField('Query condition list', max_length=255)
+    conditions = models.CharField('Query condition list', max_length=255, blank=True, null=True)
     field_list = models.CharField('Field list to query', max_length=255)
     date_range = models.CharField('Date range', max_length=255)
     report_type = models.CharField('Report type', max_length=255)

@@ -897,8 +897,8 @@ class AdwordsDataSourceForm(forms.ModelForm):
 
     conditions = forms.CharField(max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-input',
-               'placeholder': _('Query condition list (e.g. - "CampaignStatus IN")'),
-               'maxlength': 255}))
+               'placeholder': _('Query condition list'),
+               'maxlength': 255}), required=False)
 
     field_list = forms.CharField(max_length=255, widget=forms.TextInput(
         attrs={'class': 'form-input',

@@ -35,20 +35,14 @@
                                     {{ form.name }}
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-label">Conditions:</div>
-                                    {% for error in details_form.conditions.errors %}
-                                        <p class="errors">{{ error }}</p>
-                                    {% endfor %}
-                                    {{ details_form.conditions }}
-                                </div>
-                                <div class="form-row">
                                     <div class="form-label">Report:</div>
                                     {% for error in details_form.report_type.errors %}
                                         <p class="errors">{{ error }}</p>
                                     {% endfor %}
                                     {{ details_form.report_type }}
                                     <div class="form-note">
-                                        <b>Note:</b> Default - CAMPAIGN_PERFORMANCE_REPORT.
+                                        <b>Note:</b> Example: CAMPAIGN_PERFORMANCE_REPORT.<br>
+                                        Please, refer to <a target="_blank" href="https://developers.google.com/adwords/api/docs/appendix/reports"> documentation</a> for detailed information about reports section.
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -61,8 +55,9 @@
                                     {{ details_form.field_list }}
                                     <div class="form-note">
                                         <b>Note:</b> Field values must be separated by a comma (i.e. "CampaignId, CampaignName").<br>
-                                        Default values: CampaignId, CampaignName, CampaignStatus, Year, Month,
-                                        ClickType, ActiveViewCpm, AllConversions.
+                                        Example values: CampaignId, CampaignName, CampaignStatus, Year, Month,
+                                        ClickType, ActiveViewCpm, AllConversions. <br>
+                                        Please, refer to <a target="_blank" href="https://developers.google.com/adwords/api/docs/appendix/reports/all-reports"> documentation</a> for detailed information about available fields per report type.
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -72,9 +67,22 @@
                                     {% endfor %}
                                     {{ details_form.date_range }}
                                     <div class="form-note">
-                                        <b>Note:</b> Default - LAST_30_DAYS.
+                                        <b>Note:</b> Example: LAST_30_DAYS.
                                     </div>
                                 </div>
+
+                                <div class="form-row">
+                                    <div class="form-label">Conditions:</div>
+                                    {% for error in details_form.conditions.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.conditions }}
+                                    <div class="form-note">
+                                        <b>Note:</b> Example: CampaignStatus IN <br>
+                                        Please, refer to <a target="_blank" href="https://developers.google.com/adwords/api/docs/guides/awql#formal_grammar"> documentation</a> for detailed information about query condition list.
+                                    </div>
+                                </div>
+
                                 <div class="form-row">
                                     <div class="form-label">Key file:</div>
                                     <div class="form-file">
