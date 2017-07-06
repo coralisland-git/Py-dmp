@@ -42,6 +42,16 @@
                                     {{ details_form.conditions }}
                                 </div>
                                 <div class="form-row">
+                                    <div class="form-label">Report:</div>
+                                    {% for error in details_form.report_type.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.report_type }}
+                                    <div class="form-note">
+                                        <b>Note:</b> Default - CAMPAIGN_PERFORMANCE_REPORT.
+                                    </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-label">
                                         Fields:
                                     </div>
@@ -56,16 +66,6 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-label">Report:</div>
-                                    {% for error in details_form.report_type.errors %}
-                                        <p class="errors">{{ error }}</p>
-                                    {% endfor %}
-                                    {{ details_form.report_type }}
-                                    <div class="form-note">
-                                        <b>Note:</b> Default - CAMPAIGN_PERFORMANCE_REPORT.
-                                    </div>
-                                </div>
-                                <div class="form-row">
                                     <div class="form-label">Date:</div>
                                     {% for error in details_form.date_range.errors %}
                                         <p class="errors">{{ error }}</p>
@@ -75,7 +75,6 @@
                                         <b>Note:</b> Default - LAST_30_DAYS.
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-label">Key file:</div>
                                     <div class="form-file">
