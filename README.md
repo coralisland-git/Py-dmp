@@ -181,6 +181,10 @@ mysql -u root -p
 ```
 You should be prompted for root user password.
 
+There are 2 ways to create project's database:
+
+1. Setup db with custom credentials:
+
 ```
 #!
 
@@ -188,7 +192,7 @@ CREATE DATABASE <database_name> CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE USER '<user_name>'@'localhost' IDENTIFIED BY '<user_pass>';
 GRANT ALL PRIVILEGES ON <database_name>.* TO <user_name>@'localhost';
 ```
-Copy file for local settings from example file:
+Copy file to setup local settings from example file:
 
 
 ```
@@ -206,6 +210,14 @@ Edit database credentials in local_settings.py and save:
 'NAME': '<database_name>'
 'USER': '<user_name>'
 'PASSWORD': '<user_pass>'
+```
+2. Setup db with default credentials:
+```
+#!
+
+CREATE DATABASE dmp CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER 'dmp'@'localhost' IDENTIFIED BY 'fdir498djd4';
+GRANT ALL PRIVILEGES ON dmp.* TO dmp@'localhost';
 ```
 
 Run project database migrations:
