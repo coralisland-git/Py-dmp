@@ -211,7 +211,10 @@ Edit database credentials in local_settings.py and save:
 'USER': '<user_name>'
 'PASSWORD': '<user_pass>'
 ```
+
+
 2. Setup db with default credentials:
+
 ```
 #!
 
@@ -219,6 +222,9 @@ CREATE DATABASE dmp CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE USER 'dmp'@'localhost' IDENTIFIED BY 'fdir498djd4';
 GRANT ALL PRIVILEGES ON dmp.* TO dmp@'localhost';
 ```
+
+
+
 
 Run project database migrations:
 
