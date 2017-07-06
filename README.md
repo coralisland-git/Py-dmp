@@ -183,7 +183,7 @@ You should be prompted for root user password.
 
 There are 2 ways to create project's database:
 
-1. Setup db with custom credentials:
+1.Setup db with custom credentials:
 
 ```
 #!
@@ -213,7 +213,7 @@ Edit database credentials in local_settings.py and save:
 ```
 
 
-2. Setup db with default credentials:
+2.Setup db with default credentials:
 
 ```
 #!
