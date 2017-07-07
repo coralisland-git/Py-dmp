@@ -289,6 +289,6 @@ You will be prompted for email and password.
 
 **Diagram B: DataSources** 
 
-[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/2864083454-DataSources_Diagram.png)
+[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/1746163450-DataSourcesDiagram.png)
 
-![DataSources_Diagram.png](https://bitbucket.org/repo/baanxyR/images/2864083454-DataSources_Diagram.png)
+![DataSourcesDiagram.png](https://bitbucket.org/repo/baanxyR/images/1746163450-DataSourcesDiagram.png)
