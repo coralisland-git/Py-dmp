@@ -5,8 +5,8 @@ from .models import DataSource
 
 class SparkPostDataSource(DataSource):
     data_source = models.OneToOneField(DataSource)
-    url = models.CharField('URL endpoint', max_length=255)
-    api_key = models.CharField('Auth API key', max_length=255)
+    url = models.CharField('URL endpoint', max_length=500)
+    api_key = models.CharField('Auth API key', max_length=500)
 
     class Meta:
         verbose_name = 'SparkPost Data source'

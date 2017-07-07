@@ -930,15 +930,15 @@ class AdwordsDataSourceForm(forms.ModelForm):
 
 class SparkPostDataSourceForm(forms.ModelForm):
 
-    url = forms.CharField(max_length=255, widget=forms.TextInput(
+    url = forms.CharField(max_length=500, widget=forms.TextInput(
         attrs={'class': 'form-input',
                'placeholder': _('URL endpoint'),
-               'maxlength': 255}))
+               'maxlength': 500}))
 
-    api_key = forms.CharField(max_length=255, widget=forms.TextInput(
+    api_key = forms.CharField(max_length=500, widget=forms.TextInput(
         attrs={'class': 'form-input',
                'placeholder': _('Auth API key'),
-               'maxlength': 255}))
+               'maxlength': 500}))
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
