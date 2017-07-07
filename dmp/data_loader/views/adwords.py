@@ -4,6 +4,7 @@ from data_loader.models import AdwordsDataSource
 
 
 class AdwordsDataSourceCreateView(DataSourceCreateView):
+    details_model_class = AdwordsDataSource
 
     def get_details_form_class(self):
         return AdwordsDataSourceForm

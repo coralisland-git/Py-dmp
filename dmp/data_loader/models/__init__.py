@@ -23,4 +23,5 @@ from .mssql import MSSQLDataSource
 from .sftp import SFTPDataSource
 from .teradata import TeradataDataSource
 from .adwords import AdwordsDataSource
+from .sparkpost import SparkPostDataSource
 from .models import DataSource, DataProvider, DataFlowSettings

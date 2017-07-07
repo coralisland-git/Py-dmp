@@ -200,6 +200,14 @@
       "title": "AdWords",
       "name": "adwords"
     }
+  },
+    {
+    "model": "data_loader.dataprovider",
+    "pk": 26,
+    "fields": {
+      "title": "SparkPost",
+      "name": "sparkpost"
+    }
   }
 
 

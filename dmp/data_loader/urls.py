@@ -23,6 +23,7 @@ from data_loader.views.mixpanel import MixpanelDataSourceCreateView, MixpanelDat
 from data_loader.views.teradata import TeradataDataSourceCreateView, TeradataDataSourceUpdateView
 from data_loader.views.sftp import SFTPDataSourceCreateView, SFTPDataSourceUpdateView
 from data_loader.views.adwords import AdwordsDataSourceCreateView, AdwordsDataSourceUpdateView
+from data_loader.views.sparkpost import SparkPostDataSourceCreateView, SparkPostDataSourceUpdateView
 
 urlpatterns = [
     url(r'^$', DataSourceListView.as_view(), name='datasource-list'),
@@ -153,6 +154,12 @@ urlpatterns = [
         name='adwords-datasource-create'),
     url(r'adwords-update/(?P<pk>[0-9]+)/$', AdwordsDataSourceUpdateView.as_view(),
         name='adwords-datasource-update'),
+
+    url(r'sparkpost-create/(?P<provider_id>[0-9]+)/$', SparkPostDataSourceCreateView.as_view(),
+        name='sparkpost-datasource-create'),
+    url(r'sparkpost-update/(?P<pk>[0-9]+)/$', SparkPostDataSourceUpdateView.as_view(),
+        name='sparkpost-datasource-update'),
+
 
     url(r'create/(?P<provider_id>[0-9]+)/$', DataSourceCreateView.as_view(), name='datasource-create'),
     url(r'update/(?P<pk>[0-9]+)/$', DataSourceUpdateView.as_view(), name='datasource-update'),

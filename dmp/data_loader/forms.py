@@ -3,7 +3,8 @@ from data_loader.models import DataSource, DataFlowSettings, AnalyticsDataSource
     PostgreSQLDataSource, VerticaDataSource, JDBCDataSource, OracleDBDataSource, MongoDBDataSource, FTPDataSource, \
     SalesforceDataSource, HadoopDataSource, GoogleCloudDataSource, MarketoDataSource, DynamoDBDataSource, \
     MySQLDataSource, RedshiftDataSource, AmazonS3DataSource, MSSQLDataSource, JiraDataSource, MixpanelDataSource, \
-    TeradataDataSource, SFTPDataSource, HTTPDataSource, TwitterDataSource, ZendeskDataSource, AdwordsDataSource
+    TeradataDataSource, SFTPDataSource, HTTPDataSource, TwitterDataSource, ZendeskDataSource, AdwordsDataSource, \
+    SparkPostDataSource
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
@@ -925,3 +926,24 @@ class AdwordsDataSourceForm(forms.ModelForm):
     class Meta:
         model = AdwordsDataSource
         fields = ('conditions', 'field_list', 'date_range', 'report_type', 'oauth_key_file')
+
+
+class SparkPostDataSourceForm(forms.ModelForm):
+
+    url = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('URL endpoint'),
+               'maxlength': 255}))
+
+    api_key = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Auth API key'),
+               'maxlength': 255}))
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(SparkPostDataSourceForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = SparkPostDataSource
+        fields = ('url', 'api_key')

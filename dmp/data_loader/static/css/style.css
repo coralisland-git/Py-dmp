@@ -451,6 +451,10 @@ h1, h2, h3 {
 	background-position: -60px -120px;
 }
 
+.icon-sparkpost{
+	background-position: -90px -120px;
+}
+
 /* boxes */
 .box {
 	background: #fff;
