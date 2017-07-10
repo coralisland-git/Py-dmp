@@ -69,6 +69,11 @@
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>
+                            <div class="form-note">
+                                {% if form.instance.pk %}
+                                    <b>Note:</b> {{ form.instance.get_output_table_name }}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>

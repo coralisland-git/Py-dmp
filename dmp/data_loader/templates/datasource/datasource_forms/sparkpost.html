@@ -51,11 +51,15 @@
                                         <b>Note:</b> Please, refer to <a target="_blank" href="https://developers.sparkpost.com/api/metrics.html">API documentation</a> for detailed information about parameters and type of URL.
                                     </div>
                                 </div>
-
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
                             </form>
+                            <div class="form-note">
+                                {% if form.instance.pk %}
+                                    <b>Note:</b> {{ form.instance.get_output_table_name }}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
