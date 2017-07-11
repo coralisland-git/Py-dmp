@@ -1,9 +1,11 @@
-from customer.models import Customer
+from customer.models import Customer, Profile
 from django.core.management import BaseCommand
 from django.db.utils import IntegrityError
 from django.core import validators, exceptions
+from django.db import transaction
 
 
+@transaction.atomic()
 class Command(BaseCommand):
 
     # Show this when the user types help
@@ -12,6 +14,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         email = input('Set email: ')
         password = input('Set password: ')
+        company_name = input('Company name: ')
+        if not email or not password or not company_name:
+            raise ValueError('Please, set correct input values.')
         try:
             validators.validate_email(email)
         except exceptions.ValidationError:
@@ -20,8 +25,10 @@ class Command(BaseCommand):
             customer = Customer(email=email)
             customer.set_password(password)
             customer.save()
+            Profile.objects.get_or_create(user=customer, defaults={"company_name": company_name})
         except IntegrityError:
             print("User already exists.")
+
 
 
 
