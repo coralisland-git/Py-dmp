@@ -70,5 +70,5 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('index')
 
     def get_object(self, queryset=None):
-        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        profile = Profile.objects.get(user=self.request.user)
         return profile
