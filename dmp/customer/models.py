@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.utils.translation import ugettext_lazy as _
-import psycopg2
+
 
 class Customer(AbstractBaseUser):
     """
@@ -32,13 +32,6 @@ class Customer(AbstractBaseUser):
     def save(self, *args, **kwargs):
         super(Customer, self).save(*args, **kwargs)
 
-    # @staticmethod
-    # def create_rs_db():
-    #     con = psycopg2.connect(dbname='postgres',
-    #                            user='myWindowsUserName', host='localhost',
-    #                            password='myPW123')
-
-
 
 class Profile(models.Model):
     """
@@ -48,3 +41,5 @@ class Profile(models.Model):
     first_name = models.CharField(_('First name'), max_length=120, blank=True, null=True)
     last_name = models.CharField(_('Last name'), max_length=120, blank=True, null=True)
     company_name = models.CharField(_('Company name'), max_length=120, default=None)
+    rs_username = models.CharField(_('Output datastorage username'), max_length=120, default=None, blank=True, null=True)
+    rs_password = models.CharField(_('Output datastorage password'), max_length=120, default=None, blank=True, null=True)

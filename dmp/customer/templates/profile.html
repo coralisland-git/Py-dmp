@@ -48,6 +48,13 @@
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-profile-update').submit(); return false;" class="button button-green">Update</a>
                                 </div>
                             </form>
+                            <div class="form-note">
+                                {% if form.instance.pk and form.instance.rs_username and form.instance.company_name%}
+                                    Your personal output storage credentials: <br>
+                                    <b>username</b> - {{ form.instance.rs_username }}<br>
+                                    <b>database</b> - {{ form.instance.company_name }}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
