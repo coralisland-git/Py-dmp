@@ -60,6 +60,7 @@ class AnalyticsDataSource(DataSource):
 
     def update_config_content(self, template_data):
         from django.conf import settings
+        profile = self.data_source.user.get_profile()
         with codecs.open(os.path.join(settings.MEDIA_ROOT, self.upload_file.name), 'r', 'utf-8') as key_file:
             key_data = key_file.read()
         if template_data:
@@ -69,6 +70,12 @@ class AnalyticsDataSource(DataSource):
                 template_data['in']['dimensions'] = self.get_dimensions()
             if self.get_metrics():
                 template_data['in']['metrics'] = self.get_metrics()
+            if profile.rs_username and profile.company_name and profile.rs_password:
+                template_data['out']['user'] = profile.rs_username
+                template_data['out']['password'] = profile.rs_password
+                template_data['out']['database'] = profile.company_name
+                template_data['out']['schema'] = profile.rs_username
+
             template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
                                                               self.data_source.user_id,
                                                               self.id)

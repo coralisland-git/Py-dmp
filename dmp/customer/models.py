@@ -35,6 +35,9 @@ class Customer(AbstractBaseUser):
     def save(self, *args, **kwargs):
         super(Customer, self).save(*args, **kwargs)
 
+    def get_profile(self):
+        return self.profile_set.all()[0]
+
 
 class Profile(models.Model):
     """

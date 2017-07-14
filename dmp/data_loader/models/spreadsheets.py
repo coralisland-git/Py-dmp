@@ -63,11 +63,17 @@ class SpreadsheetsDataSource(DataSource):
         return column_list
 
     def update_config_content(self, template_data):
+        profile = self.data_source.user.get_profile()
         if template_data:
             template_data['in']['json_keyfile'] = self.upload_file.path
             template_data['in']['spreadsheets_url'] = self.document_url
             template_data['in']['worksheet_title'] = self.worksheet_id
             template_data['in']['columns'] = self.get_column_list()
+            if profile.rs_username and profile.company_name and profile.rs_password:
+                template_data['out']['user'] = profile.rs_username
+                template_data['out']['password'] = profile.rs_password
+                template_data['out']['database'] = profile.company_name
+                template_data['out']['schema'] = profile.rs_username
             template_data['out']['table'] = "{}_{}_{}".format(self.data_source.data_provider.name,
                                                               self.data_source.user_id,
                                                               self.id)

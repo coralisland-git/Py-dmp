@@ -144,12 +144,12 @@ RS_CREDENTIALS = {
     # "AWS_ACCESS_KEY_ID": "AKIAIP7STKA7WFEAF2QA",
     # "AWS_SECRET_ACCESS_KEY": "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",
     # "AWS_DEFAULT_REGION": "eu-central-1",
-    # "AWS_REGION": "eu-central-1",
+    # "AWS_REGION": "eu-central-1",]
+    "RSDEFAULTDATABASE": "template1",
     "RSUSER": "artespankov",
     "RSPASSWORD": "Fruruce7hE",
     "RSHOST": "dmp-redshift.cmdjyatye0iv.eu-central-1.redshift.amazonaws.com",
     "RSPORT": "5439",
-    "RSDATABASE": "dmp"
 }
 
 

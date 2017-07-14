@@ -11,6 +11,7 @@ out:
   user: artespankov
   password: Fruruce7hE
   database: dmp
+  schema: public
   table: ga_147986188
   aws_access_key_id: AKIAIP7STKA7WFEAF2QA
   aws_secret_access_key: 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
