@@ -5,8 +5,6 @@ from django.core import validators, exceptions
 from django.db import transaction
 from django.conf import settings
 import psycopg2
-from psycopg2 import sql
-import hashlib
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 
