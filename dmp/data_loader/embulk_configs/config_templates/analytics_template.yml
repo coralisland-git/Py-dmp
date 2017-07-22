@@ -6,16 +6,16 @@ in:
 
 out:
   type: redshift
-  host: dmp-redshift.cmdjyatye0iv.eu-central-1.redshift.amazonaws.com
+  host: 52.29.124.37
   port: 5439
-  user: artespankov
-  password: Fruruce7hE
+  user: nkolster
+  password: mq8Ynmu4VDhxQMckPY*q
   database: dmp
   schema: public
-  table: ga_147986188
-  aws_access_key_id: AKIAIP7STKA7WFEAF2QA
-  aws_secret_access_key: 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
-  iam_user_name: artespankov
+  table: ga
+  aws_access_key_id: AKIAINPSJDQFPKLXHWNA
+  aws_secret_access_key: n0cwoLrTAA5zJxPchu29HYbdjf42Mvj5hTETD9KY
+  iam_user_name: rs-user
   s3_bucket: dmp-redshift
   s3_key_prefix: redshift/
   mode: replace
