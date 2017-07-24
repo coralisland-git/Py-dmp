@@ -144,7 +144,7 @@ RS_CREDENTIALS = {
     "RSDEFAULTDATABASE": "template1",
     "RSUSER": "nkolster",
     "RSPASSWORD": "mq8Ynmu4VDhxQMckPY*q",
-    "RSHOST": "dmp-redshift.chjsswbt7mp7.eu-central-1.redshift.amazonaws.com",
+    "RSHOST": "52.29.124.37",
     "RSPORT": "5439",
 }
 
