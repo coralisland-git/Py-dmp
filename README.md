@@ -268,27 +268,27 @@ You will be prompted for email and password.
 
 ### Current state ###
 
-[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/2119264928-DMPCurrentFlowDiagram.png)
+[Link to fullsize image](images/DMPCurrentFlowDiagram)
 
-![DMPCurrentFlowDiagram.png](https://bitbucket.org/repo/baanxyR/images/2119264928-DMPCurrentFlowDiagram.png)
+![DMPCurrentFlowDiagram.png](images/DMPCurrentFlowDiagram.png)
 
 ### Project architecture TBD ###
 
-[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/1876695687-DMPFlowDiagram%20.png)
+[Link to fullsize image](images/DMPFlowDiagram.png)
 
-![DMPFlowDiagram .png](https://bitbucket.org/repo/baanxyR/images/1876695687-DMPFlowDiagram%20.png)
+![DMPFlowDiagram .png](images/DMPFlowDiagram.png)
 
 
 ### DB scheme ###
 
 **Diagram A: General DB scheme**
 
-[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/2503715242-DB%20diagram__.png)
+[Link to fullsize image](images/DBdiagram.png)
 
 ![DBdiagram.png](images/DBdiagram.png)
 
 **Diagram B: DataSources** 
 
-[Link to fullsize image](https://bitbucket.org/repo/baanxyR/images/1746163450-DataSourcesDiagram.png)
+[Link to fullsize image](images/DataSourcesDiagram.png)
 
-![DataSourcesDiagram.png](https://bitbucket.org/repo/baanxyR/images/1746163450-DataSourcesDiagram.png)
+![DataSourcesDiagram.png](images/DataSourcesDiagram.png)
