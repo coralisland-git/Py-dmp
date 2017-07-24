@@ -268,7 +268,7 @@ You will be prompted for email and password.
 
 ### Current state ###
 
-[Link to fullsize image](images/DMPCurrentFlowDiagram)
+[Link to fullsize image](images/DMPCurrentFlowDiagram.png)
 
 ![DMPCurrentFlowDiagram.png](images/DMPCurrentFlowDiagram.png)
 
@@ -276,7 +276,7 @@ You will be prompted for email and password.
 
 [Link to fullsize image](images/DMPFlowDiagram.png)
 
-![DMPFlowDiagram .png](images/DMPFlowDiagram.png)
+![DMPFlowDiagram.png](images/DMPFlowDiagram.png)
 
 
 ### DB scheme ###
