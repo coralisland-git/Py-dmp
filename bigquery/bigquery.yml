@@ -1,0 +1,60 @@
+in:
+  type: file
+  path_prefix: /var/www/html/data-management-platform/bigquery/bigquery.csv
+  parser:
+    charset: UTF-8
+    newline: LF
+    type: csv
+    delimiter: ','
+    quote: '"'
+    escape: '"'
+    null_string: 'None'
+    trim_if_not_quoted: false
+    skip_header_lines: 1
+    allow_extra_columns: false
+    allow_optional_columns: false
+    columns:
+    - {name: affiliates_id, type: long}
+    - {name: affiliates_partner, type: string}
+    - {name: brand, type: string}
+    - {name: country, type: string}
+    - {name: user_api, type: string}
+    - {name: product_name, type: string}
+    - {name: fixed_fee, type: boolean}
+    - {name: bk_id_numeric, type: long}
+    - {name: bk_id_str, type: string}
+    - {name: publisher_id, type: long}
+    - {name: bk_value, type: double}
+    - {name: affiliates_fee, type: double}
+    - {name: click_date, type: string}
+    - {name: bk_date, type: timestamp, format: '%Y-%m-%d %H:%M:%S %z'}
+    - {name: rnk, type: long}
+    - {name: status, type: string}
+    - {name: voucher_id_code, type: string}
+    - {name: voucher_amount, type: string}
+    - {name: business_profile, type: string}
+    - {name: ga_date, type: string}
+    - {name: ga_medium, type: string}
+    - {name: ga_channel, type: string}
+    - {name: publisher_site_name, type: string}
+    - {name: publisher_type, type: string}
+    - {name: override_fee, type: string}
+    - {name: validation_bit_0, type: double}
+    - {name: validation_bit_1, type: long}
+    - {name: validation_bit_2, type: long}
+    - {name: manual_check, type: string}
+    - {name: numeric_check, type: double}
+    - {name: cpa, type: string}
+    - {name: response, type: string}
+    - {name: string_check, type: string}
+    - {name: product_name_std, type: string}
+    - {name: BK_ID, type: string}
+    - {name: BK_CATEGORY, type: string}
+    - {name: AMC4_AFS, type: string}
+    - {name: AMC4_AFS_WITHOUT_VOUCHER_DISCOUNT, type: double}
+    - {name: cap_eur, type: double}
+    - {name: bk_value_eur, type: double}
+out: {type: redshift, host: 52.29.124.37, port: 5439, user: nkolster, password: mq8Ynmu4VDhxQMckPY*q,
+  database: dmp, schema: public, table: analytics_2_132_bigquery, aws_access_key_id: AKIAINPSJDQFPKLXHWNA,
+  aws_secret_access_key: n0cwoLrTAA5zJxPchu29HYbdjf42Mvj5hTETD9KY, iam_user_name: rs-user,
+  s3_bucket: dmp-redshift, s3_key_prefix: redshift/, mode: replace}
