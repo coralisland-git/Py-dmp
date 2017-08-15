@@ -54,7 +54,19 @@ in:
     - {name: AMC4_AFS_WITHOUT_VOUCHER_DISCOUNT, type: double}
     - {name: cap_eur, type: double}
     - {name: bk_value_eur, type: double}
-out: {type: redshift, host: 52.29.124.37, port: 5439, user: nkolster, password: mq8Ynmu4VDhxQMckPY*q,
-  database: dmp, schema: public, table: analytics_2_132_bigquery, aws_access_key_id: AKIAINPSJDQFPKLXHWNA,
-  aws_secret_access_key: n0cwoLrTAA5zJxPchu29HYbdjf42Mvj5hTETD9KY, iam_user_name: rs-user,
-  s3_bucket: dmp-redshift, s3_key_prefix: redshift/, mode: replace}
+out: {
+  type: redshift,
+  host: 52.29.124.37,
+  port: 5439,
+  user: nkolster,
+  password: mq8Ynmu4VDhxQMckPY*q,
+  database: lmn,
+  schema: public,
+  table: costs_and_margins_bq,
+  aws_access_key_id: AKIAINPSJDQFPKLXHWNA,
+  aws_secret_access_key: n0cwoLrTAA5zJxPchu29HYbdjf42Mvj5hTETD9KY,
+  iam_user_name: rs-user,
+  s3_bucket: dmp-redshift,
+  s3_key_prefix: redshift/,
+  mode: replace
+}
