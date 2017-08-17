@@ -76,8 +76,7 @@ class DataSource(models.Model):
 
 
 class DataFlowSettings(models.Model):
-    TIME_INTERVALS = ((1, '5 minutes'),
-                      (2, '30 minutes'),
+    TIME_INTERVALS = ((2, '30 minutes'),
                       (3, '1 hour'),
                       (4, '2 hours'),
                       (5, '5 hours'),
