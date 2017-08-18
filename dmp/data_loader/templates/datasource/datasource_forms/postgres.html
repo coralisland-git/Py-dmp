@@ -69,6 +69,28 @@
                                     {% endfor %}
                                     {{ details_form.database }}
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-label">Table:</div>
+                                    {% for error in details_form.table.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.table }}
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">Select:</div>
+                                    {% for error in details_form.select.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.select }}
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label">Where:</div>
+                                    {% for error in details_form.where.errors %}
+                                        <p class="errors">{{ error }}</p>
+                                    {% endfor %}
+                                    {{ details_form.where }}
+                                </div>
+                                {% comment %}
                                 <div class="tab-row">
                                     <div class="tab-col-6">
                                         <div class="tab-title">Simple</div>
@@ -109,6 +131,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% endcomment %}
 
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
