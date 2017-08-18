@@ -143,16 +143,57 @@ class PostgreSQLDataSourceForm(forms.ModelForm):
                'placeholder': _('Database name'),
                'maxlength': 255}))
 
-    schema_file = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-input'}),
-                                  validators=[FileExtensionValidator(allowed_extensions=['json', 'yml', 'xml'])])
+    table = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Table name'),
+               'maxlength': 255}))
+
+    select = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Select'),
+               'maxlength': 255}))
+
+    where = forms.CharField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-input',
+               'placeholder': _('Where'),
+               'maxlength': 255}))
+
+    query = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-input',
+               'placeholder': _('Query'),
+               'maxlength': 255}))
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(PostgreSQLDataSourceForm, self).__init__(*args, **kwargs)
 
+    # def clean(self):
+    #     cleaned_data = super(PostgreSQLDataSourceForm, self).clean()
+    #     tab1 = (
+    #         cleaned_data.get('table') and
+    #         cleaned_data.get('select') and
+    #         cleaned_data.get('where')
+    #     )
+    #     tab2 = bool(cleaned_data.get('query'))
+
+    #     if tab2:
+    #         cleaned_data['table'] = ''
+    #         cleaned_data['select'] = ''
+    #         cleaned_data['where'] = ''
+    #     elif tab1:
+    #         cleaned_data['query'] = ''
+
+    #     else:
+    #         msg = "Must be not empty field"
+    #         self.add_error('table', msg)
+
     class Meta:
         model = PostgreSQLDataSource
-        fields = ('host', 'port', 'username', 'password', 'database', 'schema_file')
+        fields = (
+            'host', 'port', 'username',
+            'password', 'database', 'table',
+            'select', 'where', 'query'
+        )
 
 
 class VerticaDataSourceForm(forms.ModelForm):

@@ -10,7 +10,16 @@ class PostgreSQLDataSource(DataSource):
     username = models.CharField('Username', max_length=255)
     password = models.CharField('Password', max_length=255)
     database = models.CharField('Database', max_length=255)
-    schema_file = models.FileField('Schema file', upload_to='file_uploads', default=None)
+    schema_file = models.FileField(
+        'Schema file', upload_to='file_uploads', default=None)
+    table = models.CharField(
+        'Table name', max_length=255, blank=True, null=True)
+    select = models.CharField(
+        'Select', max_length=255, blank=True, null=True)
+    where = models.CharField(
+        'Where', max_length=255, blank=True, null=True)
+    query = models.TextField(
+        'Query', max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = 'PostgreSQL Data source'
@@ -24,4 +33,3 @@ class PostgreSQLDataSource(DataSource):
 
     def update_config_file(self):
         pass
-

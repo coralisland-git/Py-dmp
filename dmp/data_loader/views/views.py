@@ -82,7 +82,34 @@ class DataSourceCreateView(LoginRequiredMixin, CreateView):
 
         # TODO: Refactor this after all datasources will be added
         if details_form:
-            details_form = details_form(self.request.POST, self.request.FILES, request=request)
+            details_form = details_form(self.request.POST, request=request)
+            details_form.is_valid()
+
+            tab1 = (
+                details_form.cleaned_data.get('table') and
+                details_form.cleaned_data.get('select') and
+                details_form.cleaned_data.get('where')
+            )
+            tab2 = bool(details_form.cleaned_data.get('query'))
+
+            if tab2:
+                details_form.cleaned_data['table'] = ''
+                details_form.cleaned_data['select'] = ''
+                details_form.cleaned_data['where'] = ''
+
+                if 'table' in details_form.errors:
+                    del details_form.errors['table']
+
+                if 'select' in details_form.errors:
+                    del details_form.errors['select']
+
+                if 'where' in details_form.errors:
+                    del details_form.errors['where']
+
+            elif tab1:
+                details_form.cleaned_data['query'] = ''
+                del details_form.errors['query']
+
             if form.is_valid() and details_form.is_valid():
                 return self.form_valid(form, details_form)
             else:

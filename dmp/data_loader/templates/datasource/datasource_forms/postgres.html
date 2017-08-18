@@ -4,7 +4,7 @@
 <script src="{% static "js/datasource_crud.js" %}" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
-
+{% spaceless %}
     <div class="page datasources-add">
         <div class="page-title">
             <div class="content">
@@ -69,20 +69,51 @@
                                     {% endfor %}
                                     {{ details_form.database }}
                                 </div>
-
-                                <div class="form-row">
-                                    <div class="form-label">Schema file:</div>
-                                    <div class="form-file">
-                                        <span id="file-text-lable" class="form-placeholder">{% if details_form.instance.schema_file %} {{ details_form.instance.filename }} {% else %}Upload schema file...{% endif %}</span>
-                                        {% for error in details_form.schema_file.errors %}
-                                            <p class="errors">{{ error }}</p>
-                                        {% endfor %}
-                                        {{ details_form.schema_file }}
+                                <div class="tab-row">
+                                    <div class="tab-col-6">
+                                        <div class="tab-title">Simple</div>
+                                        <div class="tab-content">
+                                            <div class="form-row">
+                                                <div class="form-label">Table:</div>
+                                                {% for error in details_form.table.errors %}
+                                                    <p class="errors">{{ error }}</p>
+                                                {% endfor %}
+                                                {{ details_form.table }}
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-label">Select:</div>
+                                                {% for error in details_form.select.errors %}
+                                                    <p class="errors">{{ error }}</p>
+                                                {% endfor %}
+                                                {{ details_form.select }}
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-label">Where:</div>
+                                                {% for error in details_form.where.errors %}
+                                                    <p class="errors">{{ error }}</p>
+                                                {% endfor %}
+                                                {{ details_form.where }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-col-6">
+                                        <div class="tab-title">Advanced</div>
+                                        <div class="tab-content">
+                                            <div class="form-row">
+                                                <div class="form-label">Query:</div>
+                                                {% for error in details_form.query.errors %}
+                                                    <p class="errors">{{ error }}</p>
+                                                {% endfor %}
+                                                {{ details_form.query }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="form-buttons">
                                     <a href="javascript:void(0);" onclick="document.getElementById('form-create').submit(); return false;" class="button button-green">{% if form.instance.pk %}Update{% else %}Save & Collect{% endif %}</a>
                                 </div>
+                                {{ form.errors }}
                             </form>
                             <div class="form-note">
                                 {% if form.instance.pk %}
@@ -95,4 +126,12 @@
             </div>
         </div>
     </div>
+{% endspaceless %}
+<script>
+    jQuery('.tab-title').on('click', function(event) {
+        event.preventDefault();
+        var parent = $(this).parent();
+        $(this).siblings('.tab-content').fadeIn().parents('.tab-row').children('.tab-col-6').not(parent).find('.tab-content').hide();
+    });
+</script>
 {% endblock %}
