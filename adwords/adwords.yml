@@ -1,0 +1,39 @@
+in:
+  type: file
+  path_prefix: ./adwords.csv
+  parser:
+    charset: UTF-8
+    newline: LF
+    type: csv
+    delimiter: ','
+    quote: '"'
+    escape: '"'
+    null_string: 'None'
+    trim_if_not_quoted: false
+    skip_header_lines: 1
+    allow_extra_columns: false
+    allow_optional_columns: false
+    columns:
+    - {name: campaign_id, type: long}
+    - {name: ad_group_id, type: long}
+    - {name: keyword_id, type: long}
+    - {name: criteria_type, type: string}
+    - {name: keyword, type: string}
+    - {name: impressions, type: long}
+    - {name: clicks, type: long}
+    - {name: cost, type: long}
+out:
+  type: redshift
+  host: 52.29.124.37
+  port: 5439
+  user: nkolster
+  password: mq8Ynmu4VDhxQMckPY*q
+  database: dmp
+  schema: public
+  table: css_doubleclick
+  aws_access_key_id: AKIAINPSJDQFPKLXHWNA
+  aws_secret_access_key: n0cwoLrTAA5zJxPchu29HYbdjf42Mvj5hTETD9KY
+  iam_user_name: rs-user
+  s3_bucket: dmp-redshift
+  s3_key_prefix: redshift/
+  mode: replace
