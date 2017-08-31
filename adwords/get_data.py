@@ -28,7 +28,6 @@ section of our README.
 
 import logging
 from googleads import adwords
-import os
 
 logging.basicConfig(level=logging.INFO)
 logging.getLogger('suds.transport').setLevel(logging.DEBUG)
@@ -59,7 +58,7 @@ def main(client):
 
 if __name__ == '__main__':
     adwords_client = adwords.AdWordsClient.LoadFromStorage(
-        os.path.abspath('googleads.yaml')
+        '/var/www/html/data-management-platform/adwords/googleads.yaml'
     )
 
     main(adwords_client)

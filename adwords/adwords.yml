@@ -26,9 +26,9 @@ out:
   type: redshift
   host: 52.29.124.37
   port: 5439
-  user: nkolster
-  password: mq8Ynmu4VDhxQMckPY*q
-  database: dmp
+  user: css
+  password: CssUserPsqlPassword1
+  database: css
   schema: public
   table: css_doubleclick
   aws_access_key_id: AKIAINPSJDQFPKLXHWNA
