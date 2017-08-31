@@ -153,10 +153,14 @@ class PostgreSQLDataSourceForm(forms.ModelForm):
                'placeholder': _('Select'),
                'maxlength': 255}))
 
-    where = forms.CharField(max_length=255, widget=forms.TextInput(
-        attrs={'class': 'form-input',
-               'placeholder': _('Where'),
-               'maxlength': 255}))
+    where = forms.CharField(
+        max_length=255, required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-input',
+            'placeholder': _('Where'),
+            'maxlength': 255
+        })
+    )
 
     # query = forms.CharField(widget=forms.Textarea(
     #     attrs={'class': 'form-input',

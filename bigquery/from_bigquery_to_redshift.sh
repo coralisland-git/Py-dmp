@@ -1,4 +1,4 @@
-export GOOGLE_APPLICATION_CREDENTIALS=/var/www/html/data-management-platform/service_account.json
+export GOOGLE_APPLICATION_CREDENTIALS=/var/www/html/data-management-platform/bigquery/service_account.json
 export GOOGLE_CLOUD_PROJECT=lmn-martech-dashb-affiliation
 PGPASSWORD=mq8Ynmu4VDhxQMckPY*q psql -h 52.29.124.37 -U nkolster -d lmn -p 5439 -c "DROP VIEW affiliatedata_clean"
 /home/web-user/google-cloud-sdk/bin/bq extract --destination_format=CSV affiliation.costs_and_margins gs://affiliation-data/bigquery.csv
