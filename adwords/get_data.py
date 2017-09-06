@@ -43,8 +43,7 @@ def main(client):
         'downloadFormat': 'CSV',
         'selector': {
             'fields': [
-                'CampaignId', 'AdGroupId', 'Id', 'CriteriaType',
-                'Criteria', 'Impressions', 'Clicks', 'Cost'
+                'CampaignId', 'Date', 'Cost'
             ]
         }
     }
