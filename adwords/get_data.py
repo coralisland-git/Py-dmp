@@ -43,7 +43,7 @@ def main(client):
         'downloadFormat': 'CSV',
         'selector': {
             'fields': [
-                'CampaignId', 'Date', 'Cost'
+                'Date', 'CampaignId', 'CampaignName', 'Cost'
             ]
         }
     }
