@@ -7,11 +7,10 @@
 
 ## Usage
 ```bash
-pip install -r requirements.txt
-python fb_ads.py
+python pulling.py -f <path-to-json-credentials>
 ```
 
-### Output example fb_ads.csv
+### Output example pulling.csv
 ```csv
 date,campaign_id,campaign_name,spend
 2017-07-28,6099997180251,Blog Traffic,0

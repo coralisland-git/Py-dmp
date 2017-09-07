@@ -1,6 +1,6 @@
 in:
   type: file
-  path_prefix: ./adwords.csv
+  path_prefix: ./ads.csv
   parser:
     charset: UTF-8
     newline: LF
@@ -14,9 +14,10 @@ in:
     allow_extra_columns: false
     allow_optional_columns: false
     columns:
-    - {name: campaign_id, type: long}
     - {name: date, type: timestamp}
-    - {name: cost, type: long}
+    - {name: campaign_id, type: long}
+    - {name: campaign_name, type: string}
+    - {name: spend, type: long}
 out:
   type: redshift
   host: 52.29.124.37
@@ -25,7 +26,7 @@ out:
   password: CssUserPsqlPassword1
   database: css
   schema: public
-  table: css_adwords
+  table: css_fb_ads
   aws_access_key_id: AKIAINPSJDQFPKLXHWNA
   aws_secret_access_key: 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
   iam_user_name: rs-user
