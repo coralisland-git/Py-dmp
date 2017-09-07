@@ -1,0 +1,35 @@
+in:
+  type: file
+  path_prefix: ./marketing.csv
+  parser:
+    charset: UTF-8
+    newline: LF
+    type: csv
+    delimiter: ','
+    quote: '"'
+    escape: '"'
+    null_string: 'None'
+    trim_if_not_quoted: false
+    skip_header_lines: 1
+    allow_extra_columns: false
+    allow_optional_columns: false
+    columns:
+    - {name: date, type: timestamp, format: '%Y-%m-%d'}
+    - {name: campaign_id, type: long}
+    - {name: campaign_name, type: string}
+    - {name: spend, type: double}
+out:
+  type: redshift
+  host: 52.29.124.37
+  port: 5439
+  user: css
+  password: CssUserPsqlPassword1
+  database: css
+  schema: public
+  table: css_fb_ads
+  aws_access_key_id: AKIAINPSJDQFPKLXHWNA
+  aws_secret_access_key: n0cwoLrTAA5zJxPchu29HYbdjf42Mvj5hTETD9KY
+  iam_user_name: rs-user
+  s3_bucket: dmp-redshift
+  s3_key_prefix: redshift/
+  mode: replace
