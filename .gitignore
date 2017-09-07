@@ -105,3 +105,6 @@ ENV/
 data_loader/embulk_configs/providers/
 media/
 
+adwords/*.csv
+fb_ads/*.csv
+bigquery/*.csv

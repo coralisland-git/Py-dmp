@@ -14,10 +14,10 @@ in:
     allow_extra_columns: false
     allow_optional_columns: false
     columns:
-    - {name: date, type: timestamp}
+    - {name: date, type: timestamp, format: '%Y-%m-%d'}
     - {name: campaign_id, type: long}
     - {name: campaign_name, type: string}
-    - {name: spend, type: long}
+    - {name: spend, type: double}
 out:
   type: redshift
   host: 52.29.124.37
