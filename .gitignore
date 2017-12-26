@@ -108,3 +108,4 @@ media/
 adwords/*.csv
 fb_ads/*.csv
 bigquery/*.csv
+README.md
